@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 210" width="620" height="210"
+     role="img" aria-labelledby="f2title f2desc">
+  <title id="f2title">One byte holding the value 77, shown as eight bits with place values</title>
+  <desc id="f2desc">Eight boxes in a row represent one byte. Reading left to right the
+  bits are 0, 1, 0, 0, 1, 1, 0, 1. Above each box is its place value: 128, 64, 32, 16,
+  8, 4, 2, 1. The bits set to 1 sit under the place values 64, 8, 4, and 1. Adding
+  those four place values gives 64 plus 8 plus 4 plus 1, which equals 77.</desc>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
+    <text x="310" y="22" text-anchor="middle" font-size="14" fill="#555">place value</text>
+    <g font-size="13" fill="#555" text-anchor="middle">
+      <text x="60"  y="44">128</text><text x="130" y="44">64</text>
+      <text x="200" y="44">32</text><text x="270" y="44">16</text>
+      <text x="340" y="44">8</text><text x="410" y="44">4</text>
+      <text x="480" y="44">2</text><text x="550" y="44">1</text>
+    </g>
+    <g stroke="#2c3e50" stroke-width="2">
+      <rect x="27"  y="56" width="66" height="60" fill="#ffffff"/>
+      <rect x="97"  y="56" width="66" height="60" fill="#d6e4f5"/>
+      <rect x="167" y="56" width="66" height="60" fill="#ffffff"/>
+      <rect x="237" y="56" width="66" height="60" fill="#ffffff"/>
+      <rect x="307" y="56" width="66" height="60" fill="#d6e4f5"/>
+      <rect x="377" y="56" width="66" height="60" fill="#d6e4f5"/>
+      <rect x="447" y="56" width="66" height="60" fill="#ffffff"/>
+      <rect x="517" y="56" width="66" height="60" fill="#d6e4f5"/>
+    </g>
+    <g font-size="26" text-anchor="middle" font-weight="bold">
+      <text x="60"  y="97">0</text><text x="130" y="97">1</text>
+      <text x="200" y="97">0</text><text x="270" y="97">0</text>
+      <text x="340" y="97">1</text><text x="410" y="97">1</text>
+      <text x="480" y="97">0</text><text x="550" y="97">1</text>
+    </g>
+    <text x="310" y="150" text-anchor="middle" font-size="16">
+      64 + 8 + 4 + 1 = 77
+    </text>
+    <text x="310" y="180" text-anchor="middle" font-size="13" fill="#555">
+      Shaded boxes are the bits set to 1. Only those contribute to the total.
+    </text>
+    <text x="310" y="200" text-anchor="middle" font-size="13" fill="#555">
+      In ASCII, 77 is the capital letter M.
+    </text>
+  </g>
+</svg>

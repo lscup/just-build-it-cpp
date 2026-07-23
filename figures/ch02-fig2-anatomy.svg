@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" width="660" height="300"
+     role="img" aria-labelledby="a1title a1desc">
+  <title id="a1title">The parts of a simple C++ program, labelled</title>
+  <desc id="a1desc">A four-line C++ program with each part labelled by a line pointing
+  to it. The first line, hash include iostream, is labelled a preprocessor directive
+  that brings in the input and output library. The line int main open paren close paren
+  open brace is labelled the function where execution begins. The line beginning std
+  colon colon cout is labelled the statement that prints text, and its backslash n is
+  labelled a newline character. The line return 0 semicolon is labelled reporting
+  success to the operating system. The closing brace is labelled the end of main.</desc>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
+    <rect x="20" y="30" width="330" height="180" rx="5" fill="#fbfbfb" stroke="#2c3e50" stroke-width="2"/>
+    <g font-family="'Courier New', monospace" font-size="15">
+      <text x="36" y="60">#include &lt;iostream&gt;</text>
+      <text x="36" y="105">int main() {</text>
+      <text x="36" y="135">    std::cout &lt;&lt; "Hi\n";</text>
+      <text x="36" y="165">    return 0;</text>
+      <text x="36" y="195">}</text>
+    </g>
+    <g stroke="#8a6d3b" stroke-width="1.4" fill="none">
+      <path d="M215,55 L400,48"/>
+      <path d="M150,100 L400,90"/>
+      <path d="M250,131 L400,132"/>
+      <path d="M228,138 L400,174"/>
+      <path d="M140,161 L400,216"/>
+      <path d="M48,192 L400,258"/>
+    </g>
+    <g font-size="13" fill="#6b4e16">
+      <text x="406" y="52">preprocessor directive: brings in</text>
+      <text x="406" y="68">the input and output library</text>
+      <text x="406" y="94">execution begins here</text>
+      <text x="406" y="136">prints text to the screen</text>
+      <text x="406" y="178">newline character</text>
+      <text x="406" y="220">reports success to the</text>
+      <text x="406" y="236">operating system</text>
+      <text x="406" y="262">end of main</text>
+    </g>
+    <text x="330" y="288" text-anchor="middle" font-size="12" fill="#555">
+      Every program in this book has this shape.
+    </text>
+  </g>
+</svg>

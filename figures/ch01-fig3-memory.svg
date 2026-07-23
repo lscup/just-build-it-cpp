@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 250" width="620" height="250"
+     role="img" aria-labelledby="f3title f3desc">
+  <title id="f3title">Main memory as a numbered sequence of byte-sized cells</title>
+  <desc id="f3desc">A row of eight cells drawn side by side, each holding one byte.
+  Below each cell is its address, running from 4000 through 4007. The cells at
+  addresses 4000 and 4001 are shaded together and labelled as one value that occupies
+  two bytes. A note explains that every cell has an address, that addresses are
+  consecutive whole numbers, and that a single value may occupy several adjacent
+  cells.</desc>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
+    <text x="310" y="24" text-anchor="middle" font-size="14" fill="#555">
+      one cell = one byte
+    </text>
+    <g stroke="#2c3e50" stroke-width="2">
+      <rect x="30"  y="40" width="70" height="70" fill="#d6e4f5"/>
+      <rect x="100" y="40" width="70" height="70" fill="#d6e4f5"/>
+      <rect x="170" y="40" width="70" height="70" fill="#ffffff"/>
+      <rect x="240" y="40" width="70" height="70" fill="#ffffff"/>
+      <rect x="310" y="40" width="70" height="70" fill="#ffffff"/>
+      <rect x="380" y="40" width="70" height="70" fill="#ffffff"/>
+      <rect x="450" y="40" width="70" height="70" fill="#ffffff"/>
+      <rect x="520" y="40" width="70" height="70" fill="#ffffff"/>
+    </g>
+    <g font-size="12" text-anchor="middle" font-family="monospace">
+      <text x="65"  y="80">00000000</text><text x="135" y="80">01001101</text>
+      <text x="205" y="80">?</text><text x="275" y="80">?</text>
+      <text x="345" y="80">?</text><text x="415" y="80">?</text>
+      <text x="485" y="80">?</text><text x="555" y="80">?</text>
+    </g>
+    <g font-size="13" text-anchor="middle" fill="#555" font-family="monospace">
+      <text x="65"  y="130">4000</text><text x="135" y="130">4001</text>
+      <text x="205" y="130">4002</text><text x="275" y="130">4003</text>
+      <text x="345" y="130">4004</text><text x="415" y="130">4005</text>
+      <text x="485" y="130">4006</text><text x="555" y="130">4007</text>
+    </g>
+    <text x="310" y="152" text-anchor="middle" font-size="12" fill="#555">address</text>
+    <path d="M30,168 L170,168" stroke="#2c3e50" stroke-width="2"/>
+    <path d="M30,163 L30,173"  stroke="#2c3e50" stroke-width="2"/>
+    <path d="M170,163 L170,173" stroke="#2c3e50" stroke-width="2"/>
+    <text x="100" y="190" text-anchor="middle" font-size="13">
+      one 2-byte value: 77
+    </text>
+    <text x="310" y="222" text-anchor="middle" font-size="13" fill="#555">
+      Every cell has an address. Addresses are consecutive whole numbers.
+    </text>
+    <text x="310" y="242" text-anchor="middle" font-size="13" fill="#555">
+      A single value may occupy several adjacent cells.
+    </text>
+  </g>
+</svg>

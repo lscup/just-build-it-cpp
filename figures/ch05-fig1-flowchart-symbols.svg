@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320"
+     role="img" aria-labelledby="s1t s1d">
+  <title id="s1t">The five flowchart symbols used in this book</title>
+  <desc id="s1d">Five symbols with their names and meanings. A rounded rectangle is a
+  terminator, marking start or end. A parallelogram is input or output. A rectangle is
+  a process, meaning a computation or assignment. A diamond is a decision, with one
+  entry and two exits labelled yes and no. An arrow is flow, showing the order of
+  steps.</desc>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="13">
+    <rect x="40" y="30" width="140" height="44" rx="22" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <text x="110" y="57" text-anchor="middle" font-size="14">Start / End</text>
+    <text x="200" y="49" font-weight="bold">Terminator</text>
+    <text x="200" y="67" font-size="12">rounded rectangle — where a process begins or ends</text>
+
+    <polygon points="55,96 195,96 180,140 40,140" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="115" y="123" text-anchor="middle" font-size="14">Read score</text>
+    <text x="200" y="112" font-weight="bold">Input / Output</text>
+    <text x="200" y="130" font-size="12">parallelogram — data comes in or goes out</text>
+
+    <rect x="40" y="158" width="140" height="44" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="110" y="185" text-anchor="middle" font-size="14">total = a + b</text>
+    <text x="200" y="174" font-weight="bold">Process</text>
+    <text x="200" y="192" font-size="12">rectangle — a computation or an assignment</text>
+
+    <polygon points="110,218 190,252 110,286 30,252" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="110" y="257" text-anchor="middle" font-size="13">score &gt;= 90?</text>
+    <text x="200" y="240" font-weight="bold">Decision</text>
+    <text x="200" y="258" font-size="12">diamond — one way in, two ways out, labelled yes and no</text>
+    <text x="200" y="276" font-size="12">the only symbol with more than one exit</text>
+
+    <path d="M420,300 L560,300" stroke="#2c3e50" stroke-width="2"
+          marker-end="url(#fa)"/>
+    <defs>
+      <marker id="fa" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+        <path d="M0,0 L9,4.5 L0,9 z" fill="#2c3e50"/>
+      </marker>
+    </defs>
+    <text x="40" y="306" font-weight="bold">Flow</text>
+    <text x="100" y="306" font-size="12">arrow — the order in which steps happen</text>
+  </g>
+</svg>

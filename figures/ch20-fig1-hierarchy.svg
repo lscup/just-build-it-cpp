@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 320" width="660" height="320"
+     role="img" aria-labelledby="h20t h20d">
+  <title id="h20t">Two designs for supporting more than one grading scheme</title>
+  <desc id="h20d">Two panels. The left shows the flag design: a single Gradebook box
+  containing a scheme flag, with three separate operations each containing an if-else
+  branch on that flag, and a note that adding a third scheme means editing every
+  branch. The right shows the hierarchy design: an abstract GradingScheme box at the
+  top with two boxes below it, PointsBased and Weighted, connected by lines, and a note
+  that adding a third scheme means adding one box and editing nothing.</desc>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+    <text x="160" y="22" text-anchor="middle" font-size="14" font-weight="bold">Flags and branches</text>
+    <rect x="25" y="36" width="270" height="150" fill="#fdeaea" stroke="#b03030" stroke-width="2"/>
+    <text x="40" y="56" font-family="'Courier New',monospace" font-size="12">class Gradebook {</text>
+    <text x="55" y="76" font-family="'Courier New',monospace" font-size="12" fill="#b03030">Scheme scheme_;</text>
+    <text x="40" y="100" font-size="12">percentageFor()  <tspan fill="#b03030">if (weighted) …</tspan></text>
+    <text x="40" y="122" font-size="12">classAverage()   <tspan fill="#b03030">if (weighted) …</tspan></text>
+    <text x="40" y="144" font-size="12">printReport()    <tspan fill="#b03030">if (weighted) …</tspan></text>
+    <text x="40" y="172" font-family="'Courier New',monospace" font-size="12">};</text>
+    <text x="160" y="212" text-anchor="middle" font-size="12" fill="#b03030">a third scheme means</text>
+    <text x="160" y="228" text-anchor="middle" font-size="12" fill="#b03030">editing every branch</text>
+
+    <line x1="330" y1="14" x2="330" y2="270" stroke="#ccc" stroke-width="1"/>
+
+    <text x="495" y="22" text-anchor="middle" font-size="14" font-weight="bold">A class hierarchy</text>
+    <rect x="400" y="40" width="190" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="495" y="60" text-anchor="middle" font-size="13" font-weight="bold">GradingScheme</text>
+    <text x="495" y="77" text-anchor="middle" font-size="11">shared: cap and round</text>
+
+    <path d="M495,86 L495,110 M420,110 L570,110" stroke="#444" stroke-width="1.5" fill="none"/>
+    <path d="M420,110 L420,132 M570,110 L570,132" stroke="#444" stroke-width="1.5"/>
+
+    <rect x="355" y="134" width="130" height="52" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <text x="420" y="154" text-anchor="middle" font-size="12" font-weight="bold">PointsBased</text>
+    <text x="420" y="172" text-anchor="middle" font-size="11">earned ÷ possible</text>
+
+    <rect x="505" y="134" width="130" height="52" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <text x="570" y="154" text-anchor="middle" font-size="12" font-weight="bold">Weighted</text>
+    <text x="570" y="172" text-anchor="middle" font-size="11">by category weight</text>
+
+    <rect x="430" y="200" width="130" height="40" fill="#f4f4f4" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="495" y="224" text-anchor="middle" font-size="12" fill="#555">a third scheme</text>
+    <text x="495" y="262" text-anchor="middle" font-size="12" fill="#2c6e2c">just add one box —</text>
+    <text x="495" y="278" text-anchor="middle" font-size="12" fill="#2c6e2c">edit nothing else</text>
+
+    <text x="330" y="308" text-anchor="middle" font-size="13">
+      Both compute the same grades. They differ in what a change costs.
+    </text>
+  </g>
+</svg>

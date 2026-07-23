@@ -1,0 +1,10 @@
+.DS_Store
+
+# Separate code repositories published independently under the MIT License.
+grade-calculator/
+textbook-examples/
+
+# Local source/reference and generated packaging files.
+2018_Cpp_Halterman_032325.pdf
+JustBuildIt_cpp_ch01.zip
+finish-github.sh

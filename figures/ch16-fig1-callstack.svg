@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" width="660" height="340"
+     role="img" aria-labelledby="cs16t cs16d">
+  <title id="cs16t">The call stack when a defect is reached</title>
+  <desc id="cs16d">A stack of four frames drawn bottom to top. At the bottom is main,
+  above it printReport, above that percentageOf, and at the top letterFor, which is
+  where execution is paused. Each frame lists the local values it holds. An arrow
+  labelled current location points at the top frame. A note explains that the debugger
+  shows this stack when execution stops, that the top frame is where the program is
+  now, and that reading downward shows how it got there.</desc>
+  <defs>
+    <marker id="cm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#b03030"/>
+    </marker>
+  </defs>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+    <text x="330" y="22" text-anchor="middle" font-size="14" font-weight="bold">Call stack</text>
+
+    <rect x="150" y="36" width="330" height="52" fill="#fdeaea" stroke="#b03030" stroke-width="2"/>
+    <text x="165" y="56" font-family="'Courier New',monospace" font-size="13">letterFor(pct, scale)</text>
+    <text x="165" y="76" font-size="11" fill="#555">pct = 90.0   i = 5   scale.size() = 5</text>
+    <path d="M560,62 L486,62" stroke="#b03030" stroke-width="1.6" marker-end="url(#cm)"/>
+    <text x="566" y="58" font-size="11" fill="#b03030">paused</text>
+    <text x="566" y="72" font-size="11" fill="#b03030">here</text>
+
+    <rect x="150" y="96" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2"/>
+    <text x="165" y="116" font-family="'Courier New',monospace" font-size="13">percentageOf(student, work)</text>
+    <text x="165" y="136" font-size="11" fill="#555">earned = 9.0   possible = 10.0</text>
+
+    <rect x="150" y="156" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2"/>
+    <text x="165" y="176" font-family="'Courier New',monospace" font-size="13">printReport(book)</text>
+    <text x="165" y="196" font-size="11" fill="#555">index = 0   book.size() = 3</text>
+
+    <rect x="150" y="216" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2"/>
+    <text x="165" y="236" font-family="'Courier New',monospace" font-size="13">main()</text>
+    <text x="165" y="256" font-size="11" fill="#555">choice = '3'</text>
+
+    <text x="90" y="62"  text-anchor="middle" font-size="11" fill="#555">top</text>
+    <text x="90" y="242" text-anchor="middle" font-size="11" fill="#555">bottom</text>
+    <path d="M120,50 L120,254" stroke="#999" stroke-width="1"/>
+
+    <text x="330" y="296" text-anchor="middle" font-size="13">
+      The top frame is where the program is now.
+    </text>
+    <text x="330" y="316" text-anchor="middle" font-size="13">
+      Reading downward shows how it got there.
+    </text>
+  </g>
+</svg>

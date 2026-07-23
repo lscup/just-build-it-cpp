@@ -1,0 +1,160 @@
+# Just Build It! C++
+
+*Programming Fundamentals, One Working Program at a Time*
+
+© 2026 Alan Gandy. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+A complete two-course textbook for publication in StudySite.ai. Twenty-four chapters, seven appendices, and twenty-three verified reference programs.
+
+Inspired by *Programming Fundamentals* (Richard Halterman), restructured for the Student Learning Outcomes of a two-semester sequence.
+
+---
+
+## Status
+
+| | |
+|---|---|
+| Chapters | **24 of 24 complete** |
+| Appendices | **7 of 7 complete** |
+| Reference programs | **23 of 23** — all compile clean, all run to a normal exit |
+| Figures | **17** — all WCAG-conformant SVG with PNG renders |
+| Structural checks | **14/14 passing on every chapter** |
+| Total | ~524 pages, ~114,000 words |
+
+---
+
+## Contents
+
+### Course I — Programming Fundamentals (Chapters 1–12)
+
+| Ch | File | Version |
+|---|---|---|
+| 1 | `01-computing-data-and-the-software-landscape.md` | — |
+| 2 | `02-from-source-code-to-running-program.md` | v0.1 |
+| 3 | `03-values-variables-and-data-types.md` | v0.2 |
+| 4 | `04-expressions-arithmetic-and-errors.md` | v0.3 |
+| 5 | `05-algorithmic-design-and-documentation.md` | v0.4 |
+| 6 | `06-conditional-execution.md` | v0.5 |
+| 7 | `07-iteration.md` | v0.6 |
+| 8 | `08-using-library-functions.md` | v0.7 |
+| 9 | `09-writing-functions.md` | v1.0 |
+| 10 | `10-managing-functions-and-data.md` | v1.1 |
+| 11 | `11-arrays.md` | v1.2 |
+| 12 | `12-vectors-and-strings.md` | v1.3 — **Course I capstone** |
+
+### Course II — Object-Oriented Programming (Chapters 13–24)
+
+| Ch | File | Version |
+|---|---|---|
+| 13 | `13-software-development-lifecycle.md` | v2.0 |
+| 14 | `14-structs.md` | v2.1 |
+| 15 | `15-file-streams-and-persistence.md` | v2.2 |
+| 16 | `16-debugging-and-testing.md` | v2.3 |
+| 17 | `17-searching-and-sorting.md` | v2.4 |
+| 18 | `18-classes-and-objects.md` | v2.5 |
+| 19 | `19-refining-classes.md` | v2.6 |
+| 20 | `20-inheritance.md` | v3.0 |
+| 21 | `21-polymorphism.md` | v3.1 |
+| 22 | `22-memory-management.md` | v3.2 |
+| 23 | `23-templates-and-the-stl.md` | v3.3 |
+| 24 | `24-exceptions-release-and-the-road-ahead.md` | v4.0 — **release** |
+
+### Appendices
+
+| | File | Contents |
+|---|---|---|
+| A | `appendix-a-setting-up.md` | StudySite editor, Codespaces, local VS Code; debugger setup |
+| B | `appendix-b-command-line-development.md` | Compiling, running, sanitizers, makefiles, Git |
+| C | `appendix-c-debugger-reference.md` | One-page debugger reference, VS Code and gdb |
+| D | `appendix-d-coding-standard.md` | The style guide every listing conforms to |
+| E | `appendix-e-source-by-chapter.md` | All 23 versions with verified sample sessions |
+| F | `appendix-f-glossary.md` | 340 terms, alphabetized, cross-referenced |
+| G | `appendix-g-slo-coverage-matrix.md` | Every SLO mapped to chapters and evidence |
+
+### Supporting material
+
+| Path | Contents |
+|---|---|
+| `00-chapter-outline.md` | Full outline, design rationale, and editorial rules |
+| [LSCUP/grade-calculator](https://github.com/LSCUP/grade-calculator) | All 23 reference programs, plus `build-all.sh` and `run-all.sh` |
+| [LSCUP/just-build-it-examples](https://github.com/LSCUP/just-build-it-examples) | Standalone textbook examples organized by chapter |
+| `figures/` | 17 SVG figures with PNG renders and per-chapter manifests |
+
+---
+
+## Editorial rules this book follows
+
+**The completeness rule.** Every chapter's Grade Calculator version compiles, runs to completion, and produces correct output for the features it has. A version may be missing features; it is never missing an ending. Verified by the `build-all.sh` and `run-all.sh` scripts in [LSCUP/grade-calculator](https://github.com/LSCUP/grade-calculator).
+
+**No planted defects.** Every version in Appendix E is correct for the features it has. Where a chapter needs students to *see* a failure, they induce it by removing something from a working build. The one exception is `v2.3/broken.cpp.txt`, clearly labelled as a debugging lab and distributed separately from the student's own project.
+
+**No dead ends.** Students are never asked to build something that will be discarded. Where the book must argue for a design, it prints the alternative itself and analyzes it — Chapter 20 §20.2 — rather than assigning work that gets thrown away.
+
+**Every claim verified.** All compiler messages are real g++ output. All expected outputs were captured by running the code. All arithmetic in worked examples was checked programmatically.
+
+**Reference-only content is labelled.** Topics covered but not used in the project — command-line arguments, bitwise operators — say so explicitly, in the section heading and the key terms.
+
+---
+
+## Technical decisions
+
+| Decision | Choice |
+|---|---|
+| Language standard | C++17 |
+| Environments | StudySite.ai editor; GitHub Codespaces |
+| Libraries | Standard library only |
+| Build | One command; no build system required |
+| Interface | Console, interactive, menu-driven |
+| Voice | Second person |
+| Figures | Hand-authored SVG with `role`, `<title>`, `<desc>`, `aria-labelledby`, plus prose long descriptions |
+| Exercises | Generated by StudySite from chapter source; the book supplies runnable examples with expected output |
+
+---
+
+## The running project
+
+Students build one application across both courses. It is versioned so that every chapter ends with a working program.
+
+**Course I** builds a complete points-based grade calculator: named assignments, bonus points, a user-defined letter scale, a multi-student roster, class statistics, and drop-lowest.
+
+**Course II** generalizes it. Weighted-category grading — recorded as an explicit out-of-scope note in Chapter 1 — is analyzed in Chapter 13, designed in Chapter 20, and delivered in Chapter 21, where a *third* grading scheme is added with no edits to any existing class.
+
+That traced requirement is the book's spine and its primary evidence for SLO 2.1. Appendix G documents the full trail.
+
+---
+
+## Verifying the reference programs
+
+```text
+git clone https://github.com/LSCUP/grade-calculator.git
+cd grade-calculator
+./build-all.sh     # 23 compile clean under -Wall -Wextra
+./run-all.sh       # 23 run to exit code 0
+```
+
+To build and run any single version:
+
+```text
+cd grade-calculator/v3.1
+g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
+./gradecalc
+```
+
+---
+
+## Notes for import
+
+Figures are referenced as `figures/chNN-figN-name.svg`. StudySite does not currently render Mermaid, so every figure is hand-authored SVG — which also gives better accessibility than Mermaid's generated output. PNG renders at 2× sit beside each SVG for any pipeline that prefers raster. Per-chapter manifests (`figures/manifest-chNN.json`) list every asset.
+
+Each figure appears three ways: alt text, a numbered caption, and a prose long description that conveys the same information completely. A screen-reader user gets everything a sighted reader does.
+
+---
+
+## License
+
+**Just Build It! C++** (the book text, figures, and exercises) is licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Share and adapt freely,
+including commercially, with attribution.
+
+The code examples in the companion repositories are separately licensed under the
+[MIT License](https://github.com/LSCUP/grade-calculator/blob/main/LICENSE).

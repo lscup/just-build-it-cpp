@@ -1,0 +1,23 @@
+{
+  "chapter": 1,
+  "figures": [
+    {
+      "svg": "ch01-fig1-hardware.svg",
+      "png": "ch01-fig1-hardware.png",
+      "title": "The four parts of a computer and how data moves between them",
+      "a11y_ok": true
+    },
+    {
+      "svg": "ch01-fig2-byte.svg",
+      "png": "ch01-fig2-byte.png",
+      "title": "One byte holding the value 77, shown as eight bits with place values",
+      "a11y_ok": true
+    },
+    {
+      "svg": "ch01-fig3-memory.svg",
+      "png": "ch01-fig3-memory.png",
+      "title": "Main memory as a numbered sequence of byte-sized cells",
+      "a11y_ok": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "chapter": 2,
+  "figures": [
+    {
+      "svg": "ch02-fig1-pipeline.svg",
+      "png": "ch02-fig1-pipeline.png",
+      "title": "The four stages that turn C++ source code into a running program",
+      "a11y_ok": true
+    },
+    {
+      "svg": "ch02-fig2-anatomy.svg",
+      "png": "ch02-fig2-anatomy.png",
+      "title": "The parts of a simple C++ program, labelled",
+      "a11y_ok": true
+    }
+  ]
+}

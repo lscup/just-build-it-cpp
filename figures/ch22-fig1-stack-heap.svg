@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" width="660" height="340"
+     role="img" aria-labelledby="m22t m22d">
+  <title id="m22t">Where a program's data lives: stack and heap</title>
+  <desc id="m22d">Two columns. The left column is the stack, containing three frames
+  for main, printReport, and percentageOf, with a note that frames appear and vanish
+  automatically as functions are entered and left. The right column is the heap,
+  containing two blocks obtained with new, with a note that heap blocks stay until
+  something releases them. An arrow runs from a pointer variable inside the main frame
+  to one of the heap blocks, labelled scheme underscore. A caption records that the
+  stack is managed for you and the heap is not, which is the entire subject of the
+  chapter.</desc>
+  <defs>
+    <marker id="mm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    </marker>
+  </defs>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+    <text x="150" y="26" text-anchor="middle" font-size="14" font-weight="bold">Stack</text>
+    <text x="150" y="44" text-anchor="middle" font-size="11" fill="#555">managed for you</text>
+
+    <rect x="45" y="56" width="210" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="58" y="76" font-family="'Courier New',monospace" font-size="11">percentageOf()</text>
+    <text x="58" y="93" font-size="10" fill="#555">earned, possible</text>
+
+    <rect x="45" y="106" width="210" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="58" y="126" font-family="'Courier New',monospace" font-size="11">printReport()</text>
+    <text x="58" y="143" font-size="10" fill="#555">index</text>
+
+    <rect x="45" y="156" width="210" height="60" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="58" y="176" font-family="'Courier New',monospace" font-size="11">main()</text>
+    <text x="58" y="194" font-family="'Courier New',monospace" font-size="11" fill="#8a6d3b">GradingScheme* scheme_</text>
+    <text x="58" y="210" font-size="10" fill="#555">book</text>
+
+    <text x="150" y="240" text-anchor="middle" font-size="11" fill="#555">frames appear and vanish</text>
+    <text x="150" y="256" text-anchor="middle" font-size="11" fill="#555">automatically</text>
+
+    <line x1="320" y1="16" x2="320" y2="290" stroke="#ccc" stroke-width="1"/>
+
+    <text x="490" y="26" text-anchor="middle" font-size="14" font-weight="bold">Heap</text>
+    <text x="490" y="44" text-anchor="middle" font-size="11" fill="#555">managed by you</text>
+
+    <rect x="390" y="66" width="200" height="52" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="403" y="86" font-family="'Courier New',monospace" font-size="11">Weighted object</text>
+    <text x="403" y="104" font-size="10" fill="#555">obtained with new</text>
+
+    <rect x="390" y="134" width="200" height="52" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="403" y="154" font-family="'Courier New',monospace" font-size="11">vector storage</text>
+    <text x="403" y="172" font-size="10" fill="#555">obtained by std::vector</text>
+
+    <path d="M258,192 L386,96" stroke="#444" stroke-width="1.6" marker-end="url(#mm)"/>
+    <text x="316" y="150" font-size="10" fill="#8a6d3b">points to</text>
+
+    <text x="490" y="214" text-anchor="middle" font-size="11" fill="#555">blocks stay until</text>
+    <text x="490" y="230" text-anchor="middle" font-size="11" fill="#555">something releases them</text>
+
+    <text x="330" y="312" text-anchor="middle" font-size="13">
+      The stack is managed for you. The heap is not.
+    </text>
+    <text x="330" y="330" text-anchor="middle" font-size="12" fill="#555">
+      That difference is the entire subject of this chapter.
+    </text>
+  </g>
+</svg>

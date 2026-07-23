@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" width="660" height="300"
+     role="img" aria-labelledby="a11t a11d">
+  <title id="a11t">A two-dimensional array of points earned, students by assignments</title>
+  <desc id="a11d">A grid with three rows and four columns. Rows are students with
+  indices 0, 1 and 2; columns are assignments with indices 0 through 3. The value at
+  row 1, column 2 is highlighted and labelled as pointsEarned bracket 1 bracket 2. A
+  note explains that the first index selects the row and the second selects the column,
+  and that both start at zero.</desc>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="13">
+    <text x="330" y="24" text-anchor="middle" font-size="14">
+      pointsEarned[student][assignment]
+    </text>
+    <g font-size="12" fill="#555" text-anchor="middle">
+      <text x="200" y="60">[0]</text><text x="290" y="60">[1]</text>
+      <text x="380" y="60">[2]</text><text x="470" y="60">[3]</text>
+      <text x="330" y="42" font-size="12">assignment index</text>
+    </g>
+    <g stroke="#2c3e50" stroke-width="2">
+      <rect x="155" y="70"  width="90" height="46" fill="#ffffff"/>
+      <rect x="245" y="70"  width="90" height="46" fill="#ffffff"/>
+      <rect x="335" y="70"  width="90" height="46" fill="#ffffff"/>
+      <rect x="425" y="70"  width="90" height="46" fill="#ffffff"/>
+      <rect x="155" y="116" width="90" height="46" fill="#ffffff"/>
+      <rect x="245" y="116" width="90" height="46" fill="#ffffff"/>
+      <rect x="335" y="116" width="90" height="46" fill="#d6e4f5"/>
+      <rect x="425" y="116" width="90" height="46" fill="#ffffff"/>
+      <rect x="155" y="162" width="90" height="46" fill="#ffffff"/>
+      <rect x="245" y="162" width="90" height="46" fill="#ffffff"/>
+      <rect x="335" y="162" width="90" height="46" fill="#ffffff"/>
+      <rect x="425" y="162" width="90" height="46" fill="#ffffff"/>
+    </g>
+    <g text-anchor="middle" font-size="15">
+      <text x="200" y="99">9.0</text><text x="290" y="99">84.0</text>
+      <text x="380" y="99">18.0</text><text x="470" y="99">45.0</text>
+      <text x="200" y="145">7.5</text><text x="290" y="145">91.0</text>
+      <text x="380" y="145">20.0</text><text x="470" y="145">40.0</text>
+      <text x="200" y="191">10.0</text><text x="290" y="191">62.0</text>
+      <text x="380" y="191">15.0</text><text x="470" y="191">50.0</text>
+    </g>
+    <g font-size="12" text-anchor="end" fill="#555">
+      <text x="148" y="99">[0]  Ada</text>
+      <text x="148" y="145">[1]  Grace</text>
+      <text x="148" y="191">[2]  Alan</text>
+    </g>
+    <text x="72" y="132" font-size="12" fill="#555" transform="rotate(-90 72 132)" text-anchor="middle">student index</text>
+    <path d="M380,116 L380,96" stroke="#8a6d3b" stroke-width="0" />
+    <text x="330" y="238" text-anchor="middle" font-size="13">
+      The shaded cell is pointsEarned[1][2], which holds 20.0
+    </text>
+    <text x="330" y="260" text-anchor="middle" font-size="13">
+      First index selects the row; second selects the column. Both start at 0.
+    </text>
+    <text x="330" y="286" text-anchor="middle" font-size="13" fill="#555">
+      A separate array of names runs alongside: studentNames[1] is "Grace".
+    </text>
+  </g>
+</svg>

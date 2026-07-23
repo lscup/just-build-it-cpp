@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" width="660" height="300"
+     role="img" aria-labelledby="sc1t sc1d">
+  <title id="sc1t">Structure chart for the Grade Calculator</title>
+  <desc id="sc1d">A tree with three levels. At the top is Grade Calculator. It has four
+  children: Read Assignment, Compute Percentage, Assign Letter Grade, and Print Report.
+  Read Assignment has two children of its own: Read Text and Read Number. The chart
+  shows what the program is made of and which part calls which, but says nothing about
+  the order in which they run.</desc>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+    <rect x="250" y="20" width="160" height="40" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="330" y="45" text-anchor="middle" font-size="14" font-weight="bold">Grade Calculator</text>
+
+    <path d="M330,60 L330,84 M60,84 L600,84" stroke="#444" stroke-width="1.5" fill="none"/>
+    <path d="M75,84 L75,110 M245,84 L245,110 M415,84 L415,110 M585,84 L585,110"
+          stroke="#444" stroke-width="1.5"/>
+
+    <rect x="10"  y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="75" y="130" text-anchor="middle">Read</text>
+    <text x="75" y="145" text-anchor="middle">Assignment</text>
+
+    <rect x="180" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="245" y="130" text-anchor="middle">Compute</text>
+    <text x="245" y="145" text-anchor="middle">Percentage</text>
+
+    <rect x="350" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="415" y="130" text-anchor="middle">Assign</text>
+    <text x="415" y="145" text-anchor="middle">Letter Grade</text>
+
+    <rect x="520" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="585" y="137" text-anchor="middle">Print Report</text>
+
+    <path d="M75,154 L75,178 M20,178 L130,178" stroke="#444" stroke-width="1.5" fill="none"/>
+    <path d="M20,178 L20,200 M130,178 L130,200" stroke="#444" stroke-width="1.5"/>
+    <rect x="-25" y="202" width="92" height="40" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="21" y="226" text-anchor="middle">Read Text</text>
+    <rect x="85" y="202" width="92" height="40" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <text x="131" y="226" text-anchor="middle">Read Number</text>
+
+    <text x="330" y="272" text-anchor="middle" font-size="13">
+      A structure chart shows what the program is made of and which part calls which.
+    </text>
+    <text x="330" y="292" text-anchor="middle" font-size="13" fill="#555">
+      It says nothing about the order in which they run — that is the flowchart's job.
+    </text>
+  </g>
+</svg>

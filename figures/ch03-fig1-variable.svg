@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260"
+     role="img" aria-labelledby="v1t v1d">
+  <title id="v1t">A variable declaration and what it reserves in memory</title>
+  <desc id="v1d">The declaration double pointsEarned equals 84.5 is shown above a
+  diagram of memory. An arrow labelled name points from the identifier to a block of
+  eight shaded memory cells at addresses 4000 through 4007. A label reads: the type
+  double decides that eight bytes are reserved and how the bits in them are
+  interpreted. A second label notes that the name is how your program refers to that
+  location, and the value 84.5 is what is stored there.</desc>
+  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a">
+    <text x="30" y="34" font-family="'Courier New',monospace" font-size="17">double pointsEarned = 84.5;</text>
+    <text x="34" y="54" font-size="11" fill="#8a6d3b">type</text>
+    <text x="105" y="54" font-size="11" fill="#8a6d3b">name</text>
+    <text x="255" y="54" font-size="11" fill="#8a6d3b">initial value</text>
+    <path d="M45,40 L45,48" stroke="#8a6d3b" stroke-width="1.2"/>
+    <path d="M125,40 L125,48" stroke="#8a6d3b" stroke-width="1.2"/>
+    <path d="M280,40 L280,48" stroke="#8a6d3b" stroke-width="1.2"/>
+
+    <g stroke="#2c3e50" stroke-width="2">
+      <rect x="60"  y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="120" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="180" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="240" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="300" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="360" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="420" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="480" y="90" width="60" height="52" fill="#d6e4f5"/>
+    </g>
+    <text x="300" y="122" text-anchor="middle" font-size="17">84.5 stored across all eight bytes</text>
+    <g font-size="11" fill="#555" text-anchor="middle" font-family="'Courier New',monospace">
+      <text x="90" y="158">4000</text><text x="150" y="158">4001</text>
+      <text x="210" y="158">4002</text><text x="270" y="158">4003</text>
+      <text x="330" y="158">4004</text><text x="390" y="158">4005</text>
+      <text x="450" y="158">4006</text><text x="510" y="158">4007</text>
+    </g>
+    <text x="300" y="192" text-anchor="middle" font-size="13">
+      The type decides how many bytes are reserved and how their bits are read.
+    </text>
+    <text x="300" y="214" text-anchor="middle" font-size="13">
+      The name is how your program refers to this location.
+    </text>
+    <text x="300" y="240" text-anchor="middle" font-size="13" fill="#555">
+      Same eight bytes read as a different type would mean something else entirely.
+    </text>
+  </g>
+</svg>
