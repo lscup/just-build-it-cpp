@@ -371,7 +371,7 @@ A **multi-student roster**, stored in a two-dimensional array of points with par
 // Central lesson: the hard-coded if/else chain of v1.1 becomes a loop over a
 // table of data. Changing the grading scheme no longer means changing code.
 //
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// Run: click Run in StudySite and use the embedded Terminal.
 
 #include <cmath>
 #include <iomanip>
@@ -607,26 +607,74 @@ Note Alan's F. Under the default scale, 70.9% is a C. Under the custom scale, wh
 
 **The fixed maxima are a real limitation.** `MAX_STUDENTS = 40` means a class of 41 does not fit. Chapter 12 removes the limit entirely.
 
-### Your task
+### Your StudySite Lab — Build a Class Roster and Custom Scale
 
-1. Build and run with the default scale, then with a custom one. Confirm that the same scores produce different letters.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v1.2
+- **Starting point:** The working Chapter 10 program.
 
-2. **Enter the cutoffs out of order** — A 90, then B 95. Confirm the tier is rejected and the message explains why. Then remove the validation, rebuild, and try again. What letter does a 92 receive now, and why?
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
 
-3. **Define a pass/fail scale**: P at 60, F at 0. Confirm it works with no code change. This is the payoff — write one sentence explaining why the v1.1 chain could not have done this.
+#### Required work
 
-4. **Trigger an out-of-bounds write deliberately**, in a scratch file rather than your project:
+1. Store up to 40 students and their scores in arrays.
+2. Store grade letters and cutoffs as parallel arrays entered by the user.
+3. Reject a cutoff that is not lower than the previous cutoff and ensure the scale reaches `0`.
+4. Replace the fixed letter-grade chain with a loop over the scale data.
+5. Display every student's grade, the class average, and highest and lowest course percentage.
 
-   ```cpp
-   double a[5] = {0.0};
-   for (int k = 0; k <= 5; ++k) { a[k] = 99.0; }    // note <=
-   ```
 
-   Run it several times. Does it crash? Does it appear to work? Whatever happens, that is undefined behavior, and it is Chapter 16's first seeded defect.
+#### Verification
 
-5. Add a "highest and lowest score in the class" line to the report. Remember Section 11.4: initialize from the first element, not from zero.
+- Default and custom scales can give different letters for the same score.
+- A pass/fail scale works without code changes.
+- An out-of-order cutoff is rejected.
+- The 40-student limit is handled explicitly.
 
-6. Try to enter 41 students. What happens? Write one sentence on why a fixed maximum is unsatisfying.
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1436**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 11 Grade Calculator v1.2**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 11 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

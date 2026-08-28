@@ -363,7 +363,7 @@ This is the first version that handles a realistic amount of data.
 // New this version: sentinel-controlled while loop, accumulators.
 // Key idea: points-based grading IS the accumulator pattern - a running total
 // of points earned divided by a running total of points possible.
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// Run: click Run in StudySite and use the embedded Terminal.
 
 #include <iostream>
 #include <iomanip>
@@ -475,13 +475,73 @@ Grade:       B
 
 **Three cases at the end, not one.** No assignments entered, all assignments worth zero points, and the normal case. Chapter 5's desk-check habit is what surfaces the first two.
 
-### Your task
+### Your StudySite Lab — Process Multiple Assignments
 
-1. Build and run with three assignments. Confirm the running total after each.
-2. **Enter `done` immediately.** Does it report sensibly, or divide by zero? This is the boundary case your Chapter 5 trace table should have predicted.
-3. **Delete the `std::cin.ignore` line**, rebuild, and run with two assignments. Describe exactly what goes wrong and why. Restore it.
-4. Add a counter for assignments with bonus points, and report it.
-5. **Trace by hand, then check.** Before running, fill in a trace table for `totalEarned`, `totalPossible`, and `assignmentCount` across three assignments of your choosing. Then run and compare. Any disagreement is worth understanding.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v0.6
+- **Starting point:** The working Chapter 6 program.
+
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
+
+#### Required work
+
+1. Use `done` as the sentinel for assignment entry.
+2. Maintain total earned, total possible, assignment count, and bonus-assignment count.
+3. Display a running percentage after each assignment.
+4. After the sentinel, display the final course percentage and letter grade.
+5. Handle no assignments and all-zero-point assignments without dividing by zero.
+
+
+#### Verification
+
+- Three assignments produce correct running totals.
+- Entering `done` immediately reports no assignments.
+- Names still work after numeric input; no `getline` is skipped.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1436**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 7 Grade Calculator v0.6**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 7 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

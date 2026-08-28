@@ -481,21 +481,76 @@ More seriously: **look at what a third scheme would cost.** With the current des
 
 The hierarchy is built. The branch is the thing still standing between you and the design in Figure 20.1's right panel. Chapter 21 removes it in one step.
 
-### Your task
+### Your StudySite Lab — Add Weighted Grading with Inheritance
 
-1. Add categories to `Assignment` with defaults. Confirm every existing call still compiles.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v3.0
+- **Starting point:** The working Chapter 19 v2.6 multi-file program.
 
-2. Build `GradingScheme`, `PointsBased`, and `Weighted`. Put `finalize` in the base and confirm neither derived class repeats it.
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-3. **Verify the weighted arithmetic by hand** before trusting the program. Use the Section 20.1 example — 90/100 exam, 10/10 and 5/10 homework — and confirm 84.4%.
+#### Required work
 
-4. **Test the empty-category case.** A student with no participation assignments should not be penalized. Confirm the reported percentage matches your hand calculation.
+1. Add an assignment category while preserving existing constructor calls with defaults.
+2. Create a `GradingScheme` base class and `PointsBased` and `Weighted` derived classes.
+3. Move common final rounding and capping into the base class.
+4. Validate that category weights total 100 within a floating-point tolerance.
+5. Let the user choose the grading scheme at startup.
+6. Do not penalize a student for a weighted category with no assignments.
 
-5. **Test invalid weights.** Enter weights totalling 80%. What happens? Is the behavior what you want? Write down your answer — Chapter 24 revisits it.
 
-6. **Prove what did not change.** Run `diff` on your v2.6 and v3.0 versions of `gradescale.cpp`, `student.cpp`, and the report code. Report how many lines differ.
+#### Verification
 
-7. **Cost a third scheme.** Without writing it, list every place you would have to edit to add weighted-with-drop-lowest to v3.0. Keep the list — Chapter 21 will ask you to compare.
+- The existing points-based examples still produce the same grades.
+- A 90/100 exam at weight 50 and 10/10 homework at weight 30 reports 93.8% when only those categories contain work.
+- Weights totaling 80% are rejected.
+- Unchanged classes and report code remain unchanged.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 20 Grade Calculator v3.0**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 20 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

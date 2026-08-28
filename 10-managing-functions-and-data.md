@@ -529,7 +529,7 @@ std::string readNonEmptyLine(const std::string& prompt) {
 ```cpp
 // main.cpp - Grade Calculator v1.1 - Chapter 10
 // Same behavior as v1.0, now split across three files with validated input.
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp gradelib.cpp -o gradecalc
+// Run: click Run in StudySite and use the embedded Terminal.
 #include "gradelib.h"
 
 #include <iomanip>
@@ -598,11 +598,10 @@ int main() {
 }
 ```
 
-### Build and expected output
+### Expected output
 
-```text
-g++ -std=c++17 -Wall -Wextra main.cpp gradelib.cpp -o gradecalc
-```
+Keep `main.cpp`, `gradelib.h`, and `gradelib.cpp` all open in the editor so
+**Run** compiles the whole program.
 
 With `Ada`, then `1` and `Homework 1` with `abc` typed for points earned, then `9`, `10`, `0`, then `2`, then `3`:
 
@@ -635,13 +634,73 @@ The `abc` was rejected, the prompt repeated, and the program carried on. **No ty
 
 **`gradelib.cpp` has no `main`, and `main.cpp` has no grading logic.** Either file could be replaced without touching the other, which is what Section 10.9 means by reusable.
 
-### Your task
+### Your StudySite Lab — Organize Reusable Functions
 
-1. Build with both `.cpp` files. Then build with only `main.cpp` and read the error carefully — it comes from the **linker**, not the compiler.
-2. **Break the guard.** Delete the three guard lines from `gradelib.h`, add a second `#include "gradelib.h"` to `main.cpp`, and rebuild. Read the errors. Restore the guard.
-3. **Break the recovery.** Remove `std::cin.clear()` from `readNonNegative`, rebuild, and type `abc`. Press Ctrl+C when you have seen enough. Explain what happened.
-4. Add `std::string formatGrade(int points)` returning something like `"9 pts"`. Confirm the compiler picks the right overload for `formatGrade(9)`, `formatGrade(9.0)`, and `formatGrade('A')`.
-5. Add a `readInRange(prompt, value, low, high)` to the library and use it to keep points possible between 0 and 1000.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v1.1
+- **Starting point:** The working Chapter 9 program.
+
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
+
+#### Required work
+
+1. Move reusable declarations to `gradelib.h` and definitions to `gradelib.cpp`; keep application flow in `main.cpp`.
+2. Add an include guard to `gradelib.h`.
+3. Add validated numeric input that recovers after invalid text.
+4. Pass output values by reference where a function must update the caller.
+5. Add `readInRange` and use it to keep points possible between `0` and `1000`.
+
+
+#### Verification
+
+- All source files build together.
+- Typing `abc` for a number does not trap the program in a loop or crash it.
+- The existing menu and grade calculations still work.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1436**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 10 Grade Calculator v1.1**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 10 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

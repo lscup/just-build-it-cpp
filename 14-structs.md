@@ -384,25 +384,75 @@ CLASS AVERAGE                 82.7%
 
 **Nothing about the grading arithmetic changed.** This is a preventive refactor, and Chapter 13's rule applies: verify it by comparing output.
 
-### Your task
+### Your StudySite Lab — Replace Parallel Arrays with Structs
 
-1. Convert your v2.0 to records. Do it **one record at a time**, rebuilding after each: `GradeTier` first (it is the smallest), then `Assignment`, then `Student`.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v2.1
+- **Starting point:** The working Chapter 13 v2.0 program.
 
-2. **Verify the refactor with `diff`**, exactly as Chapter 13 Section 13.6 required. Same input to v2.0 and v2.1, output captured, files compared. Keep the evidence.
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-3. **Count what disappeared.** Before and after, count: how many containers? How many parameters does `letterFor` take? How many places must be updated when a student is added?
+#### Required work
 
-4. **Try to write the Chapter 12 bug.** Attempt to reorder students without reordering their scores. You will find you cannot express it. Write one sentence explaining why.
+1. Create `GradeTier`, `Assignment`, and `Student` structs.
+2. Replace parallel arrays and vectors with vectors of the appropriate record type.
+3. Add a `Course` struct that owns the course name, assignments, students, and grade scale.
+4. Pass a single `Course` object to report functions instead of unrelated containers.
+5. Preserve all v2.0 behavior.
 
-5. Add a `Course` struct holding a course name, a `std::vector<Assignment>`, a `std::vector<Student>`, and a `std::vector<GradeTier>`. Pass one `Course` to the report function instead of three vectors. How many parameters did that remove?
 
-6. Answer in writing: which of the following are now impossible, and which are merely unlikely?
-   - A student's name attached to another student's scores
-   - A grade tier with a cutoff but no letter
-   - A student with fewer scores than there are assignments
-   - A grade scale whose cutoffs are out of order
+#### Verification
 
-   Two of these are structurally impossible now. Two are not, and Chapter 18 addresses them.
+- Student names cannot be reordered separately from their scores.
+- A grade letter cannot exist without its cutoff.
+- The same input produces the same report as Chapter 13.
+- The program builds without warnings.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 14 Grade Calculator v2.1**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 14 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

@@ -417,67 +417,84 @@ try {
 
 Compare with Chapter 15's `catch (...)`, which knew something went wrong and could say nothing useful. That was appropriate then; this is better now.
 
-### Building the release
+### Running the release check
 
-```text
-g++ -std=c++17 -Wall -Wextra -O2 -DNDEBUG *.cpp -o gradecalc
-```
-
-Run the full test plan against this build, not only the debug one.
+Keep every source and header file open, click **Run**, and work through the
+full test plan in the embedded Terminal — not only the handful of cases you
+happened to try while writing the code. A release is a claim that you tested
+the whole thing.
 
 ---
 
-## The Capstone Deliverable
+### Your StudySite Lab — Add Release-Safe Error Handling
 
-This is the final assessment, and it closes a requirement traced across two courses.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v4.0
+- **Starting point:** The working Chapter 23 v3.3 program.
 
-### 1. The program
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-Grade Calculator v4.0: two grading schemes plus a third, custom letter scales, bonus points, named assignments, file persistence, statistics, and full error handling. Compiling clean under `-Wall -Wextra`, running under AddressSanitizer with no leaks, passing every regression test from Chapter 16.
+#### Required work
 
-### 2. A README
+1. Create a `GradebookError` hierarchy for invalid scales, invalid weights, malformed files, and lookup failures.
+2. Throw meaningful exceptions at the point of failure and catch them where the program can explain the problem and continue.
+3. Translate low-level conversion and file errors into messages that identify the affected operation.
+4. Run the complete regression plan against the Chapter 24 code checkpoint.
+5. Complete only the Chapter 24 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately.
 
-```text
-# Grade Calculator v4.0
 
-A console gradebook supporting points-based and weighted-category grading.
+#### Verification
 
-## Building
-    g++ -std=c++17 -Wall -Wextra -O2 -DNDEBUG *.cpp -o gradecalc
+- Invalid scales and invalid weights are refused without changing the working gradebook.
+- Missing and malformed files produce clear messages instead of crashes.
+- Points-based, weighted, and weighted-drop-lowest grading all work.
+- Save/load, lookup, statistics, and reports all work.
+- The repository contains the Chapter 12 foundation plus the completed Chapter 13–24 code checkpoints.
 
-## Running
-    ./gradecalc
+#### StudySite workflow
 
-Reads and writes gradebook.csv in the current directory.
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
 
-## Requirements
-A C++17 compiler. No external libraries.
-```
+#### Save this checkpoint
 
-### 3. A user guide
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
 
-Every menu option, both grading schemes with a worked example of each, the file format including its restrictions, and every error message with what to do about it.
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 24 Grade Calculator v4.0**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
 
-### 4. The reconciled design document
+#### Complete when
 
-**This is the capstone.** Take your Chapter 5 design document and reconcile it against what you built.
-
-For each part — specification, pseudocode, flowchart, structure chart — record what changed and why. Then answer, in writing, the question the whole book has been building toward:
-
-> **Trace the weighted-grading requirement from Chapter 1 to Chapter 21.**
->
-> - Where was it first recorded, and in what form?
-> - What did the Chapter 13 analysis conclude, before you knew how to implement it?
-> - Why could Course I's design not accommodate it? *(Chapter 7 Section 7.9 and Chapter 20 Section 20.1)*
-> - What did the Chapter 20 comparison show about the two candidate designs?
-> - What did implementing it actually change, and what did it leave untouched?
-> - Was deferring it the right call? Argue either side.
-
-That last question deserves a real answer rather than the expected one. Deferring cost something: two chapters of Course II were spent reworking code that could have been designed for two schemes from the start. What it bought was a Course I in which procedural code was genuinely appropriate rather than a straw man. Whether that trade was worth it is a legitimate question, and being able to argue it is the point.
-
-### 5. A version history
-
-Your Git log, from v1.3 to v4.0, each commit explaining *why*. Twelve commits, each a working program. That history is your evidence for SLO 2.1 — considerably more convincing than a claim that you followed a process.
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 24 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
 
 ---
 

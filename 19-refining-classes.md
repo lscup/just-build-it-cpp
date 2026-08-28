@@ -339,12 +339,11 @@ gradebook.h     gradebook.cpp
 main.cpp
 ```
 
-Build with every `.cpp` named:
-
-```text
-g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp \
-    student.cpp gradebook.cpp -o gradecalc
-```
+Every `.cpp` file has to reach the compiler. In StudySite that means keeping
+`main.cpp`, `assignment.cpp`, `gradescale.cpp`, `student.cpp`, and
+`gradebook.cpp` — and their headers — open in the editor before you click
+**Run**. A file that is not open is a file that is not built, and the linker
+error you get names the missing function, not the missing tab.
 
 Nine files where there was one. That is the cost, and it buys something specific: each class can be read, changed, and reasoned about without the others in front of you.
 
@@ -458,28 +457,75 @@ CLASS AVERAGE                 75.0%
 
 **Every accessor is `const`.** Without that, `operator<<` taking `const Gradebook&` would not compile.
 
-### Your task
+### Your StudySite Lab — Split Classes into Files
 
-1. Split your v2.5 into one header and implementation file per class. Do it **one class at a time**, rebuilding after each — `Assignment` first, since nothing depends on it.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v2.6
+- **Starting point:** The working Chapter 18 v2.5 program.
 
-2. **Verify with `diff`.** Same input, same output.
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-3. Write `operator<<` for `Assignment`, `Student`, `GradeScale`, and `Gradebook`. Build them **bottom up**, testing each before writing the next.
+#### Required work
 
-4. **Write the report to a file** without changing `operator<<`:
+1. Create one header and one implementation file for each class; keep `main.cpp` focused on application flow.
+2. Add include guards and keep implementation details out of headers.
+3. Create a `Gradebook` class that owns the roster, assignments, scale, and reporting operations.
+4. Implement `operator<<` for Assignment, Student, GradeScale, and Gradebook using public accessors.
+5. Add checked `at` access alongside unchecked `operator[]`.
 
-   ```cpp
-   std::ofstream out("report.txt");
-   out << book;
-   ```
 
-   It should work unchanged. Explain in one sentence why.
+#### Verification
 
-5. Add `at(std::size_t)` to `Gradebook` that checks bounds, alongside `operator[]` which does not. Which should `operator<<` use, and why?
+- Every source file builds as one program.
+- Writing a Gradebook to the Terminal and to a file uses the same `operator<<`.
+- Checked access rejects an invalid index.
+- The Chapter 18 behavior is unchanged.
 
-6. **Argue about `operator<`.** Read `Student::operator<`. Would a reader guess that `<` means highest-first? Rewrite `sortByPercentage` using an explicit comparison instead, and say which version you would ship.
+#### StudySite workflow
 
-7. **Measure the header cost.** Change one line in `student.cpp` and note what rebuilds. Then change one line in `student.h` and note again. What does that suggest about what belongs in a header?
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 19 Grade Calculator v2.6**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 19 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

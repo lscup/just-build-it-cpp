@@ -349,7 +349,7 @@ After a move, the source is in a valid but unspecified state. **Do not use a mov
 
 The obvious version of this chapter's lesson would be: *v3.1 leaked, and smart pointers fix it.* That would be false, and it is worth being exact about why.
 
-**v3.1 does not leak.** Its raw-pointer ownership is correct. Build it under AddressSanitizer, switch schemes repeatedly, and it reports nothing.
+**v3.1 does not leak.** Its raw-pointer ownership is correct. Run it under a memory check, switch schemes repeatedly, and it reports nothing.
 
 It is correct because `Gradebook` does **three separate things**:
 
@@ -374,11 +374,17 @@ Eight lines of bookkeeping, each of which had to be remembered.
 
 Take a copy of your working v3.1 and delete **one line** — the `delete scheme_;` inside `setScheme`. Nothing else.
 
-Build it under the sanitizer and switch schemes twice:
+Now switch schemes twice and check it with the memory check available to you.
 
-```text
-g++ -std=c++17 -fsanitize=address -g *.cpp -o gradecalc
-```
+> **Note — this is the one check StudySite's Run cannot make for you.** Clicking
+> **Run** proves the program still prints correct grades, and it will, which is
+> exactly the problem. A leak is invisible from the program's output. If you have
+> a local C++ toolchain available, build the copy with
+> `-fsanitize=address -g` and switch schemes twice; otherwise ask your instructor
+> which memory check to use. Either way, do the edit, the normal run, and the
+> commit back in the StudySite coding panel.
+
+A leaking build reports something like this:
 
 ```text
 SUMMARY: AddressSanitizer: 264 byte(s) leaked in 4 allocation(s).
@@ -468,21 +474,79 @@ Identical to v3.1 in every respect:
 1001  Ada                     90.0%   A
 ```
 
-### Your task
+### Your StudySite Lab — Replace Manual Ownership with Smart Pointers
 
-1. **Confirm v3.1 does not leak.** Build it under AddressSanitizer, switch schemes several times, exit. The report should be clean.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v3.2
+- **Starting point:** The working Chapter 21 v3.1 program.
 
-2. **Do the one-line lab.** Remove `delete scheme_;` from `setScheme`, rebuild under the sanitizer, and reproduce the 264-byte leak. Restore it.
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-3. **Now remove the destructor instead**, leaving the `delete` in `setScheme`. Does it still leak? What does that tell you about the three pieces being independent?
+#### Required work
 
-4. **Convert to `unique_ptr`.** Delete the destructor, the manual `delete`, and the deleted copy operations. Confirm the program compiles, behaves identically, and reports no leaks.
+1. Confirm the correct v3.1 program switches schemes and exits normally.
+2. Temporarily remove the manual delete in `setScheme` and observe the memory-safety failure using the available memory check; then restore it.
+3. Replace the raw owning scheme pointer with `std::unique_ptr<GradingScheme>`.
+4. Remove the manual destructor, manual delete, and explicitly deleted copy operations that unique ownership now handles.
+5. Keep all grading behavior unchanged.
 
-5. **Try to break v3.2 the same way.** Attempt to remove a line that causes a leak. Write one sentence on what you find.
 
-6. **Try to copy a `Gradebook`** in v3.2. Read the error — it comes from `unique_ptr` being non-copyable, which is the class refusing an unsafe operation on your behalf rather than you having to remember to forbid it.
+#### Verification
 
-7. **Find the heap in a vector.** Build a program that adds 1,000 students to a `std::vector` under the sanitizer. It should report no leaks — even though the vector allocated heap memory many times. Explain why in one sentence, using the word RAII.
+- The intentional raw-pointer defect is detected by a memory-safety check.
+- The final smart-pointer version reports no leak.
+- Copying a Gradebook is rejected by the type system.
+- All three grading schemes still produce the Chapter 21 results.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+For Chapter 22, **Run** verifies normal program behavior. Use the optional
+local-development instructions for the required AddressSanitizer check, then
+return to this coding panel for the final edit, normal run, and GitHub commit.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 22 Grade Calculator v3.2**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 22 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

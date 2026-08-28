@@ -355,7 +355,7 @@ This is the **Course I capstone**. It is a complete, genuinely useful points-bas
 // letter scale, multi-student roster, class statistics, drop lowest.
 // Grading model: points-based only. Weighted grading arrives in Chapter 20.
 //
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// Run: click Run in StudySite and use the embedded Terminal.
 
 #include <cmath>
 #include <iomanip>
@@ -580,23 +580,75 @@ That is a design decision, and it is correct for a points-based scheme. It also 
 
 That requirement has been in your specification since Chapter 1, marked out of scope. Course I is now finished and has never needed it. Chapter 13 analyzes it properly, and Chapters 20 and 21 build it.
 
-### Your task — the Course I capstone deliverable
+### Your StudySite Lab — Complete the Dynamic Roster
 
-1. Build and run v1.3. Test with more than 40 students to confirm the limit is gone.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v1.3
+- **Starting point:** The working Chapter 11 program and the Chapter 5 design document.
 
-2. **Verify the drop-lowest arithmetic by hand.** Using Alan's numbers, compute his percentage with and without the dropped assignment. Confirm the program agrees.
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
 
-3. **Break drop-lowest deliberately.** Remove `totalPossible -= pointsPossible[worst];` so only the earned points are dropped. Rerun with Alan's data. What percentage results, and why is it wrong? Restore it.
+#### Required work
 
-4. Add "highest and lowest course percentage in the class" to the report.
+1. Replace fixed student, assignment, score, and grade-scale arrays with `std::vector`.
+2. Allow any number of assignments and students.
+3. Add the drop-lowest option. Remove both earned and possible points for the selected assignment.
+4. Preserve validated input, custom grade scales, rounding, capping, and class reporting from the earlier checkpoints.
+5. Keep the weighted-grading scope statement unchanged. Weighted grading belongs to COSC 1437.
+6. Complete only the Chapter 12 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately.
 
-5. **Deliver the capstone.** Submit:
-   - the working v1.3 program
-   - your design document from Chapter 5, revised to match what you actually built, with a dated revision note
-   - a written test plan listing at least eight cases, including: no students, no assignments, an assignment worth 0 points, a bonus pushing past 100, a custom scale entered out of order, drop-lowest with one assignment, and exactly a cutoff value
-   - the out-of-scope section, still containing the weighted-grading paragraph from Chapter 1, unchanged
 
-   That last item is the point. You have built a complete application and deliberately not built one feature, for twelve chapters, with the decision documented the whole way. Course II picks it up.
+#### Verification
+
+- The program handles more than 40 students.
+- Drop-lowest arithmetic matches a hand calculation.
+- No-student, no-assignment, zero-possible-points, invalid-scale, cutoff-boundary, bonus, and invalid-numeric-input cases behave correctly.
+- The repository contains the complete working v1.3 code checkpoint and the project documents created in earlier chapters.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1436**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 12 Grade Calculator v1.3**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 12 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

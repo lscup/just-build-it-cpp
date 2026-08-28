@@ -338,7 +338,7 @@ Every single-file program in the first eight chapters has this shape:
 
 ```cpp
 // Program name - brief description of what it does
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp -o programname
+// Run: click Run in StudySite and use the embedded Terminal.
 
 #include <iostream>
 
@@ -431,7 +431,7 @@ It prints the application banner and the course name, then exits cleanly. That i
 ```cpp
 // Grade Calculator v0.1 - Chapter 2
 // Prints the application banner. Confirms the toolchain works end to end.
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// Run: click Run in StudySite and use the embedded Terminal.
 
 #include <iostream>
 
@@ -443,13 +443,6 @@ int main() {
     std::cout << "Course: Programming Fundamentals\n";
     return 0;
 }
-```
-
-### Build and run it
-
-```text
-g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
-./gradecalc
 ```
 
 ### Expected output
@@ -466,18 +459,75 @@ Course: Programming Fundamentals
 
 **Five separate `std::cout` statements, each ending in `\n`.** You could combine them; Chapter 3 shows how. Kept separate, each line of output corresponds to one line of source, which makes the relationship obvious.
 
-**The file header comment records the build command.** That is the Appendix D rule from Section 2.8, applied from the first version.
+**The file header comment records how the program is run.** That is the Appendix D rule from Section 2.8, applied from the first version. In StudySite the toolchain is provided for you, so the header records the **Run** step rather than a local build command.
 
 **Nothing here computes a grade.** v0.1 exists to prove your toolchain works end to end — editor, compiler, executable, output. Everything after this is built on the confidence that when something breaks, it is your program and not your setup.
 
-### Your task
+### Your StudySite Lab — Hello, Gradebook
 
-1. Create the file, build it, and run it. Confirm the output matches exactly.
-2. Change the course name to your own course, rebuild, and rerun.
-3. Add a line printing your name as the gradebook owner.
-4. **Deliberately break it, three ways, and read each message before fixing it:** remove a semicolon; delete the `#include` line; misspell `cout`. You saw all three in Section 2.6. Seeing them from your own code is what makes them familiar rather than alarming.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v0.1
+- **Starting point:** The Chapter 1 repository containing `README.md` and `requirements.md`.
 
-Keep this file. Chapter 3 extends it directly.
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
+
+#### Required work
+
+1. Create `main.cpp` with the required C++ program structure: include `<iostream>`, define `int main()`, and return `0`.
+2. Print a Grade Calculator banner, `COSC 1436`, and your name.
+3. Keep the output plain text and make the program exit normally.
+
+
+#### Verification
+
+- The program builds without warnings.
+- The banner, course, and student name appear exactly once.
+- The program reaches a normal exit.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1436**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 2 Grade Calculator v0.1**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 2 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 
