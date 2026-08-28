@@ -179,7 +179,7 @@ The file containing `main` gets a fuller block, because it is where a reader sta
 //  Change  : GradingScheme is now abstract with a pure virtual computePercentage
 //            and a virtual destructor. Gradebook holds a GradingScheme* and
 //            never asks which scheme it has.
-//  Build   : g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
+//  Run     : click Run in StudySite and use the embedded Terminal.
 // =============================================================================
 ```
 
@@ -429,11 +429,14 @@ Every program in this book must build and run unchanged in the StudySite editor 
 - Absolute file paths, and backslash path separators
 - External libraries — the standard library only
 
-Every file must compile clean under:
+Every file must compile clean under C++17 with all warnings enabled:
 
 ```
-g++ -std=c++17 -Wall -Wextra
+-std=c++17 -Wall -Wextra
 ```
+
+StudySite's **Run** applies these settings for you. If you also build locally,
+pass them to `g++` yourself — the standard is the settings, not the command.
 
 **Warnings are errors.** A warning is the compiler telling you it understood your program differently than you probably meant. Fix the cause; do not silence the message.
 
@@ -464,10 +467,11 @@ Run through this before you hand in any program.
 
 **Builds and runs**
 
-- [ ] Compiles with `g++ -std=c++17 -Wall -Wextra` and produces **no warnings**
+- [ ] Compiles under `-std=c++17 -Wall -Wextra` with **no warnings** — in StudySite, click **Run**
 - [ ] Runs to a normal exit on valid input
 - [ ] Does not crash on invalid input that its own prompts invite
 - [ ] Uses only the standard library and no platform-specific calls
+- [ ] Saved to your project repository with **Save to GitHub**, and the commit is visible on GitHub
 
 **Layout**
 
