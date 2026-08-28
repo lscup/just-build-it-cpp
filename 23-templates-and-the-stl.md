@@ -499,21 +499,75 @@ Three students at 95%, 75%, and 55%:
 
 Check the standard deviation by hand: deviations from the mean are +20, 0, −20; squares 400, 0, 400; mean square 800/3 ≈ 266.67; square root ≈ 16.33.
 
-### Your task
+### Your StudySite Lab — Add Generic Statistics and an ID Index
 
-1. Write `Statistics<T>` in a header. Test it with `Statistics<double>` **and** `Statistics<int>`.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v3.3
+- **Starting point:** The working Chapter 22 v3.2 program.
 
-2. **Reproduce the integer-division surprise.** Add 3, 1, 4, 1, 5 to a `Statistics<int>` and check the mean. Explain why it is 2 rather than 2.8, then fix it by computing in `double` and returning `T`. Which behavior would you rather ship?
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-3. Add the ID index and `findById`. Confirm lookup works after adding students.
+#### Required work
 
-4. **Break the index deliberately.** Remove the rebuild from `sortByPercentage`, then sort and look up a student by ID. What do you get? This is a silent logic error — write a regression test that catches it.
+1. Create header-only `Statistics<T>` with mean, median, minimum, maximum, and population standard deviation.
+2. Add a `std::map` index from student ID to roster position and maintain it whenever the roster changes order.
+3. Add `findById` using the index.
+4. Replace the implicit Student ordering with a lambda at the sort call.
+5. Add class statistics, letter-grade distribution, and assignment count by category.
 
-5. Replace `Student::operator<` with a lambda at the call site. Which version tells a reader what the ordering is? Consider removing `operator<` entirely.
 
-6. Add the grade distribution. Then add a `std::map<std::string, int>` counting assignments per category — useful for the weighted scheme.
+#### Verification
 
-7. **Compare lookup strategies.** For a 1,000-student roster, count the operations for: a linear scan, sorting then binary searching, and a map lookup. Include the cost of building or maintaining each. At what number of lookups does each become the best choice?
+- `Statistics<double>` and `Statistics<int>` are both exercised.
+- ID lookup works before and after sorting.
+- A regression test fails if the index rebuild is removed.
+- The reported statistics match a hand calculation.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 23 Grade Calculator v3.3**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 23 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

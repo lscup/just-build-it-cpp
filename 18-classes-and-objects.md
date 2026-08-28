@@ -433,26 +433,75 @@ Three things happened. The `ZZZ` tier at 99 was **silently rejected**, because 9
 
 **The class is longer than the struct.** That is the cost, and it is real. What you get for it is that a whole category of wrong state can no longer be expressed.
 
-### Your task
+### Your StudySite Lab — Introduce Classes and Invariants
 
-1. Convert your v2.4 to classes, **one class at a time**, rebuilding after each. Start with `Assignment` — it is the smallest and has no dependencies.
+- **Course:** COSC 1437 — Object-Oriented Programming
+- **Project checkpoint:** v2.5
+- **Starting point:** The working Chapter 17 v2.4 program.
 
-2. **Verify with `diff`**, as Chapter 13 Section 13.6 requires. Same input, same output.
+> **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
+> repository from Chapter 13 through Chapter 24. Do not create a chapter folder
+> or a new repository. The supplied Chapter 12 solution is the foundation;
+> your COSC 1437 work is what you add in Chapters 13–24.
 
-3. **Try to break the invariant.** Attempt each of these and record what happens:
-   - Construct a `GradeScale` with tiers in ascending order
-   - Construct one with a negative cutoff
-   - Construct one with no tier at 0
-   - Construct one from an empty vector
-   - Reach in and modify `tiers_` directly from `main`
+#### Required work
 
-   The last one should fail to compile. That failure is the point.
+1. Convert `Assignment`, `Student`, and `GradeScale` from structs to classes.
+2. Make data members private and expose only the constructors, accessors, and operations callers need.
+3. Give `GradeScale` an invariant: cutoffs descend, no cutoff is negative, and the lowest tier is 0.
+4. Add `Student::letterGrade(const GradeScale&) const`.
+5. Preserve the Chapter 17 features and output.
 
-4. **Revisit the Chapter 14 question.** Four situations were listed there; two were structurally impossible with structs and two were not. Which of the remaining two does v2.5 close? Which is still open, and what would close it?
 
-5. Add a `Student::letterGrade(const GradeScale&) const` member function. Should it be `const`? Why does it take the scale as a parameter rather than holding one?
+#### Verification
 
-6. **Count the suspects.** In v2.4, how many places in the program could set a student's ID to a wrong value? In v2.5, how many? That number is what encapsulation bought.
+- Code outside a class cannot modify its private data directly.
+- Ascending, negative, empty, and no-zero grade scales are handled by the class.
+- The same input produces the same report as Chapter 17.
+- All accessors that do not change an object are `const`.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1437**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1437** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 18 Grade Calculator v2.5**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1437** contains the Chapter 18 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

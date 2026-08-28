@@ -432,38 +432,179 @@ Throughout both courses you will build one application: a **Grade Calculator**. 
 
 This chapter has no code, because you have not yet met any C++. What it has is the thing that should always come first.
 
-### Your deliverable
+### Your StudySite Lab — Create the COSC 1436 Base Repository
 
-Write a **requirements statement** for a points-based grade calculator. Plain sentences, no code, no jargon. It must answer four questions.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v0.0
+- **Starting point:** No prior project files.
 
-**1. What does the program accept?**
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
 
-At minimum, for each assignment: a name, the points the student earned, the points the assignment was worth, and any bonus points awarded. Also the student's name.
+#### Required work
 
-**2. What does the program compute?**
+1. Create one GitHub repository named `grade-calculator-1436`, initialize it with a README, and use it for every chapter through Chapter 12.
+2. Create `README.md` from the supplied template. Replace only `[Your name]`.
+3. Create `requirements.md` by copying the supplied requirements exactly. These are the approved project requirements; do not invent or rewrite them.
+4. Commit both documents as the first checkpoint. C++ coding begins in Chapter 2.
 
-A percentage, calculated as total points earned divided by total points possible, and a letter grade derived from that percentage using a scale the user defines.
+#### Supplied `README.md`
 
-**3. What does the program report, and in what form?**
+Copy this text and replace only `[Your name]`:
 
-Describe the output you want a user to see. Be specific — "a percentage" is vague; "the percentage to one decimal place, followed by the letter grade" is a requirement you could check.
+```markdown
+# Grade Calculator
 
-**4. What is explicitly out of scope?**
+A cumulative C++ project for COSC 1436.
 
-Write this section carefully, because it is the one most people skip. At minimum, record:
+## Student
 
-> **Out of scope for Course I:** weighted-category grading, in which categories such as exams and homework carry different percentages of the final grade. This calculator computes grades on total points only. Weighted grading is deferred as a planned future enhancement.
+[Your name]
 
-That paragraph will sit in your requirements document, untouched, for twelve chapters. You will analyze it formally in Chapter 13, design for it in Chapter 20, and implement it in Chapter 21. Recording it now, before you can possibly build it, is what makes it a scope decision instead of an oversight — and by Chapter 24 you will be able to trace one requirement across two full courses.
+## Course
 
-### A second, smaller task
+COSC 1436 — Programming Fundamentals
 
-Apply Section 1.3. Estimate the storage a single assignment record requires, assuming:
+## Project plan
 
-- The assignment name is up to 30 characters, one byte each
-- Points earned, points possible, and bonus points are each an 8-byte floating-point value
+This single repository contains my Grade Calculator work for Chapters 1–12.
+The Chapter 12 code checkpoint will be the foundation for the separately
+assigned COSC 1436 final project.
+```
 
-How many bytes is one assignment record? How many for a class of 30 students with 12 assignments each? Show your arithmetic. You are not expected to be exactly right about how C++ lays this out — Chapter 3 covers that — only to reason correctly from bytes to totals.
+#### Supplied `requirements.md`
+
+Copy this complete requirements document. Do not rewrite it.
+
+```markdown
+# Grade Calculator Requirements
+
+## Purpose
+
+The Grade Calculator is a console application that calculates and reports
+points-based course grades for a class roster.
+
+## Inputs
+
+The program accepts:
+
+- the student's name;
+- a user-defined letter-grade scale;
+- any number of assignments;
+- each assignment's name and points possible;
+- each student's points earned for every assignment, including bonus points;
+- a choice to drop or keep each student's lowest assignment.
+
+## Processing
+
+The program:
+
+1. totals each student's earned points and possible points;
+2. adds bonus points to points earned, but not to points possible;
+3. optionally removes both the earned and possible points for the student's
+   lowest assignment;
+4. calculates the percentage using floating-point division;
+5. caps the reported percentage at 100%;
+6. rounds the reported percentage to one decimal place;
+7. assigns a letter grade using the scale entered by the user; and
+8. calculates the class average.
+
+## Output
+
+The program displays:
+
+- a Grade Calculator heading;
+- the active letter-grade scale;
+- each student's name, percentage to one decimal place, and letter grade;
+- labeled totals where required; and
+- the class average.
+
+Output must be readable, consistently aligned, and understandable without
+reading the source code.
+
+## Validation and edge cases
+
+The program must:
+
+- reject nonnumeric input where a number is required;
+- reject negative point values;
+- avoid division by zero;
+- handle an empty assignment list or roster without crashing;
+- reject grade-scale cutoffs that are not entered from highest to lowest; and
+- ensure the scale reaches a lowest tier at 0%.
+
+## COSC 1436 scope
+
+This calculator uses total points only.
+
+**Out of scope for COSC 1436:** weighted-category grading, in which categories
+such as exams and homework carry different percentages of the final grade.
+Weighted grading is deferred to COSC 1437.
+
+## Storage estimate
+
+One assignment record contains:
+
+- assignment name: 30 characters × 1 byte = 30 bytes;
+- points earned: 8 bytes;
+- points possible: 8 bytes; and
+- bonus points: 8 bytes.
+
+Estimated size of one assignment record:
+
+30 + 8 + 8 + 8 = **54 bytes**
+
+Estimated size for 30 students with 12 assignments each:
+
+30 × 12 × 54 = **19,440 bytes**
+```
+
+
+#### Verification
+
+- StudySite can load from and save to the connected `grade-calculator-1436` repository.
+- `README.md` and `requirements.md` are both present.
+- There is no `main.cpp` yet.
+
+#### StudySite workflow
+
+1. On GitHub, create a repository named **grade-calculator-1436**. Use the visibility required
+   by your instructor, keep the default branch named **main**, and initialize
+   the repository with a README so it is not empty.
+2. In StudySite, open this chapter's **coding panel on the main stage**.
+3. Click **Load from GitHub**. Connect GitHub if prompted, select **grade-calculator-1436**,
+   and click `README.md` to load it into the editor.
+4. Replace the README with the supplied text and create `requirements.md` by
+   copying the complete supplied requirements. Replace only `[Your name]` in
+   the README.
+5. Chapter 1 has no compile or run step. The goal is to create the base
+   repository and prove that StudySite can load and save its files.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Create COSC 1436 Grade Calculator base repository**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 1 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 

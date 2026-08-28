@@ -467,7 +467,7 @@ Everything v0.4 did, plus a letter grade from a fixed scale: A at 90, B at 80, C
 // Adds a letter grade from a fixed 90/80/70/60 scale.
 // New this version: multi-way if/else if chain, named constants.
 // Limitation: the cutoffs are hard-coded. Chapter 11 makes them user-defined.
-// Build: g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// Run: click Run in StudySite and use the embedded Terminal.
 
 #include <iostream>
 #include <iomanip>
@@ -571,13 +571,72 @@ Look at the chain and ask: *what would it take to let the user define their own 
 
 That is not a failure of your code. It is a limit of the tool, and Chapter 11 provides the missing one. The cutoffs will become **data** rather than code, the chain will collapse into a short loop, and the same program will handle any scale. Keep this chain in mind; you will delete it with some satisfaction.
 
-### Your task
+### Your StudySite Lab — Assign Letter Grades
 
-1. Build and run. Test with 95, 85, 75, 65, and 55 and confirm each letter.
-2. **Test the boundaries.** Run with points earned exactly 90 out of 100. Then 89.9. Then 90.1. Which get an A?
-3. **Reproduce the 89.95 problem.** Enter 89.95 points out of 100 with no bonus. What percentage is displayed? What letter is awarded? Explain in writing why they disagree, then state which of the two policies from Section 6.12 you want. Add your answer as a comment.
-4. Change the scale to A at 93, B at 85, C at 77, D at 70. How many lines did you edit? How many would you have edited without named constants?
-5. Rewrite the chain in reverse order — `D_CUTOFF` first — and run it with 95. Confirm you get a D, then put it back. That is Chapter 5's Exercise 5, now in real code.
+- **Course:** COSC 1436 — Programming Fundamentals
+- **Project checkpoint:** v0.5
+- **Starting point:** The working Chapter 5 program.
+
+> **One-repository rule:** Continue in the same COSC 1436 Grade Calculator
+> repository through Chapter 12. Do not create a chapter folder or a new
+> repository. Each chapter replaces or extends the current working program.
+
+#### Required work
+
+1. Add named cutoffs: A `90`, B `80`, C `70`, and D `60`.
+2. Use an `if / else if` chain from highest to lowest to assign a `char` letter grade; F is the default.
+3. Display the percentage and letter grade together.
+4. Keep the raw percentage policy from Chapter 4 for now.
+
+
+#### Verification
+
+- Test `95`, `85`, `75`, `65`, and `55` percent.
+- Test exactly `90.0` and just below `90.0`.
+- A score above 100 still receives A and is not hidden.
+
+#### StudySite workflow
+
+1. Confirm that your previous chapter is committed on GitHub, then open this
+   chapter's **coding panel on the StudySite main stage**.
+2. Close stale project tabs from an earlier session before loading. This avoids
+   creating files with names such as `_imported` when the same path is already
+   open.
+3. Click **Load from GitHub**, select **grade-calculator-1436**, and click each source, header,
+   or documentation file needed for this chapter. Confirm the editor shows the
+   expected file paths before editing.
+4. Continue the existing project in StudySite's internal editor. For a
+   multi-file program, keep every source and header file needed by the build
+   open in the editor.
+5. Click **Run**. Read compiler messages and program output in the embedded
+   Terminal, and type program input there when prompted.
+6. Fix every compiler error and warning, then complete the verification list.
+7. Use the Tutor with the current code or Terminal output when you need help.
+
+#### Save this checkpoint
+
+> **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
+> locally on this device, but local autosave is not a durable GitHub backup.
+> Your work is not safely saved in your repository until **Save to GitHub**
+> finishes a successful **Commit**.
+
+1. Keep every project file that belongs in this checkpoint open in the editor.
+   **Save to GitHub includes every open editor file**, so close scratch files
+   and accidental `_imported` duplicates first.
+2. Click **Save to GitHub**.
+3. Select **grade-calculator-1436** and the existing **main** branch.
+4. Enter the commit message **Complete Chapter 6 Grade Calculator v0.5**.
+5. Click **Commit** and wait for StudySite's confirmation.
+6. Open the commit link, or open the repository on GitHub, and confirm the new
+   commit and expected files are present before leaving StudySite.
+
+#### Complete when
+
+- The verification list passes.
+- **grade-calculator-1436** contains the Chapter 6 checkpoint.
+- The GitHub commit is visible; StudySite's local autosave alone is not
+  completion.
+
 
 ---
 
