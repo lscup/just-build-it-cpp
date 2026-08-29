@@ -1,0 +1,15 @@
+---
+title: "Just Build It!"
+subtitle: "A Complete Two-Course C++ Programming Textbook"
+author: "Lone Star College"
+lang: en-US
+documentclass: book
+classoption: [oneside]
+papersize: letter
+fontsize: 11pt
+geometry: [margin=0.85in]
+linkcolor: black
+urlcolor: black
+toccolor: black
+colorlinks: true
+---

@@ -1,0 +1,10 @@
+# build intermediates
+book.md
+book-html.md
+book.tex
+book.toc
+book.aux
+book.out
+book.log
+*.log
+figures
