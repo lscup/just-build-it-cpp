@@ -1,4 +1,4 @@
-# Appendix F — Glossary
+# Appendix E — Glossary
 
 Every key term from the book, alphabetized, with the chapter that introduces it.
 

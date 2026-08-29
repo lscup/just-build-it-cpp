@@ -1,4 +1,4 @@
-# Appendix G — SLO-to-Chapter Coverage Matrix
+# Appendix F — SLO-to-Chapter Coverage Matrix
 
 Every Student Learning Outcome mapped to the chapters that teach it, the Grade Calculator milestones that apply it, and the artifacts that evidence it.
 

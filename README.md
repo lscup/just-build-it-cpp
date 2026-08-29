@@ -67,15 +67,13 @@ Inspired by *Programming Fundamentals* (Richard Halterman), restructured for the
 | B | `appendix-b-command-line-development.md` | Compiling, running, sanitizers, makefiles, Git |
 | C | `appendix-c-debugger-reference.md` | One-page debugger reference, VS Code and gdb |
 | D | `appendix-d-coding-standard.md` | The style guide every listing conforms to |
-| E | `appendix-e-source-by-chapter.md` | All 23 versions with verified sample sessions |
-| F | `appendix-f-glossary.md` | 340 terms, alphabetized, cross-referenced |
-| G | `appendix-g-slo-coverage-matrix.md` | Every SLO mapped to chapters and evidence |
+| E | `appendix-e-glossary.md` | 340 terms, alphabetized, cross-referenced |
+| F | `appendix-f-slo-coverage-matrix.md` | Every SLO mapped to chapters and evidence |
 
 ### Supporting material
 
 | Path | Contents |
 |---|---|
-| `00-chapter-outline.md` | Full outline, design rationale, and editorial rules |
 | [LSCUP/grade-calculator](https://github.com/LSCUP/grade-calculator) | All 23 reference programs, plus `build-all.sh` and `run-all.sh` |
 | [LSCUP/just-build-it-examples](https://github.com/LSCUP/just-build-it-examples) | Standalone textbook examples organized by chapter |
 | `figures/` | 17 SVG figures with PNG renders and per-chapter manifests |
@@ -86,7 +84,7 @@ Inspired by *Programming Fundamentals* (Richard Halterman), restructured for the
 
 **The completeness rule.** Every chapter's Grade Calculator version compiles, runs to completion, and produces correct output for the features it has. A version may be missing features; it is never missing an ending. Verified by the `build-all.sh` and `run-all.sh` scripts in [LSCUP/grade-calculator](https://github.com/LSCUP/grade-calculator).
 
-**No planted defects.** Every version in Appendix E is correct for the features it has. Where a chapter needs students to *see* a failure, they induce it by removing something from a working build. The one exception is `v2.3/broken.cpp.txt`, clearly labelled as a debugging lab and distributed separately from the student's own project.
+**No planted defects.** Every version in the companion code repository is correct for the features it has. Where a chapter needs students to *see* a failure, they induce it themselves by changing something in a working build — including the Chapter 16 debugging lab, where students seed three defects into their own code and then restore it.
 
 **No dead ends.** Students are never asked to build something that will be discarded. Where the book must argue for a design, it prints the alternative itself and analyzes it — Chapter 20 §20.2 — rather than assigning work that gets thrown away.
 
@@ -119,7 +117,7 @@ Students build one application across both courses. It is versioned so that ever
 
 **Course II** generalizes it. Weighted-category grading — recorded as an explicit out-of-scope note in Chapter 1 — is analyzed in Chapter 13, designed in Chapter 20, and delivered in Chapter 21, where a *third* grading scheme is added with no edits to any existing class.
 
-That traced requirement is the book's spine and its primary evidence for SLO 2.1. Appendix G documents the full trail.
+That traced requirement is the book's spine and its primary evidence for SLO 2.1. Appendix F documents the full trail.
 
 ---
 

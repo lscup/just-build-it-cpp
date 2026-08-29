@@ -1,6 +1,6 @@
 # Appendix D — Coding Standard and Style Guide
 
-Every code listing in this book follows the rules in this appendix. So does every version of the Grade Calculator in Appendix E. When Chapter 13 asks you to bring your Course I code into conformance with a written standard, this is that standard.
+Every code listing in this book follows the rules in this appendix. So does every version of the Grade Calculator in the companion code repository. When Chapter 13 asks you to bring your Course I code into conformance with a written standard, this is that standard.
 
 A style guide is not a matter of taste dressed up as rules. It exists so that you spend your attention on what a program *does* instead of on what it *looks like*, and so that a reader who has never seen your code can find their way around it. Chapter 13 makes the professional case at length. This appendix is the rules themselves.
 
@@ -555,4 +555,4 @@ std::ostream& operator<<(std::ostream& out, const GradeScale& scale);
 #endif
 ```
 
-Every version of the Grade Calculator in Appendix E conforms to this standard. When you need to see a rule applied in context, read the reference implementation for the chapter you are working on.
+Every version of the Grade Calculator in the companion code repository conforms to this standard. When you need to see a rule applied in context, read the reference implementation for the chapter you are working on.
