@@ -8,3 +8,11 @@ textbook-examples/
 2018_Cpp_Halterman_032325.pdf
 JustBuildIt_cpp_ch01.zip
 finish-github.sh
+
+# Course production material and working notes. Not part of the published
+# textbook: order.txt does not reference any of it.
+lecture-decks/
+portfolio-exercises/
+studysite-metadata/
+incremental-grading-feasibility-brief.md
+appendix-a_to_g.md
