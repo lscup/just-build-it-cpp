@@ -3,6 +3,9 @@
 # Requires: pandoc + xelatex (TinyTeX). Installs nothing.
 set -e
 SRC="$1"; OUT="$2"; FILES="$3"; META="${4:-build/meta.yaml}"
+# The build cds into build/ before moving the result, so a relative OUT
+# would land there instead of where it was asked for. Resolve it first.
+case "$OUT" in /*) ;; *) OUT="$(pwd)/$OUT" ;; esac
 HERE="$(cd "$(dirname "$0")" && pwd)"
 
 python3 - "$SRC" "$FILES" <<'PY'
