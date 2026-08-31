@@ -334,7 +334,7 @@ If they differ, you introduced a defect while "only" reformatting. Find it. That
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v2.0
-- **Starting point:** A new student-created `grade-calculator-1437` GitHub repository and the complete Chapter 12 v1.3 solution supplied in this lab.
+- **Starting point:** The private `COSC1437F26-Grade-Calculator-YourLastName` repository your instructor created for you in the `lscup` organization and invited you to, and the complete Chapter 12 v1.3 solution supplied in this lab.
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
@@ -563,24 +563,28 @@ int main() {
 
 #### StudySite workflow
 
-1. On GitHub, create a new repository named **grade-calculator-1437**. Use the visibility
-   required by your instructor, keep the default branch named **main**, and
-   initialize it with a README. Do not continue Chapter 13 in the COSC 1436
-   repository.
+1. Accept the GitHub invitation your instructor emailed you. It gives you
+   access to **COSC1437F26-Grade-Calculator-YourLastName**, the private
+   repository already created for you in the **lscup** organization, where
+   *YourLastName* is your own last name. Do not create your own repository,
+   and do not continue Chapter 13 in the COSC 1436 repository.
 2. In StudySite, open this chapter's **coding panel on the main stage**.
-3. Click **Load from GitHub**. Connect GitHub if prompted, select **grade-calculator-1437**,
-   and click `README.md` to load it into the editor.
-4. Create `main.cpp` with the complete Chapter 12 starter code supplied in this
-   lab. Click **Run**, read the output in the embedded Terminal, and confirm the
-   unchanged v1.3 program works.
+3. Click **Load from GitHub**. Connect GitHub if prompted, select
+   **COSC1437F26-Grade-Calculator-YourLastName**, and click `README.md` to
+   load it into the editor.
+4. Create `main.cpp` with the complete Chapter 12 starter code supplied in
+   this lab. Click **Run**, read the output in the embedded Terminal, and
+   confirm the unchanged v1.3 program works.
 5. Save this untouched baseline first: click **Save to GitHub**, select
-   **grade-calculator-1437** and **main**, enter **Add Chapter 12 starter for COSC 1437**, and
-   click **Commit**. Confirm the commit succeeds.
-6. Complete the Chapter 13 changes in the same coding panel. Keep every source,
-   header, and documentation file needed for this checkpoint open.
-7. Click **Run** again. Fix every compiler error and warning, then complete the
-   verification list.
-8. Use the Tutor with the current code or Terminal output when you need help.
+   **COSC1437F26-Grade-Calculator-YourLastName** and **main**, enter **Add
+   Chapter 12 starter for COSC 1437**, and click **Commit**. Confirm the
+   commit succeeds.
+6. Complete the Chapter 13 changes in the same coding panel. Keep every
+   source, header, and documentation file needed for this checkpoint open.
+7. Click **Run** again. Fix every compiler error and warning, then complete
+   the verification list.
+8. Use the Tutor with the current code or Terminal output when you need
+   help.
 
 #### Save this checkpoint
 
@@ -589,23 +593,24 @@ int main() {
 > Your work is not safely saved in your repository until **Save to GitHub**
 > finishes a successful **Commit**.
 
-1. Keep every project file that belongs in this checkpoint open in the editor.
-   **Save to GitHub includes every open editor file**, so close scratch files
-   and accidental `_imported` duplicates first.
+1. Keep every project file that belongs in this checkpoint open in the
+   editor. **Save to GitHub includes every open editor file**, so close
+   scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
-3. Select **grade-calculator-1437** and the existing **main** branch.
+3. Select **COSC1437F26-Grade-Calculator-YourLastName** and the existing
+   **main** branch.
 4. Enter the commit message **Complete Chapter 13 Grade Calculator v2.0**.
 5. Click **Commit** and wait for StudySite's confirmation.
-6. Open the commit link, or open the repository on GitHub, and confirm the new
-   commit and expected files are present before leaving StudySite.
+6. Open the commit link, or open the repository on GitHub, and confirm the
+   new commit and expected files are present before leaving StudySite.
 
 #### Complete when
 
 - The verification list passes.
-- **grade-calculator-1437** contains the Chapter 13 checkpoint.
+- **COSC1437F26-Grade-Calculator-YourLastName** contains the Chapter 13
+  checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.
-
 
 ---
 

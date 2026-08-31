@@ -1,0 +1,471 @@
+[
+  {
+    "chapter": 1,
+    "title": "Create the COSC 1436 Base Repository",
+    "version": "v0.0",
+    "start": "No prior project files.",
+    "requirements": [
+      "Use the private @@BT@@COSC1436F26-Grade-Calculator-YourLastName@@BT@@ repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.",
+      "Create @@BT@@README.md@@BT@@ from the supplied template. Replace only @@BT@@[Your name]@@BT@@.",
+      "Create @@BT@@requirements.md@@BT@@ by copying the supplied requirements exactly. These are the approved project requirements; do not invent or rewrite them.",
+      "Commit both documents as the first checkpoint. C++ coding begins in Chapter 2."
+    ],
+    "verify": [
+      "StudySite can load from and save to the connected @@BT@@COSC1436F26-Grade-Calculator-YourLastName@@BT@@ repository.",
+      "@@BT@@README.md@@BT@@ and @@BT@@requirements.md@@BT@@ are both present.",
+      "There is no @@BT@@main.cpp@@BT@@ yet."
+    ],
+    "commit": "Create COSC 1436 Grade Calculator base repository",
+    "provided_chapter_one": true
+  },
+  {
+    "chapter": 2,
+    "title": "Hello, Gradebook",
+    "version": "v0.1",
+    "start": "The Chapter 1 repository containing @@BT@@README.md@@BT@@ and @@BT@@requirements.md@@BT@@.",
+    "requirements": [
+      "Create @@BT@@main.cpp@@BT@@ with the required C++ program structure: include @@BT@@<iostream>@@BT@@, define @@BT@@int main()@@BT@@, and return @@BT@@0@@BT@@.",
+      "Print a Grade Calculator banner, @@BT@@COSC 1436@@BT@@, and your name.",
+      "Keep the output plain text and make the program exit normally."
+    ],
+    "verify": [
+      "The program builds without warnings.",
+      "The banner, course, and student name appear exactly once.",
+      "The program reaches a normal exit."
+    ],
+    "commit": "Complete Chapter 2 Grade Calculator v0.1"
+  },
+  {
+    "chapter": 3,
+    "title": "Store an Assignment",
+    "version": "v0.2",
+    "start": "The working Chapter 2 @@BT@@main.cpp@@BT@@.",
+    "requirements": [
+      "Prompt for a student name and assignment name using @@BT@@std::string@@BT@@ and @@BT@@std::getline@@BT@@.",
+      "Prompt for points earned and points possible using @@BT@@double@@BT@@ variables.",
+      "Add a @@BT@@double@@BT@@ bonus-points variable and a @@BT@@const double@@BT@@ A cutoff of @@BT@@90.0@@BT@@.",
+      "Print a labeled summary containing every value. Do not calculate the percentage yet."
+    ],
+    "verify": [
+      "Names containing spaces are read completely.",
+      "Decimal point values are accepted.",
+      "The summary echoes all entered data and the A cutoff."
+    ],
+    "commit": "Complete Chapter 3 Grade Calculator v0.2"
+  },
+  {
+    "chapter": 4,
+    "title": "Calculate Percentage and Bonus",
+    "version": "v0.3",
+    "start": "The working Chapter 3 program.",
+    "requirements": [
+      "Calculate @@BT@@(points earned + bonus points) / points possible * 100.0@@BT@@ using floating-point arithmetic.",
+      "Guard against points possible being zero before dividing.",
+      "Display the percentage to one decimal place.",
+      "Keep the percentage uncapped in this checkpoint and document that policy in a comment."
+    ],
+    "verify": [
+      "@@BT@@84 / 100@@BT@@ with @@BT@@5@@BT@@ bonus reports @@BT@@89.0%@@BT@@.",
+      "@@BT@@10 / 10@@BT@@ with @@BT@@5@@BT@@ bonus reports @@BT@@150.0%@@BT@@.",
+      "Zero points possible produces an explanation instead of a division error."
+    ],
+    "commit": "Complete Chapter 4 Grade Calculator v0.3"
+  },
+  {
+    "chapter": 5,
+    "title": "Design the Interface",
+    "version": "v0.4",
+    "start": "The working Chapter 4 program.",
+    "requirements": [
+      "Create @@BT@@design.md@@BT@@ containing the program purpose, inputs, processing, outputs, pseudocode, and a test table.",
+      "Keep the weighted-grading scope statement from @@BT@@requirements.md@@BT@@ unchanged.",
+      "Redesign prompts so each states the expected value or constraint.",
+      "Print a labeled, aligned report and explain the zero-points-possible case.",
+      "Print a note that bonus points are added to earned points, not possible points."
+    ],
+    "verify": [
+      "The calculation still matches Chapter 4.",
+      "Labels are readable and aligned.",
+      "@@BT@@design.md@@BT@@ matches the program that will be built through Chapter 12."
+    ],
+    "commit": "Complete Chapter 5 Grade Calculator v0.4"
+  },
+  {
+    "chapter": 6,
+    "title": "Assign Letter Grades",
+    "version": "v0.5",
+    "start": "The working Chapter 5 program.",
+    "requirements": [
+      "Add named cutoffs: A @@BT@@90@@BT@@, B @@BT@@80@@BT@@, C @@BT@@70@@BT@@, and D @@BT@@60@@BT@@.",
+      "Use an @@BT@@if / else if@@BT@@ chain from highest to lowest to assign a @@BT@@char@@BT@@ letter grade; F is the default.",
+      "Display the percentage and letter grade together.",
+      "Keep the raw percentage policy from Chapter 4 for now."
+    ],
+    "verify": [
+      "Test @@BT@@95@@BT@@, @@BT@@85@@BT@@, @@BT@@75@@BT@@, @@BT@@65@@BT@@, and @@BT@@55@@BT@@ percent.",
+      "Test exactly @@BT@@90.0@@BT@@ and just below @@BT@@90.0@@BT@@.",
+      "A score above 100 still receives A and is not hidden."
+    ],
+    "commit": "Complete Chapter 6 Grade Calculator v0.5"
+  },
+  {
+    "chapter": 7,
+    "title": "Process Multiple Assignments",
+    "version": "v0.6",
+    "start": "The working Chapter 6 program.",
+    "requirements": [
+      "Use @@BT@@done@@BT@@ as the sentinel for assignment entry.",
+      "Maintain total earned, total possible, assignment count, and bonus-assignment count.",
+      "Display a running percentage after each assignment.",
+      "After the sentinel, display the final course percentage and letter grade.",
+      "Handle no assignments and all-zero-point assignments without dividing by zero."
+    ],
+    "verify": [
+      "Three assignments produce correct running totals.",
+      "Entering @@BT@@done@@BT@@ immediately reports no assignments.",
+      "Names still work after numeric input; no @@BT@@getline@@BT@@ is skipped."
+    ],
+    "commit": "Complete Chapter 7 Grade Calculator v0.6"
+  },
+  {
+    "chapter": 8,
+    "title": "Round and Cap the Grade",
+    "version": "v0.7",
+    "start": "The working Chapter 7 program.",
+    "requirements": [
+      "Use @@BT@@std::min@@BT@@ to cap the raw percentage at 100 when the named policy constant is enabled.",
+      "Use @@BT@@std::round@@BT@@ to round once to one decimal place.",
+      "Use the same rounded value for both display and letter-grade selection.",
+      "Print a note when a raw percentage above 100 was capped."
+    ],
+    "verify": [
+      "@@BT@@10 / 10@@BT@@ with @@BT@@5@@BT@@ bonus reports @@BT@@100.0%@@BT@@ and the cap note.",
+      "@@BT@@89.95 / 100@@BT@@ displays and grades from the same rounded value.",
+      "Disabling the named cap policy reports the uncapped value."
+    ],
+    "commit": "Complete Chapter 8 Grade Calculator v0.7"
+  },
+  {
+    "chapter": 9,
+    "title": "Rebuild with Functions",
+    "version": "v1.0",
+    "start": "The working Chapter 8 program.",
+    "requirements": [
+      "Refactor into focused functions for reading an assignment, computing a percentage, assigning a letter, and printing a report.",
+      "Add a menu loop with options to add an assignment, view the report, and quit.",
+      "Use parameters and return values instead of duplicating calculations.",
+      "Preserve Chapter 8 behavior while changing the program structure."
+    ],
+    "verify": [
+      "Every menu option works, including an invalid choice.",
+      "The same inputs produce the same grade as Chapter 8.",
+      "Boundary tests for @@BT@@90.0@@BT@@, @@BT@@89.9@@BT@@, @@BT@@80.0@@BT@@, @@BT@@60.0@@BT@@, @@BT@@59.9@@BT@@, and @@BT@@0.0@@BT@@ pass."
+    ],
+    "commit": "Complete Chapter 9 Grade Calculator v1.0"
+  },
+  {
+    "chapter": 10,
+    "title": "Organize Reusable Functions",
+    "version": "v1.1",
+    "start": "The working Chapter 9 program.",
+    "requirements": [
+      "Move reusable declarations to @@BT@@gradelib.h@@BT@@ and definitions to @@BT@@gradelib.cpp@@BT@@; keep application flow in @@BT@@main.cpp@@BT@@.",
+      "Add an include guard to @@BT@@gradelib.h@@BT@@.",
+      "Add validated numeric input that recovers after invalid text.",
+      "Pass output values by reference where a function must update the caller.",
+      "Add @@BT@@readInRange@@BT@@ and use it to keep points possible between @@BT@@0@@BT@@ and @@BT@@1000@@BT@@."
+    ],
+    "verify": [
+      "All source files build together.",
+      "Typing @@BT@@abc@@BT@@ for a number does not trap the program in a loop or crash it.",
+      "The existing menu and grade calculations still work."
+    ],
+    "commit": "Complete Chapter 10 Grade Calculator v1.1"
+  },
+  {
+    "chapter": 11,
+    "title": "Build a Class Roster and Custom Scale",
+    "version": "v1.2",
+    "start": "The working Chapter 10 program.",
+    "requirements": [
+      "Store up to 40 students and their scores in arrays.",
+      "Store grade letters and cutoffs as parallel arrays entered by the user.",
+      "Reject a cutoff that is not lower than the previous cutoff and ensure the scale reaches @@BT@@0@@BT@@.",
+      "Replace the fixed letter-grade chain with a loop over the scale data.",
+      "Display every student's grade, the class average, and highest and lowest course percentage."
+    ],
+    "verify": [
+      "Default and custom scales can give different letters for the same score.",
+      "A pass/fail scale works without code changes.",
+      "An out-of-order cutoff is rejected.",
+      "The 40-student limit is handled explicitly."
+    ],
+    "commit": "Complete Chapter 11 Grade Calculator v1.2"
+  },
+  {
+    "chapter": 12,
+    "title": "Complete the Dynamic Roster",
+    "version": "v1.3",
+    "start": "The working Chapter 11 program and the Chapter 5 design document.",
+    "requirements": [
+      "Replace fixed student, assignment, score, and grade-scale arrays with @@BT@@std::vector@@BT@@.",
+      "Allow any number of assignments and students.",
+      "Add the drop-lowest option. Remove both earned and possible points for the selected assignment.",
+      "Preserve validated input, custom grade scales, rounding, capping, and class reporting from the earlier checkpoints.",
+      "Keep the weighted-grading scope statement unchanged. Weighted grading belongs to COSC 1437.",
+      "Complete only the Chapter 12 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately."
+    ],
+    "verify": [
+      "The program handles more than 40 students.",
+      "Drop-lowest arithmetic matches a hand calculation.",
+      "No-student, no-assignment, zero-possible-points, invalid-scale, cutoff-boundary, bonus, and invalid-numeric-input cases behave correctly.",
+      "The repository contains the complete working v1.3 code checkpoint and the project documents created in earlier chapters."
+    ],
+    "commit": "Complete Chapter 12 Grade Calculator v1.3"
+  },
+  {
+    "chapter": 13,
+    "title": "Establish the COSC 1437 Baseline",
+    "version": "v2.0",
+    "start": "The private @@BT@@COSC1437F26-Grade-Calculator-YourLastName@@BT@@ repository your instructor created for you in the @@BT@@lscup@@BT@@ organization and invited you to, and the complete Chapter 12 v1.3 solution supplied in this lab.",
+    "requirements": [
+      "Create @@BT@@main.cpp@@BT@@ with the complete supplied Chapter 12 starter code before making Chapter 13 changes.",
+      "Run the starter unchanged and confirm the complete points-based Grade Calculator works.",
+      "Create @@BT@@maintenance-plan.md@@BT@@ identifying the coding-standard cleanup, behavior-preservation plan, test evidence, and weighted-grading requirement deferred to Chapters 20–21.",
+      "Bring the code into conformance with the Appendix D coding standard without changing its existing grade calculations.",
+      "Add an About menu option that identifies the application, version, course, and author.",
+      "Keep all Chapter 13–24 work in this same COSC 1437 repository."
+    ],
+    "verify": [
+      "The supplied v1.3 starter runs before refactoring.",
+      "The same input produces the same grade before and after the coding-standard pass.",
+      "The About option works and returns to the menu.",
+      "@@BT@@maintenance-plan.md@@BT@@ includes the deferred weighted-grading analysis."
+    ],
+    "commit": "Complete Chapter 13 Grade Calculator v2.0",
+    "include_chapter_twelve_starter": true
+  },
+  {
+    "chapter": 14,
+    "title": "Replace Parallel Arrays with Structs",
+    "version": "v2.1",
+    "start": "The working Chapter 13 v2.0 program.",
+    "requirements": [
+      "Create @@BT@@GradeTier@@BT@@, @@BT@@Assignment@@BT@@, and @@BT@@Student@@BT@@ structs.",
+      "Replace parallel arrays and vectors with vectors of the appropriate record type.",
+      "Add a @@BT@@Course@@BT@@ struct that owns the course name, assignments, students, and grade scale.",
+      "Pass a single @@BT@@Course@@BT@@ object to report functions instead of unrelated containers.",
+      "Preserve all v2.0 behavior."
+    ],
+    "verify": [
+      "Student names cannot be reordered separately from their scores.",
+      "A grade letter cannot exist without its cutoff.",
+      "The same input produces the same report as Chapter 13.",
+      "The program builds without warnings."
+    ],
+    "commit": "Complete Chapter 14 Grade Calculator v2.1"
+  },
+  {
+    "chapter": 15,
+    "title": "Save and Load the Gradebook",
+    "version": "v2.2",
+    "start": "The working Chapter 14 v2.1 program.",
+    "requirements": [
+      "Add file-stream support that saves the grade scale, assignments, and students to @@BT@@gradebook.csv@@BT@@.",
+      "Load @@BT@@gradebook.csv@@BT@@ at startup when it exists.",
+      "Parse into temporary data and replace the active gradebook only after the complete file is valid.",
+      "Create @@BT@@file-format.md@@BT@@ documenting every record type, field order, and the restriction on commas in text fields.",
+      "Add a menu option that saves to a different filename."
+    ],
+    "verify": [
+      "A save-then-load round trip reproduces the same gradebook.",
+      "A missing file is handled without a crash.",
+      "A nonnumeric field, truncated student row, unknown tag, and missing grade tiers are each rejected.",
+      "A failed load does not destroy the active in-memory data."
+    ],
+    "commit": "Complete Chapter 15 Grade Calculator v2.2"
+  },
+  {
+    "chapter": 16,
+    "title": "Debug and Add Regression Tests",
+    "version": "v2.3",
+    "start": "The working Chapter 15 v2.2 program.",
+    "requirements": [
+      "Use the three supplied defect descriptions: change a grade cutoff comparison from @@BT@@>=@@BT@@ to @@BT@@>@@BT@@; add bonus points to possible points; and allow a grade-scale loop to read index @@BT@@size()@@BT@@.",
+      "Observe each failure, then restore the correct code one defect at a time.",
+      "Add a small regression-test harness and a menu option that runs it.",
+      "Add tests for exact cutoffs, zero percent, below-scale input, bonus arithmetic, zero possible points, an empty roster, and a capped percentage.",
+      "Create @@BT@@defect-reports.md@@BT@@ recording symptoms, reproduction steps, cause, correction, and regression test for all three defects."
+    ],
+    "verify": [
+      "All seeded defects fail at least one test before correction.",
+      "All regression tests pass after correction.",
+      "Ordinary input and boundary input both produce correct results.",
+      "The normal Grade Calculator menu still works."
+    ],
+    "commit": "Complete Chapter 16 Grade Calculator v2.3"
+  },
+  {
+    "chapter": 17,
+    "title": "Sort and Search the Roster",
+    "version": "v2.4",
+    "start": "The working Chapter 16 v2.3 program.",
+    "requirements": [
+      "Add roster sorting by student ID, name, and percentage.",
+      "Add linear search by student ID.",
+      "Add binary search by student ID and ensure its data is sorted by ID first.",
+      "Report the comparison count for each search.",
+      "Add ordering by letter grade and then name."
+    ],
+    "verify": [
+      "Every sort order is correct for at least five students.",
+      "Linear and binary search find the same existing student.",
+      "Both searches report not found for a missing ID.",
+      "The binary-search precondition is enforced instead of assumed."
+    ],
+    "commit": "Complete Chapter 17 Grade Calculator v2.4"
+  },
+  {
+    "chapter": 18,
+    "title": "Introduce Classes and Invariants",
+    "version": "v2.5",
+    "start": "The working Chapter 17 v2.4 program.",
+    "requirements": [
+      "Convert @@BT@@Assignment@@BT@@, @@BT@@Student@@BT@@, and @@BT@@GradeScale@@BT@@ from structs to classes.",
+      "Make data members private and expose only the constructors, accessors, and operations callers need.",
+      "Give @@BT@@GradeScale@@BT@@ an invariant: cutoffs descend, no cutoff is negative, and the lowest tier is 0.",
+      "Add @@BT@@Student::letterGrade(const GradeScale&) const@@BT@@.",
+      "Preserve the Chapter 17 features and output."
+    ],
+    "verify": [
+      "Code outside a class cannot modify its private data directly.",
+      "Ascending, negative, empty, and no-zero grade scales are handled by the class.",
+      "The same input produces the same report as Chapter 17.",
+      "All accessors that do not change an object are @@BT@@const@@BT@@."
+    ],
+    "commit": "Complete Chapter 18 Grade Calculator v2.5"
+  },
+  {
+    "chapter": 19,
+    "title": "Split Classes into Files",
+    "version": "v2.6",
+    "start": "The working Chapter 18 v2.5 program.",
+    "requirements": [
+      "Create one header and one implementation file for each class; keep @@BT@@main.cpp@@BT@@ focused on application flow.",
+      "Add include guards and keep implementation details out of headers.",
+      "Create a @@BT@@Gradebook@@BT@@ class that owns the roster, assignments, scale, and reporting operations.",
+      "Implement @@BT@@operator<<@@BT@@ for Assignment, Student, GradeScale, and Gradebook using public accessors.",
+      "Add checked @@BT@@at@@BT@@ access alongside unchecked @@BT@@operator[]@@BT@@."
+    ],
+    "verify": [
+      "Every source file builds as one program.",
+      "Writing a Gradebook to the Terminal and to a file uses the same @@BT@@operator<<@@BT@@.",
+      "Checked access rejects an invalid index.",
+      "The Chapter 18 behavior is unchanged."
+    ],
+    "commit": "Complete Chapter 19 Grade Calculator v2.6"
+  },
+  {
+    "chapter": 20,
+    "title": "Add Weighted Grading with Inheritance",
+    "version": "v3.0",
+    "start": "The working Chapter 19 v2.6 multi-file program.",
+    "requirements": [
+      "Add an assignment category while preserving existing constructor calls with defaults.",
+      "Create a @@BT@@GradingScheme@@BT@@ base class and @@BT@@PointsBased@@BT@@ and @@BT@@Weighted@@BT@@ derived classes.",
+      "Move common final rounding and capping into the base class.",
+      "Validate that category weights total 100 within a floating-point tolerance.",
+      "Let the user choose the grading scheme at startup.",
+      "Do not penalize a student for a weighted category with no assignments."
+    ],
+    "verify": [
+      "The existing points-based examples still produce the same grades.",
+      "A 90/100 exam at weight 50 and 10/10 homework at weight 30 reports 93.8% when only those categories contain work.",
+      "Weights totaling 80% are rejected.",
+      "Unchanged classes and report code remain unchanged."
+    ],
+    "commit": "Complete Chapter 20 Grade Calculator v3.0"
+  },
+  {
+    "chapter": 21,
+    "title": "Select Schemes with Polymorphism",
+    "version": "v3.1",
+    "start": "The working Chapter 20 v3.0 program.",
+    "requirements": [
+      "Make @@BT@@GradingScheme::computePercentage@@BT@@ pure virtual and add a virtual destructor.",
+      "Have @@BT@@Gradebook@@BT@@ own a base-class scheme pointer and delegate calculations through it.",
+      "Allow the user to switch schemes without restarting or re-entering data.",
+      "Add @@BT@@WeightedDropLowest@@BT@@ as a third scheme without editing Student, Assignment, GradeScale, or report formatting.",
+      "Extend the Chapter 15 file format so category names and weights persist."
+    ],
+    "verify": [
+      "With Exam 1 at 90/100, Homework 1 at 10/10, Homework 2 at 5/10, and category weights of 50 and 30, the three schemes report 87.5%, 84.4%, and 93.8%.",
+      "Switching schemes immediately recomputes reports.",
+      "The grade calculation contains no type-selection branch.",
+      "Saving and loading preserves categories and weights."
+    ],
+    "commit": "Complete Chapter 21 Grade Calculator v3.1"
+  },
+  {
+    "chapter": 22,
+    "title": "Replace Manual Ownership with Smart Pointers",
+    "version": "v3.2",
+    "start": "The working Chapter 21 v3.1 program.",
+    "requirements": [
+      "Confirm the correct v3.1 program switches schemes and exits normally.",
+      "Temporarily remove the manual delete in @@BT@@setScheme@@BT@@ and observe the memory-safety failure using the available memory check; then restore it.",
+      "Replace the raw owning scheme pointer with @@BT@@std::unique_ptr<GradingScheme>@@BT@@.",
+      "Remove the manual destructor, manual delete, and explicitly deleted copy operations that unique ownership now handles.",
+      "Keep all grading behavior unchanged."
+    ],
+    "verify": [
+      "The intentional raw-pointer defect is detected by a memory-safety check.",
+      "The final smart-pointer version reports no leak.",
+      "Copying a Gradebook is rejected by the type system.",
+      "All three grading schemes still produce the Chapter 21 results."
+    ],
+    "commit": "Complete Chapter 22 Grade Calculator v3.2",
+    "local_memory_check": true
+  },
+  {
+    "chapter": 23,
+    "title": "Add Generic Statistics and an ID Index",
+    "version": "v3.3",
+    "start": "The working Chapter 22 v3.2 program.",
+    "requirements": [
+      "Create header-only @@BT@@Statistics<T>@@BT@@ with mean, median, minimum, maximum, and population standard deviation.",
+      "Add a @@BT@@std::map@@BT@@ index from student ID to roster position and maintain it whenever the roster changes order.",
+      "Add @@BT@@findById@@BT@@ using the index.",
+      "Replace the implicit Student ordering with a lambda at the sort call.",
+      "Add class statistics, letter-grade distribution, and assignment count by category."
+    ],
+    "verify": [
+      "@@BT@@Statistics<double>@@BT@@ and @@BT@@Statistics<int>@@BT@@ are both exercised.",
+      "ID lookup works before and after sorting.",
+      "A regression test fails if the index rebuild is removed.",
+      "The reported statistics match a hand calculation."
+    ],
+    "commit": "Complete Chapter 23 Grade Calculator v3.3"
+  },
+  {
+    "chapter": 24,
+    "title": "Add Release-Safe Error Handling",
+    "version": "v4.0",
+    "start": "The working Chapter 23 v3.3 program.",
+    "requirements": [
+      "Create a @@BT@@GradebookError@@BT@@ hierarchy for invalid scales, invalid weights, malformed files, and lookup failures.",
+      "Throw meaningful exceptions at the point of failure and catch them where the program can explain the problem and continue.",
+      "Translate low-level conversion and file errors into messages that identify the affected operation.",
+      "Run the complete regression plan against the Chapter 24 code checkpoint.",
+      "Complete only the Chapter 24 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately."
+    ],
+    "verify": [
+      "Invalid scales and invalid weights are refused without changing the working gradebook.",
+      "Missing and malformed files produce clear messages instead of crashes.",
+      "Points-based, weighted, and weighted-drop-lowest grading all work.",
+      "Save/load, lookup, statistics, and reports all work.",
+      "The repository contains the Chapter 12 foundation plus the completed Chapter 13–24 code checkpoints."
+    ],
+    "commit": "Complete Chapter 24 Grade Calculator v4.0"
+  }
+]

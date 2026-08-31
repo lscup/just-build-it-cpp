@@ -444,7 +444,7 @@ This chapter has no code, because you have not yet met any C++. What it has is t
 
 #### Required work
 
-1. Create one GitHub repository named `grade-calculator-1436`, initialize it with a README, and use it for every chapter through Chapter 12.
+1. Use the private `COSC1436F26-Grade-Calculator-YourLastName` repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.
 2. Create `README.md` from the supplied template. Replace only `[Your name]`.
 3. Create `requirements.md` by copying the supplied requirements exactly. These are the approved project requirements; do not invent or rewrite them.
 4. Commit both documents as the first checkpoint. C++ coding begins in Chapter 2.
@@ -563,18 +563,20 @@ Estimated size for 30 students with 12 assignments each:
 
 #### Verification
 
-- StudySite can load from and save to the connected `grade-calculator-1436` repository.
+- StudySite can load from and save to the connected `COSC1436F26-Grade-Calculator-YourLastName` repository.
 - `README.md` and `requirements.md` are both present.
 - There is no `main.cpp` yet.
 
 #### StudySite workflow
 
-1. On GitHub, create a repository named **grade-calculator-1436**. Use the visibility required
-   by your instructor, keep the default branch named **main**, and initialize
-   the repository with a README so it is not empty.
+1. Accept the GitHub invitation your instructor emailed you. It gives you
+   access to **COSC1436F26-Grade-Calculator-YourLastName**, the private
+   repository already created for you in the **lscup** organization, where
+   *YourLastName* is your own last name. Do not create your own repository.
 2. In StudySite, open this chapter's **coding panel on the main stage**.
-3. Click **Load from GitHub**. Connect GitHub if prompted, select **grade-calculator-1436**,
-   and click `README.md` to load it into the editor.
+3. Click **Load from GitHub**. Connect GitHub if prompted, select
+   **COSC1436F26-Grade-Calculator-YourLastName**, and click `README.md` to
+   load it into the editor.
 4. Replace the README with the supplied text and create `requirements.md` by
    copying the complete supplied requirements. Replace only `[Your name]` in
    the README.
@@ -588,23 +590,25 @@ Estimated size for 30 students with 12 assignments each:
 > Your work is not safely saved in your repository until **Save to GitHub**
 > finishes a successful **Commit**.
 
-1. Keep every project file that belongs in this checkpoint open in the editor.
-   **Save to GitHub includes every open editor file**, so close scratch files
-   and accidental `_imported` duplicates first.
+1. Keep every project file that belongs in this checkpoint open in the
+   editor. **Save to GitHub includes every open editor file**, so close
+   scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
-3. Select **grade-calculator-1436** and the existing **main** branch.
-4. Enter the commit message **Create COSC 1436 Grade Calculator base repository**.
+3. Select **COSC1436F26-Grade-Calculator-YourLastName** and the existing
+   **main** branch.
+4. Enter the commit message **Create COSC 1436 Grade Calculator base
+   repository**.
 5. Click **Commit** and wait for StudySite's confirmation.
-6. Open the commit link, or open the repository on GitHub, and confirm the new
-   commit and expected files are present before leaving StudySite.
+6. Open the commit link, or open the repository on GitHub, and confirm the
+   new commit and expected files are present before leaving StudySite.
 
 #### Complete when
 
 - The verification list passes.
-- **grade-calculator-1436** contains the Chapter 1 checkpoint.
+- **COSC1436F26-Grade-Calculator-YourLastName** contains the Chapter 1
+  checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.
-
 
 ---
 
