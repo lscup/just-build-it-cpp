@@ -164,6 +164,29 @@ else
   done
   echo "Copied $COPIED chapter file(s) from just-build-it-cpp into the instructor repo."
 
+  # WCAG fix (2026-09): corrected annotation color in 6 figures (contrast)
+  # and made tables keyboard-focusable in the HTML build - both editions
+  # need the same fixed assets so their rebuilt HTML/PDF match.
+  A11Y_FIGS="ch02-fig2-anatomy ch03-fig1-variable ch10-fig1-pointer-reference ch11-fig1-2d-array ch18-fig1-class ch22-fig1-stack-heap"
+  ASSETS_COPIED=0
+  for base in $A11Y_FIGS; do
+    for ext in svg png; do
+      src="$TEXTBOOK_DIR/figures/$base.$ext"
+      dst="$INSTRUCTOR_DIR/figures/$base.$ext"
+      if [[ -f "$src" && -f "$dst" ]] && ! cmp -s "$src" "$dst"; then
+        cp "$src" "$dst"
+        ASSETS_COPIED=$((ASSETS_COPIED + 1))
+      fi
+    done
+  done
+  if [[ -f "$TEXTBOOK_DIR/build/make-html.sh" && -f "$INSTRUCTOR_DIR/build/make-html.sh" ]] \
+     && ! cmp -s "$TEXTBOOK_DIR/build/make-html.sh" "$INSTRUCTOR_DIR/build/make-html.sh"; then
+    cp "$TEXTBOOK_DIR/build/make-html.sh" "$INSTRUCTOR_DIR/build/make-html.sh"
+    chmod +x "$INSTRUCTOR_DIR/build/make-html.sh"
+    ASSETS_COPIED=$((ASSETS_COPIED + 1))
+  fi
+  echo "Copied $ASSETS_COPIED accessibility-fix asset(s) (figures + build script)."
+
   cd "$INSTRUCTOR_DIR"
   echo "Working directory: $(pwd)"
   echo ""
@@ -176,14 +199,16 @@ else
   else
     read -r -p "Commit and push these chapter updates to lscup/just-build-it-cpp-instructor? [y/N] " ok
     if [[ "$ok" == "y" || "$ok" == "Y" ]]; then
-      git add -- [0-9][0-9]-*.md
-      git commit -m "Sync Chapters 01-24 with just-build-it-cpp
+      git add -- [0-9][0-9]-*.md figures/*.svg figures/*.png build/make-html.sh
+      git commit -m "Sync Chapters 01-24 and accessibility fixes with just-build-it-cpp
 
 Chapters 13, 14, 16-24 restored (polymorphism, unique_ptr ownership,
 templates/STL, exception-based error handling); Chapter 15 and 17 lab
 sections synced with their StudySite versions; F26 replaced with xxx
-for semester reusability. Chapter text only - this edition's own
-lab-delivery layout and appendix structure are left unchanged."
+for semester reusability. Also carries the WCAG 2.1 AA fixes: corrected
+annotation color in 6 figures (contrast) and keyboard-focusable tables
+in the HTML build. This edition's own lab-delivery layout and appendix
+structure are left unchanged."
       git push
       echo "Pushed."
     else
