@@ -137,6 +137,61 @@ for name in just-build-it-cpp-public just-build-it-cpp-html just-build-it-cpp-st
 done
 
 # ─────────────────────────────────────────────────────────────────────────
+# PHASE 1C — sync chapters into the instructor repo.
+# Chapters only (01-24 numbered .md files), per your call: the instructor
+# repo's lab-delivery folders (lab-instructions/, local-labs/,
+# studysite-labs/, portfolio-exercises/, lecture-decks/,
+# studysite-metadata/) and its own appendix layout are left untouched —
+# that structural gap looks intentional (instructor edition = book text +
+# examples, not the student lab-delivery system), not something to fix here.
+# ─────────────────────────────────────────────────────────────────────────
+echo ""
+echo "=============================================="
+echo " Phase 1C: sync chapters into lscup/just-build-it-cpp-instructor"
+echo "=============================================="
+
+if [[ ! -d "$INSTRUCTOR_DIR/.git" ]]; then
+  echo "No local clone of the instructor repo found at $INSTRUCTOR_DIR — skipping."
+  echo "(Phase 1B above should have cloned it. Re-run the script, or clone manually:"
+  echo "  gh repo clone $ORG/just-build-it-cpp-instructor \"$INSTRUCTOR_DIR\")"
+else
+  COPIED=0
+  for f in "$TEXTBOOK_DIR"/[0-9][0-9]-*.md; do
+    [[ -e "$f" ]] || continue
+    cp "$f" "$INSTRUCTOR_DIR/$(basename "$f")"
+    COPIED=$((COPIED + 1))
+  done
+  echo "Copied $COPIED chapter file(s) from just-build-it-cpp into the instructor repo."
+
+  cd "$INSTRUCTOR_DIR"
+  echo "Working directory: $(pwd)"
+  echo ""
+  echo "--- git status ---"
+  git status --short
+  echo ""
+
+  if [[ -z "$(git status --porcelain)" ]]; then
+    echo "Nothing changed — instructor repo's chapters already match. Skipping."
+  else
+    read -r -p "Commit and push these chapter updates to lscup/just-build-it-cpp-instructor? [y/N] " ok
+    if [[ "$ok" == "y" || "$ok" == "Y" ]]; then
+      git add -- [0-9][0-9]-*.md
+      git commit -m "Sync Chapters 01-24 with just-build-it-cpp
+
+Chapters 13, 14, 16-24 restored (polymorphism, unique_ptr ownership,
+templates/STL, exception-based error handling); Chapter 15 and 17 lab
+sections synced with their StudySite versions; F26 replaced with xxx
+for semester reusability. Chapter text only - this edition's own
+lab-delivery layout and appendix structure are left unchanged."
+      git push
+      echo "Pushed."
+    else
+      echo "Skipped push."
+    fi
+  fi
+fi
+
+# ─────────────────────────────────────────────────────────────────────────
 # PHASE 2 — grade-calculator reference-solution repo
 # ─────────────────────────────────────────────────────────────────────────
 echo ""
