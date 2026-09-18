@@ -5,13 +5,13 @@
     "version": "v0.0",
     "start": "No prior project files.",
     "requirements": [
-      "Use the private @@BT@@COSC1436F26-Grade-Calculator-YourLastName@@BT@@ repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.",
+      "Use the private @@BT@@COSC1436xxx-Grade-Calculator-YourLastName@@BT@@ repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.",
       "Create @@BT@@README.md@@BT@@ from the supplied template. Replace only @@BT@@[Your name]@@BT@@.",
       "Create @@BT@@requirements.md@@BT@@ by copying the supplied requirements exactly. These are the approved project requirements; do not invent or rewrite them.",
       "Commit both documents as the first checkpoint. C++ coding begins in Chapter 2."
     ],
     "verify": [
-      "StudySite can load from and save to the connected @@BT@@COSC1436F26-Grade-Calculator-YourLastName@@BT@@ repository.",
+      "StudySite can load from and save to the connected @@BT@@COSC1436xxx-Grade-Calculator-YourLastName@@BT@@ repository.",
       "@@BT@@README.md@@BT@@ and @@BT@@requirements.md@@BT@@ are both present.",
       "There is no @@BT@@main.cpp@@BT@@ yet."
     ],
@@ -227,7 +227,7 @@
     "chapter": 13,
     "title": "Establish the COSC 1437 Baseline",
     "version": "v2.0",
-    "start": "The private @@BT@@COSC1437F26-Grade-Calculator-YourLastName@@BT@@ repository your instructor created for you in the @@BT@@lscup@@BT@@ organization and invited you to, and the complete Chapter 12 v1.3 solution supplied in this lab.",
+    "start": "The private @@BT@@COSC1437xxx-Grade-Calculator-YourLastName@@BT@@ repository your instructor created for you in the @@BT@@lscup@@BT@@ organization and invited you to, and the complete Chapter 12 v1.3 solution supplied in this lab.",
     "requirements": [
       "Create @@BT@@main.cpp@@BT@@ with the complete supplied Chapter 12 starter code before making Chapter 13 changes.",
       "Run the starter unchanged and confirm the complete points-based Grade Calculator works.",

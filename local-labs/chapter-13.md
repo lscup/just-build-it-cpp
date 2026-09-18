@@ -2,7 +2,7 @@
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v2.0
-- **Starting point:** The private `COSC1437F26-Grade-Calculator-YourLastName` repository your instructor created for you in the `lscup` organization and invited you to, and the complete Chapter 12 v1.3 solution supplied in this lab.
+- **Starting point:** The private `COSC1437xxx-Grade-Calculator-YourLastName` repository your instructor created for you in the `lscup` organization and invited you to, and the complete Chapter 12 v1.3 solution supplied in this lab.
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
@@ -14,14 +14,29 @@
 1. Create `main.cpp` with the complete supplied Chapter 12 starter code before making Chapter 13 changes.
 2. Run the starter unchanged and confirm the complete points-based Grade Calculator works.
 3. Create `maintenance-plan.md` identifying the coding-standard cleanup, behavior-preservation plan, test evidence, and weighted-grading requirement deferred to Chapters 20–21.
-4. Bring the code into conformance with the Appendix D coding standard without changing its existing grade calculations.
-5. Add an About menu option that identifies the application, version, course, and author.
+4. Bring the file's top header comment into conformance with the Appendix D file-header standard, without changing any grade calculation.
+5. Add a `showAbout()` function that prints the program's version, course, and build date/time, and call it once at program startup.
 6. Keep all Chapter 13–24 work in this same COSC 1437 repository.
 
+This checkpoint **retires nothing** from Chapter 12. Every function you built
+in v1.3 — `readNonNegative`, `readLine`, `readYesNo`, `useDefaultScale`,
+`readGradeScale`, `letterFor`, and `computePercentage` — carries over
+unchanged, and no existing prompt or grade calculation changes. There is also
+still **no menu** in v2.0; the menu loop does not arrive until Chapter 15. The
+only code removed is `main`'s original two-line startup banner
+(`=== GRADE CALCULATOR v1.3 ===` / `Course I final version`); the only code
+added is the new `showAbout()` function that replaces it.
 
-## Complete Chapter 12 starter code
+## Build it: step by step
 
-Create `main.cpp` in the new local clone with the complete code below. Build and run this starter unchanged before beginning the Chapter 13 changes.
+Each step below shows the actual code for that piece. Type it in as you go
+and rebuild after each step — don't wait until the end to test.
+
+### Step 1 — Create `main.cpp` with the complete Chapter 12 starter code
+
+Create `main.cpp` in the new local clone with the complete code below. Build
+and run this starter unchanged before beginning the Chapter 13 changes — this
+is the baseline you will diff your Chapter 13 output against.
 
 ```cpp
 // Grade Calculator v1.3 - Chapter 12 - COURSE I FINAL
@@ -221,30 +236,115 @@ int main() {
 }
 ```
 
+### Step 2 — Reformat the file header comment to the Appendix D standard
+
+Appendix D requires the file containing `main` to open with a boxed header
+naming its purpose, what changed, how to verify the change, and the build
+command. Replace the six-line comment at the very top of the starter (the
+`// Grade Calculator v1.3 - Chapter 12 ...` block) with this box. Nothing else
+in the file's includes or code changes in this step.
+
+```cpp
+// =============================================================================
+//  Grade Calculator  v2.0                                          Chapter 13
+// -----------------------------------------------------------------------------
+//  Purpose : Points-based gradebook. Inherited from Course I (v1.3).
+//  Change  : Conformed to the course coding standard (Appendix D).
+//            Added an About screen. BEHAVIOR IS OTHERWISE UNCHANGED.
+//  Verify  : run v1.3 and v2.0 with the same input and diff the output.
+//            A refactor that changes behavior is a defect.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// =============================================================================
+```
+
+That is the entire coding-standard change for this checkpoint. The rest of
+v1.3 — four-space indentation, `camelCase` names, the `CAP_AT_100` constant
+instead of a magic number, and the existing `// ---------- input helpers
+----------` / `// ---------- grade scale ----------` section banners — already
+matched Appendix D, so none of it needs to move or be renamed.
+
+### Step 3 — Add `showAbout()` and call it from `main`
+
+Add this new function directly above `main` (after `computePercentage`):
+
+```cpp
+// -----------------------------------------------------------------------------
+//  showAbout - prints version and build information.
+// -----------------------------------------------------------------------------
+void showAbout() {
+    std::cout << "\n-------------------------------------\n";
+    std::cout << "  Grade Calculator\n";
+    std::cout << "  Version : 2.0\n";
+    std::cout << "  Course  : Object-Oriented Programming\n";
+    std::cout << "  Built   : " << __DATE__ << " " << __TIME__ << "\n";
+    std::cout << "  Scheme  : points-based only\n";
+    std::cout << "-------------------------------------\n\n";
+}
+```
+
+Then delete `main`'s two original `std::cout` banner lines and call the new
+function in their place, as the very first statement in `main`:
+
+```cpp
+int main() {
+    showAbout();
+
+    if (readYesNo("Define a custom grade scale? (y/n): ")) {
+```
+
+`showAbout` is a **screen**, not a menu — it always prints once, at startup,
+immediately before the existing "Define a custom grade scale?" prompt. A menu
+that lets the user choose it on demand does not exist until Chapter 15.
+
+### Step 4 — Write `maintenance-plan.md`
+
+Document, in your own words and based on the code you actually have:
+
+- **What v1.3 does** — a summary of current capability, written by reading
+  the code, not from memory.
+- **What it does not do** — current limitations, including the deferred
+  weighted-grading requirement.
+- **A prioritized backlog** for the term, with each item classified as
+  corrective, adaptive, perfective, or preventive (conform to Appendix D,
+  replace parallel arrays with records, save/load gradebooks, fix defects
+  found by testing, sort/search the roster, convert to classes, and add
+  weighted grading).
+- **A written analysis of weighted grading** — what it is, how it differs
+  arithmetically from points-based grading, which parts of v1.3 would have to
+  change, and what could go wrong (weights not totaling 100%, a category with
+  no assignments yet). Write this before you know how you will implement it.
 
 ## Verification
 
-- The supplied v1.3 starter runs before refactoring.
-- The same input produces the same grade before and after the coding-standard pass.
-- The About option works and returns to the menu.
-- `maintenance-plan.md` includes the deferred weighted-grading analysis.
+- The supplied v1.3 starter compiles and runs, unmodified, before you touch
+  anything (Step 1).
+- After Steps 2–3, the same input produces the same grades, letters, and
+  class average as the unmodified v1.3 run — compare the two program outputs
+  line by line; they should differ only in the startup banner.
+- The program compiles under `-std=c++17 -Wall -Wextra` with no warnings.
+- Running the program prints the About banner (version, course, build date
+  and time, and grading scheme) exactly once, at startup, immediately before
+  the "Define a custom grade scale?" prompt.
+- `maintenance-plan.md` includes the prioritized backlog table and the
+  weighted-grading analysis.
 
 ## Optional local workflow
 
 1. Accept the GitHub invitation your instructor emailed you. It gives you
-   access to **COSC1437F26-Grade-Calculator-YourLastName**, the private
+   access to **COSC1437xxx-Grade-Calculator-YourLastName**, the private
    repository already created for you in the **lscup** organization, where
    *YourLastName* is your own last name. Do not create your own repository,
    and do not use the COSC 1436 repository for the COSC 1437 work.
 2. Copy the repository URL from GitHub and clone it:
 
    ```bash
-   git clone <your-repository-url> COSC1437F26-Grade-Calculator-YourLastName
-   cd COSC1437F26-Grade-Calculator-YourLastName
+   git clone <your-repository-url> COSC1437xxx-Grade-Calculator-YourLastName
+   cd COSC1437xxx-Grade-Calculator-YourLastName
    ```
 
-3. Create `main.cpp` with the complete supplied starter in this document.
-4. Build and run the starter before making Chapter 13 changes:
+3. Complete Step 1 above: create `main.cpp` with the complete supplied
+   starter.
+4. Build and run the starter unchanged before making any Chapter 13 changes:
 
    ```bash
    g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
@@ -253,8 +353,18 @@ int main() {
 
 5. Commit the untouched starter with the message `Add Chapter 12 starter for
    COSC 1437`.
-6. Complete the required work in your local editor, then rebuild and rerun
-   the verification cases.
+6. Complete Steps 2–4 above in your local editor, then rebuild:
+
+   ```bash
+   g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
+   ```
+
+7. Fix every compiler error and warning, then run the program and complete
+   the verification list:
+
+   ```bash
+   ./gradecalc
+   ```
 
 ## Save this checkpoint
 

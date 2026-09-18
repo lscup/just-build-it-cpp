@@ -444,7 +444,7 @@ This chapter has no code, because you have not yet met any C++. What it has is t
 
 #### Required work
 
-1. Use the private `COSC1436F26-Grade-Calculator-YourLastName` repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.
+1. Use the private `COSC1436xxx-Grade-Calculator-YourLastName` repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.
 2. Create `README.md` from the supplied template. Replace only `[Your name]`.
 3. Create `requirements.md` by copying the supplied requirements exactly. These are the approved project requirements; do not invent or rewrite them.
 4. Commit both documents as the first checkpoint. C++ coding begins in Chapter 2.
@@ -563,19 +563,19 @@ Estimated size for 30 students with 12 assignments each:
 
 #### Verification
 
-- StudySite can load from and save to the connected `COSC1436F26-Grade-Calculator-YourLastName` repository.
+- StudySite can load from and save to the connected `COSC1436xxx-Grade-Calculator-YourLastName` repository.
 - `README.md` and `requirements.md` are both present.
 - There is no `main.cpp` yet.
 
 #### StudySite workflow
 
 1. Accept the GitHub invitation your instructor emailed you. It gives you
-   access to **COSC1436F26-Grade-Calculator-YourLastName**, the private
+   access to **COSC1436xxx-Grade-Calculator-YourLastName**, the private
    repository already created for you in the **lscup** organization, where
    *YourLastName* is your own last name. Do not create your own repository.
 2. In StudySite, open this chapter's **coding panel on the main stage**.
 3. Click **Load from GitHub**. Connect GitHub if prompted, select
-   **COSC1436F26-Grade-Calculator-YourLastName**, and click `README.md` to
+   **COSC1436xxx-Grade-Calculator-YourLastName**, and click `README.md` to
    load it into the editor.
 4. Replace the README with the supplied text and create `requirements.md` by
    copying the complete supplied requirements. Replace only `[Your name]` in
@@ -594,7 +594,7 @@ Estimated size for 30 students with 12 assignments each:
    editor. **Save to GitHub includes every open editor file**, so close
    scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
-3. Select **COSC1436F26-Grade-Calculator-YourLastName** and the existing
+3. Select **COSC1436xxx-Grade-Calculator-YourLastName** and the existing
    **main** branch.
 4. Enter the commit message **Create COSC 1436 Grade Calculator base
    repository**.
@@ -605,7 +605,7 @@ Estimated size for 30 students with 12 assignments each:
 #### Complete when
 
 - The verification list passes.
-- **COSC1436F26-Grade-Calculator-YourLastName** contains the Chapter 1
+- **COSC1436xxx-Grade-Calculator-YourLastName** contains the Chapter 1
   checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.

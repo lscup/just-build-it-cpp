@@ -603,7 +603,7 @@ That is not a failure of your code. It is a limit of the tool, and Chapter 11 pr
    avoids creating files with names such as `_imported` when the same path
    is already open.
 3. Click **Load from GitHub**, select
-   **COSC1436F26-Grade-Calculator-YourLastName**, and click each source,
+   **COSC1436xxx-Grade-Calculator-YourLastName**, and click each source,
    header, or documentation file needed for this chapter. Confirm the editor
    shows the expected file paths before editing.
 4. Continue the existing project in StudySite's internal editor. For a
@@ -627,7 +627,7 @@ That is not a failure of your code. It is a limit of the tool, and Chapter 11 pr
    editor. **Save to GitHub includes every open editor file**, so close
    scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
-3. Select **COSC1436F26-Grade-Calculator-YourLastName** and the existing
+3. Select **COSC1436xxx-Grade-Calculator-YourLastName** and the existing
    **main** branch.
 4. Enter the commit message **Complete Chapter 6 Grade Calculator v0.5**.
 5. Click **Commit** and wait for StudySite's confirmation.
@@ -637,7 +637,7 @@ That is not a failure of your code. It is a limit of the tool, and Chapter 11 pr
 #### Complete when
 
 - The verification list passes.
-- **COSC1436F26-Grade-Calculator-YourLastName** contains the Chapter 6
+- **COSC1436xxx-Grade-Calculator-YourLastName** contains the Chapter 6
   checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.

@@ -9,12 +9,12 @@ Assignment or type local compiler commands.
 ## Course and repository boundaries
 
 - **COSC 1436:** Chapters 1–12 use the private
-  `COSC1436F26-Grade-Calculator-YourLastName` repository your instructor
+  `COSC1436xxx-Grade-Calculator-YourLastName` repository your instructor
   created for you in the `lscup` organization and invited you to. Chapter 12
   completes the code sequence. Final-project finishing, documentation, and
   submission instructions are provided separately after Chapter 12.
 - **COSC 1437:** Chapters 13–24 use the private
-  `COSC1437F26-Grade-Calculator-YourLastName` repository your instructor
+  `COSC1437xxx-Grade-Calculator-YourLastName` repository your instructor
   created for you in the `lscup` organization and invited you to. Chapter 13
   begins with the complete Chapter 12 solution supplied as starter code.
   Chapter 24 completes the code sequence; final-project finishing and
