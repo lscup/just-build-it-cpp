@@ -275,6 +275,84 @@ else
   done
 fi
 
+# ─────────────────────────────────────────────────────────────────────────
+# PHASE 4 — update every student repo's Instructions files.
+# For each repo in student-repos.txt (from Phase 3), replaces
+# Instructions/ChapterNN_instructions.md (chapters 13-24 only) with the
+# corresponding studysite-labs/chapter-NN.md content — the version with
+# the full "Build it: step by step" walkthrough and real code. Nothing
+# else in a student's repo is ever touched: main.cpp, baseline-output.md,
+# maintenance-plan.md, and anything not matching that exact Instructions
+# filename are left completely alone. A repo missing one of those files
+# is noted and skipped for that chapter rather than guessed at.
+# ─────────────────────────────────────────────────────────────────────────
+echo ""
+echo "=============================================="
+echo " Phase 4: update Instructions files in student repos"
+echo "=============================================="
+
+STUDYSITE_LABS_DIR="$TEXTBOOK_DIR/studysite-labs"
+STUDENTS_DIR="$WORKDIR/students"
+mkdir -p "$STUDENTS_DIR"
+
+if [[ ! -s "$WORKDIR/student-repos.txt" ]]; then
+  echo "No student-repos.txt found (or it's empty) - run Phase 3 first."
+else
+  STUDENT_COUNT=$(wc -l < "$WORKDIR/student-repos.txt" | tr -d ' ')
+  echo "This will check $STUDENT_COUNT student repo(s) and, for any whose"
+  echo "Instructions/ChapterNN_instructions.md (chapters 13-24) differs from"
+  echo "studysite-labs/chapter-NN.md, replace just that file, commit, and push."
+  echo "main.cpp, baseline-output.md, and maintenance-plan.md are never touched."
+  echo ""
+  read -r -p "Proceed with all $STUDENT_COUNT student repos? [y/N] " ok
+  if [[ "$ok" == "y" || "$ok" == "Y" ]]; then
+    while IFS= read -r repo; do
+      [[ -z "$repo" ]] && continue
+      echo ""
+      echo "--- $repo ---"
+      REPO_DIR="$STUDENTS_DIR/$repo"
+      rm -rf "$REPO_DIR"
+      if ! gh repo clone "$ORG/$repo" "$REPO_DIR" -- --quiet; then
+        echo "  Clone failed - skipping."
+        continue
+      fi
+
+      CHANGED=0
+      for n in 13 14 15 16 17 18 19 20 21 22 23 24; do
+        SRC="$STUDYSITE_LABS_DIR/chapter-$n.md"
+        DST="$REPO_DIR/Instructions/Chapter${n}_instructions.md"
+        if [[ -f "$SRC" && -f "$DST" ]]; then
+          if ! cmp -s "$SRC" "$DST"; then
+            cp "$SRC" "$DST"
+            CHANGED=$((CHANGED + 1))
+          fi
+        elif [[ -f "$SRC" && ! -f "$DST" ]]; then
+          echo "  Note: no Instructions/Chapter${n}_instructions.md here - left alone."
+        fi
+      done
+
+      if [[ "$CHANGED" -eq 0 ]]; then
+        echo "  Already up to date."
+      else
+        (
+          cd "$REPO_DIR" \
+            && git add Instructions/Chapter*_instructions.md \
+            && git commit -q -m "Update Chapter 13-24 lab instructions with step-by-step build guide
+
+Adds the explicit Build-it: step-by-step walkthrough (with real code)
+to each chapter's instructions, replacing the shorter required-work-only
+version. No student work (main.cpp, baseline-output.md,
+maintenance-plan.md) is touched." \
+            && git push -q
+        )
+        echo "  Updated $CHANGED chapter instructions file(s) and pushed."
+      fi
+    done < "$WORKDIR/student-repos.txt"
+  else
+    echo "Skipped."
+  fi
+fi
+
 echo ""
 echo "=============================================="
 echo " Done. Paste back to Claude:"
