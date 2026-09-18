@@ -36,6 +36,10 @@ h=re.sub(r'<img[^>]*src="data:image/svg\+xml;base64,[^"]*"[^>]*>',inline,h)
 if 'class="skip"' not in h:
     h=h.replace('<body>','<body>\n<a class="skip" href="#TOC">Skip to table of contents</a>',1)
 h=h.replace('<pre class="sourceCode','<pre tabindex="0" class="sourceCode')  # keyboard-scrollable
+# every table is display:block;overflow-x:auto (build/style.css) so any of
+# them can become a horizontally-scrollable region depending on viewport
+# width; give them all keyboard access the same way code blocks already have
+h=re.sub(r'<table(\s[^>]*)?>', lambda m: '<table tabindex="0"' + (m.group(1) or '') + '>', h)
 open(p,"w",encoding="utf-8").write(h)
 print(f"  inlined svg: {len(re.findall(r'<svg',h))}   remaining img: {len(re.findall(r'<img',h))}   size: {len(h)/1e6:.2f} MB")
 PY

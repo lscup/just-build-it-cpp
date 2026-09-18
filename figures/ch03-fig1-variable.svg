@@ -9,12 +9,12 @@
   location, and the value 84.5 is what is stored there.</desc>
   <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a">
     <text x="30" y="34" font-family="'Courier New',monospace" font-size="17">double pointsEarned = 84.5;</text>
-    <text x="34" y="54" font-size="11" fill="#8a6d3b">type</text>
-    <text x="105" y="54" font-size="11" fill="#8a6d3b">name</text>
-    <text x="255" y="54" font-size="11" fill="#8a6d3b">initial value</text>
-    <path d="M45,40 L45,48" stroke="#8a6d3b" stroke-width="1.2"/>
-    <path d="M125,40 L125,48" stroke="#8a6d3b" stroke-width="1.2"/>
-    <path d="M280,40 L280,48" stroke="#8a6d3b" stroke-width="1.2"/>
+    <text x="34" y="54" font-size="11" fill="#6b4e16">type</text>
+    <text x="105" y="54" font-size="11" fill="#6b4e16">name</text>
+    <text x="255" y="54" font-size="11" fill="#6b4e16">initial value</text>
+    <path d="M45,40 L45,48" stroke="#6b4e16" stroke-width="1.2"/>
+    <path d="M125,40 L125,48" stroke="#6b4e16" stroke-width="1.2"/>
+    <path d="M280,40 L280,48" stroke="#6b4e16" stroke-width="1.2"/>
 
     <g stroke="#2c3e50" stroke-width="2">
       <rect x="60"  y="90" width="60" height="52" fill="#d6e4f5"/>

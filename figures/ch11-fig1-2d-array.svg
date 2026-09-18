@@ -43,7 +43,7 @@
       <text x="148" y="191">[2]  Alan</text>
     </g>
     <text x="72" y="132" font-size="12" fill="#555" transform="rotate(-90 72 132)" text-anchor="middle">student index</text>
-    <path d="M380,116 L380,96" stroke="#8a6d3b" stroke-width="0" />
+    <path d="M380,116 L380,96" stroke="#6b4e16" stroke-width="0" />
     <text x="330" y="238" text-anchor="middle" font-size="13">
       The shaded cell is pointsEarned[1][2], which holds 20.0
     </text>
