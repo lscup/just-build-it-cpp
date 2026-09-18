@@ -353,6 +353,86 @@ maintenance-plan.md) is touched." \
   fi
 fi
 
+# ─────────────────────────────────────────────────────────────────────────
+# PHASE 5 — rebuild the HTML/PDF editions from the current chapter
+# markdown. Must run here (your own Terminal): it needs the same
+# pandoc/xelatex toolchain that originally built these files, which isn't
+# available in Claude's own environment. Each repo's own build/order.txt
+# and build scripts are used as-is - nothing about the build is guessed at.
+# ─────────────────────────────────────────────────────────────────────────
+echo ""
+echo "=============================================="
+echo " Phase 5: rebuild HTML/PDF editions"
+echo "=============================================="
+
+if ! command -v pandoc >/dev/null 2>&1 || ! command -v xelatex >/dev/null 2>&1; then
+  echo "pandoc and/or xelatex not found on PATH - skipping."
+  echo "(See build/README.md in the textbook repo for what's required.)"
+else
+  rebuild_edition() {
+    local dir="$1" html_out="$2" pdf_out="$3"
+    if [[ ! -d "$dir/build" ]]; then
+      echo ""
+      echo "--- $(basename "$dir") ---"
+      echo "  No build/ directory here - skipping."
+      return
+    fi
+    if [[ ! -f "$dir/$html_out" ]]; then
+      echo ""
+      echo "--- $(basename "$dir") ---"
+      echo "  $html_out not found - skipping (unexpected layout)."
+      return
+    fi
+    local title
+    title=$(grep -o '<title>[^<]*</title>' "$dir/$html_out" 2>/dev/null | sed -e 's/<title>//' -e 's/<\/title>//')
+    [[ -z "$title" ]] && title="Just Build It!"
+
+    echo ""
+    echo "--- $(basename "$dir") ---"
+    echo "  HTML:  $html_out"
+    echo "  PDF:   $pdf_out"
+    echo "  Title: $title"
+    read -r -p "  Rebuild both editions for $(basename "$dir")? [y/N] " ok
+    if [[ "$ok" != "y" && "$ok" != "Y" ]]; then
+      echo "  Skipped."
+      return
+    fi
+
+    if ! (
+      cd "$dir" \
+        && echo "  Building HTML..." \
+        && ./build/make-html.sh . "$html_out" build/order.txt "$title" \
+        && echo "  Building PDF..." \
+        && ./build/make-pdf.sh . "$pdf_out" build/order.txt
+    ); then
+      echo "  Build failed - not committing. Check the output above."
+      return
+    fi
+
+    (
+      cd "$dir"
+      echo "  --- git status ---"
+      git status --short -- "$html_out" "$pdf_out"
+      if [[ -z "$(git status --porcelain -- "$html_out" "$pdf_out")" ]]; then
+        echo "  Rebuilt editions are identical to what's already committed."
+      else
+        read -r -p "  Commit and push the rebuilt editions? [y/N] " ok2
+        if [[ "$ok2" == "y" || "$ok2" == "Y" ]]; then
+          git add "$html_out" "$pdf_out" \
+            && git commit -q -m "Rebuild HTML/PDF editions from the current chapter markdown" \
+            && git push \
+            && echo "  Pushed."
+        else
+          echo "  Built locally but not committed/pushed."
+        fi
+      fi
+    )
+  }
+
+  rebuild_edition "$TEXTBOOK_DIR" "Just-Build-It-Cpp.html" "Just-Build-It-Cpp.pdf"
+  rebuild_edition "$INSTRUCTOR_DIR" "Just-Build-It-Cpp-Instructor.html" "Just-Build-It-Cpp-Instructor.pdf"
+fi
+
 echo ""
 echo "=============================================="
 echo " Done. Paste back to Claude:"
