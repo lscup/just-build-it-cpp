@@ -120,8 +120,9 @@ if gh repo view "$ORG/just-build-it-cpp-instructor" >/dev/null 2>&1; then
   echo ""
   echo "--- Diff vs just-build-it-cpp (names only; grade-calculator/textbook-examples/build excluded) ---"
   diff -rq "$TEXTBOOK_DIR" "$INSTRUCTOR_DIR" \
-    -x .git -x grade-calculator -x textbook-examples -x build -x update-repos.sh \
-    2>&1 | head -150
+    -x .git -x grade-calculator -x textbook-examples -x build \
+    -x update-repos.sh -x update-repos-output.txt \
+    2>&1 | head -150 || true
 else
   echo "Could not view $ORG/just-build-it-cpp-instructor with gh — check access/name."
 fi
