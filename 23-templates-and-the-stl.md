@@ -707,7 +707,7 @@ Directly below it, add:
 - `letterDistribution` returns a `std::map<char, int>`: each letter grade
   mapped to how many students earned it.
 - `printStatistics` writes to whatever `std::ostream` it is given — the
-  Terminal today, a file tomorrow.
+  screen today, a file tomorrow.
 - `idIndex_` maps an ID (the **key**) to the student's position in `roster_`
   (the **value**). A `std::map` keeps its keys sorted and finds a key in
   logarithmic time — the job Chapter 17's binary search did, without needing

@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-### What you will build
+## What you will build
 
 The Grade Calculator has always graded by points: total earned ÷ total
 possible. In this lab you add a second rule — **weighted categories** — using
@@ -28,13 +28,13 @@ possible. In this lab you add a second rule — **weighted categories** — usin
 
 The menu keeps the same five options as Chapter 19.
 
-### Files in this checkpoint
+## Files in this checkpoint
 
 | File | What you do to it |
 |---|---|
 | `assignment.h`, `assignment.cpp` | Edit (Step 1) |
 | `gradingscheme.h`, `gradingscheme.cpp` | Create (Steps 2–3) |
-| `student.h` | Edit — one comment (Step 4) |
+| `student.h` | Edit — comments only (Step 4) |
 | `gradebook.h`, `gradebook.cpp` | Edit (Steps 5–6) |
 | `main.cpp` | Edit (Steps 7–8) |
 | `gradescale.h`, `gradescale.cpp`, `student.cpp` | No change — keep them open |
@@ -42,7 +42,7 @@ The menu keeps the same five options as Chapter 19.
 When you are finished your project has **eleven files**, and all of them must
 be open in the editor when you click **Run**.
 
-### How to use these steps
+## How to use these steps
 
 This lab is a guided exercise, not a test. Each step tells you **which file**
 to open, shows the **exact code to find**, and shows the **exact code to put in
@@ -59,13 +59,25 @@ rather than retyping it where you can.
 - Each step ends with a short explanation of *why*. Read it — it is the
   chapter's concept, applied to your own program.
 
-### Build it: step by step
+## Build it: step by step
 
-#### Step 1 — Give `Assignment` a category
+### Step 1 — Give `Assignment` a category
 
 Weighted grading needs to know which category each assignment belongs to. Add
 a `category` to `Assignment`, with a **default value** so that every existing
 call to the constructor still compiles without being edited.
+
+The first line of every class file records the version in which that file last changed. In `assignment.h`, update it. Find:
+
+```cpp
+// assignment.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// assignment.h - Grade Calculator v3.0 - Chapter 20
+```
 
 In `assignment.h`, find the constructor declaration:
 
@@ -104,6 +116,18 @@ Directly below it, add:
     std::string category_  = "Uncategorized";
 ```
 
+In `assignment.cpp`, update the first line. Find:
+
+```cpp
+// assignment.cpp - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// assignment.cpp - Grade Calculator v3.0 - Chapter 20
+```
+
 In `assignment.cpp`, find the constructor definition:
 
 ```cpp
@@ -140,7 +164,7 @@ extends a function without breaking any caller — the Chapter 10 technique.
 
 > **▶ Run checkpoint:** Click **Run** with all nine files open. The program should compile cleanly and behave exactly like v2.6. Nothing uses the category yet.
 
-#### Step 2 — Create the `GradingScheme` hierarchy (`gradingscheme.h`)
+### Step 2 — Create the `GradingScheme` hierarchy (`gradingscheme.h`)
 
 A **base class** holds what every grading scheme has in common. Each **derived
 class** adds its own rule.
@@ -230,7 +254,7 @@ Read the three classes carefully:
   has its own version, but the program must still decide by hand which one to
   call. Chapter 21 removes that limitation.
 
-#### Step 3 — Implement the two schemes (`gradingscheme.cpp`)
+### Step 3 — Implement the two schemes (`gradingscheme.cpp`)
 
 Create a new file named `gradingscheme.cpp` and enter this code:
 
@@ -319,11 +343,23 @@ double Weighted::computePercentage(const std::vector<Assignment>& work) const {
 
 > **▶ Run checkpoint:** Open both new files and click **Run**. The program should compile cleanly and still behave exactly like v2.6 — the new classes exist but nothing uses them yet.
 
-#### Step 4 — Note the new role of `Student::percentage()`
+### Step 4 — Note the new role of `Student::percentage()`
 
 `Student::percentage()` still computes a points-based percentage, but the
 course grade will now come from a grading scheme. Record that in a comment so
 the next reader is not misled.
+
+In `student.h`, update the first line. Find:
+
+```cpp
+// student.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// student.h - Grade Calculator v3.0 - Chapter 20
+```
 
 In `student.h`, find:
 
@@ -344,7 +380,19 @@ Replace it with:
 
 This is a comment-only change; `student.cpp` does not change at all.
 
-#### Step 5 — Make `Gradebook` scheme-aware (`gradebook.h`)
+### Step 5 — Make `Gradebook` scheme-aware (`gradebook.h`)
+
+In `gradebook.h`, update the first line. Find:
+
+```cpp
+// gradebook.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// gradebook.h - Grade Calculator v3.0 - Chapter 20
+```
 
 In `gradebook.h`, find the first project include:
 
@@ -416,7 +464,19 @@ What you added:
 - The `Gradebook` **holds one object of each scheme** (`points_` and
   `weighted_`) plus the `scheme_` flag that says which to use.
 
-#### Step 6 — Grade through the selected scheme (`gradebook.cpp`)
+### Step 6 — Grade through the selected scheme (`gradebook.cpp`)
+
+In `gradebook.cpp`, update the first line to name this version. Find:
+
+```cpp
+// gradebook.cpp - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// gradebook.cpp - Grade Calculator v3.0 - Chapter 20
+```
 
 In `gradebook.cpp`, find the constructor:
 
@@ -496,7 +556,7 @@ Replace it with:
 
 > **▶ Run checkpoint:** Click **Run**. The program should compile cleanly. Because the scheme defaults to points, it still behaves like v2.6 — except that the report now shows a `Grading: Points-based` line.
 
-#### Step 7 — Update the header comment in `main.cpp`
+### Step 7 — Update the header comment in `main.cpp`
 
 At the top of `main.cpp`, find the header comment:
 
@@ -529,7 +589,7 @@ Replace it with:
 // =============================================================================
 ```
 
-#### Step 8 — Choose a scheme at startup, and read each assignment's category
+### Step 8 — Choose a scheme at startup, and read each assignment's category
 
 `main` now asks for a scheme before the menu starts. If the user picks
 weighted grading, it offers to replace the default weights. The *Add student*
@@ -648,7 +708,7 @@ What changed, from top to bottom:
 
 > **▶ Run checkpoint:** Make sure all eleven files are open and click **Run**. The program should compile with no errors and no warnings and open with the scheme question.
 
-### Check your work
+## Check your work
 
 **Run 1 — points-based.** Answer the scheme question with `1`. Add `Ada` with
 two assignments: `Exam 1` (earned `90`, possible `100`, bonus `0`, category
@@ -688,15 +748,14 @@ Add the same two assignments for `Ada` and report: she shows `93.3%`
 
 Then confirm:
 
-- [ ] The program compiles with no errors and no warnings with all eleven
-      files open.
+- [ ] All eleven files build together with no errors and no warnings.
 - [ ] `PointsBased` and `Weighted` both inherit `public`ly from
       `GradingScheme`, and neither repeats the cap-and-round code — both call
       `finalize`.
 - [ ] `gradescale.h`, `gradescale.cpp`, and `student.cpp` are unchanged from
       Chapter 19.
 
-### StudySite workflow
+## StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -714,7 +773,7 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-### Save this checkpoint
+## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -732,7 +791,7 @@ Then confirm:
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-### Complete when
+## Complete when
 
 - Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 20

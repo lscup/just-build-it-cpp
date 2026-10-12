@@ -509,7 +509,8 @@ three things.
 | File | What you do to it |
 |---|---|
 | `gradebook.h`, `gradebook.cpp` | Edit (Steps 2–3) |
-| `main.cpp` | Edit (Steps 4–5) |
+| `gradingscheme.h` | Edit — comments only (Step 4) |
+| `main.cpp` | Edit (Steps 5–6) |
 | All other files | **No change** — keep them open |
 
 #### How to use these steps
@@ -556,7 +557,7 @@ in the output tells you, which is why leaks are called *silent*.
 > Otherwise, ask your instructor which memory check to use.
 
 4. **Remove the `//` you added** so the line is restored exactly as it was.
-   Steps 2–5 assume the original v3.1 code.
+   Steps 2–6 assume the original v3.1 code.
 
 ##### Step 2 — Own the scheme with `std::unique_ptr` (`gradebook.h`)
 
@@ -718,9 +719,48 @@ void Gradebook::setScheme(std::unique_ptr<GradingScheme> scheme) {
 
 > **Heads-up:** `main.cpp` still calls `setScheme(new ...)`, and a raw pointer
 > does not convert to a `unique_ptr` automatically. The program will not
-> compile until the end of Step 5.
+> compile until the end of Step 6.
 
-##### Step 4 — Update the header comment and includes in `main.cpp`
+##### Step 4 — Update the ownership note (`gradingscheme.h`)
+
+The comment above `class GradingScheme` still describes v3.1's hand-written
+ownership. Make it describe the code you now have.
+
+In `gradingscheme.h`, find the first line:
+
+```cpp
+// gradingscheme.h - Grade Calculator v3.1 - Chapter 21
+```
+
+Replace it with:
+
+```cpp
+// gradingscheme.h - Grade Calculator v3.2 - Chapter 22
+```
+
+Then find the ownership note in the comment block:
+
+```cpp
+ * OWNERSHIP NOTE (revisited in Chapter 22): Gradebook owns a raw pointer.
+ * That is correct here, but only because Gradebook also writes a destructor,
+ * deletes the old scheme before replacing it, and disables copying. Miss any
+ * one of those three and the program leaks or double-frees. Chapter 22 shows
+ * how to get the same behavior with none of that hand-written ceremony.
+```
+
+Replace it with:
+
+```cpp
+ * OWNERSHIP NOTE (Chapter 22): Gradebook owns its scheme through a
+ * std::unique_ptr, so a scheme is released automatically when it is replaced
+ * and when the Gradebook is destroyed. No hand-written destructor, delete, or
+ * deleted copy operations are needed.
+```
+
+Comments are part of the code. A comment that describes code that no longer
+exists is a defect, even though the compiler never notices it.
+
+##### Step 5 — Update the header comment and includes in `main.cpp`
 
 At the top of `main.cpp`, find the header comment:
 
@@ -776,7 +816,7 @@ Directly below it, add:
 #include <utility>
 ```
 
-##### Step 5 — Create schemes with `std::make_unique`
+##### Step 6 — Create schemes with `std::make_unique`
 
 In `chooseScheme`, find the three `setScheme` calls:
 
@@ -857,7 +897,7 @@ Then confirm:
 3. Click **Load from GitHub**, select
    **COSC1437xxx-Grade-Calculator-YourLastName**, and click all eleven project files to open them.
    Confirm the editor shows the expected file paths before editing.
-4. Do the Step 1 experiment and undo it, then work through Steps 2–5 above in StudySite's internal editor, in order, and click **Run** at the ▶ Run checkpoint.
+4. Do the Step 1 experiment and undo it, then work through Steps 2–6 above in StudySite's internal editor, in order, and click **Run** at the ▶ Run checkpoint.
 5. Read compiler messages and program output in the embedded Terminal, and
    type program input there when prompted. Fix every compiler error and
    warning before moving past a Run checkpoint.

@@ -517,7 +517,7 @@ The menu keeps the same five options as Chapter 19.
 |---|---|
 | `assignment.h`, `assignment.cpp` | Edit (Step 1) |
 | `gradingscheme.h`, `gradingscheme.cpp` | Create (Steps 2–3) |
-| `student.h` | Edit — one comment (Step 4) |
+| `student.h` | Edit — comments only (Step 4) |
 | `gradebook.h`, `gradebook.cpp` | Edit (Steps 5–6) |
 | `main.cpp` | Edit (Steps 7–8) |
 | `gradescale.h`, `gradescale.cpp`, `student.cpp` | No change — keep them open |
@@ -549,6 +549,18 @@ rather than retyping it where you can.
 Weighted grading needs to know which category each assignment belongs to. Add
 a `category` to `Assignment`, with a **default value** so that every existing
 call to the constructor still compiles without being edited.
+
+The first line of every class file records the version in which that file last changed. In `assignment.h`, update it. Find:
+
+```cpp
+// assignment.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// assignment.h - Grade Calculator v3.0 - Chapter 20
+```
 
 In `assignment.h`, find the constructor declaration:
 
@@ -585,6 +597,18 @@ Directly below it, add:
 
 ```cpp
     std::string category_  = "Uncategorized";
+```
+
+In `assignment.cpp`, update the first line. Find:
+
+```cpp
+// assignment.cpp - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// assignment.cpp - Grade Calculator v3.0 - Chapter 20
 ```
 
 In `assignment.cpp`, find the constructor definition:
@@ -808,6 +832,18 @@ double Weighted::computePercentage(const std::vector<Assignment>& work) const {
 course grade will now come from a grading scheme. Record that in a comment so
 the next reader is not misled.
 
+In `student.h`, update the first line. Find:
+
+```cpp
+// student.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// student.h - Grade Calculator v3.0 - Chapter 20
+```
+
 In `student.h`, find:
 
 ```cpp
@@ -828,6 +864,18 @@ Replace it with:
 This is a comment-only change; `student.cpp` does not change at all.
 
 ##### Step 5 — Make `Gradebook` scheme-aware (`gradebook.h`)
+
+In `gradebook.h`, update the first line. Find:
+
+```cpp
+// gradebook.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// gradebook.h - Grade Calculator v3.0 - Chapter 20
+```
 
 In `gradebook.h`, find the first project include:
 
@@ -900,6 +948,18 @@ What you added:
   `weighted_`) plus the `scheme_` flag that says which to use.
 
 ##### Step 6 — Grade through the selected scheme (`gradebook.cpp`)
+
+In `gradebook.cpp`, update the first line to name this version. Find:
+
+```cpp
+// gradebook.cpp - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// gradebook.cpp - Grade Calculator v3.0 - Chapter 20
+```
 
 In `gradebook.cpp`, find the constructor:
 
@@ -1171,8 +1231,7 @@ Add the same two assignments for `Ada` and report: she shows `93.3%`
 
 Then confirm:
 
-- [ ] The program compiles with no errors and no warnings with all eleven
-      files open.
+- [ ] All eleven files build together with no errors and no warnings.
 - [ ] `PointsBased` and `Weighted` both inherit `public`ly from
       `GradingScheme`, and neither repeats the cap-and-round code — both call
       `finalize`.

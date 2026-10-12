@@ -727,7 +727,7 @@ double WeightedDropLowest::computePercentage(const std::vector<Assignment>& work
 In `gradebook.h`, find the first line:
 
 ```cpp
-// gradebook.h - Grade Calculator v2.6 - Chapter 19
+// gradebook.h - Grade Calculator v3.0 - Chapter 20
 ```
 
 Replace it with:
@@ -811,7 +811,7 @@ Replace it with:
 In `gradebook.cpp`, find the first line:
 
 ```cpp
-// gradebook.cpp - Grade Calculator v2.6 - Chapter 19
+// gradebook.cpp - Grade Calculator v3.0 - Chapter 20
 ```
 
 Replace it with:

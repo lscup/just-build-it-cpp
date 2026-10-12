@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-### What you will build
+## What you will build
 
 In Chapter 18 all three classes lived in `main.cpp`. In this lab you give each
 class its own **header** (`.h`) and **implementation** (`.cpp`) file, add a
@@ -28,7 +28,7 @@ class its own **header** (`.h`) and **implementation** (`.cpp`) file, add a
 5. A short `main.cpp` with five menu options: **Add student**, **Report**,
    **Sort by grade** (new), **Custom scale**, and **Quit**.
 
-### Files in this checkpoint
+## Files in this checkpoint
 
 | File | What you do to it |
 |---|---|
@@ -47,7 +47,7 @@ function, not the missing tab.
 > the exact name shown (spelling and lowercase matter, because `#include`
 > lines refer to these names). Keep each new file open after you create it.
 
-### How to use these steps
+## How to use these steps
 
 This lab is a guided exercise, not a test. Each step tells you **which file**
 to open, shows the **exact code to find**, and shows the **exact code to put in
@@ -68,9 +68,9 @@ rather than retyping it where you can.
 > class code from `main.cpp`. Do **not** click Run until the checkpoint at the
 > end of Step 7 — until then, the classes exist in two places at once.
 
-### Build it: step by step
+## Build it: step by step
 
-#### Step 1 — Create `assignment.h` and `assignment.cpp`
+### Step 1 — Create `assignment.h` and `assignment.cpp`
 
 A **header** declares what a class looks like; its **implementation file**
 defines the function bodies. Other files `#include` the header, never the
@@ -166,7 +166,7 @@ default argument (`bonus = 0.0`) appears only in the header, never again here.
 and points possible, plus a bonus note when there is one — and **returns the
 stream**, which is what lets you chain `<<` calls.
 
-#### Step 2 — Create `gradescale.h` and `gradescale.cpp`
+### Step 2 — Create `gradescale.h` and `gradescale.cpp`
 
 Create a new file named `gradescale.h` and enter this code:
 
@@ -258,7 +258,7 @@ Two changes from Chapter 18 besides the split:
   else. Unlike `describe()`, it does not add `"  "` in front or a newline at the
   end; the caller decides the layout.
 
-#### Step 3 — Create `student.h` and `student.cpp`
+### Step 3 — Create `student.h` and `student.cpp`
 
 Create a new file named `student.h` and enter this code:
 
@@ -371,7 +371,7 @@ Notice:
 - `operator<<` prints ID, name, and percentage. It leaves out the letter
   grade, because a `Student` does not know which scale is in use.
 
-#### Step 4 — Create the `Gradebook` class
+### Step 4 — Create the `Gradebook` class
 
 In Chapter 18, `main` held a scale, a roster, and a next-ID counter as three
 separate variables. A `Gradebook` class gathers them into one object that
@@ -490,7 +490,7 @@ std::ostream& operator<<(std::ostream& out, const Gradebook& book) {
   a class average. Each class knows how to print itself, and nothing knows how
   to print anything else.
 
-#### Step 5 — Update the header comment in `main.cpp`
+### Step 5 — Update the header comment in `main.cpp`
 
 Now switch to `main.cpp`. From here on, `main.cpp` only runs the menu.
 
@@ -525,7 +525,7 @@ Replace it with:
 The new `Build` line lists all five `.cpp` files — every one must be compiled
 and linked together.
 
-#### Step 6 — Remove the classes from `main.cpp`
+### Step 6 — Remove the classes from `main.cpp`
 
 The classes now live in their own files, so `main.cpp` must stop defining
 them. It includes `gradebook.h` instead, which in turn includes the other
@@ -561,7 +561,7 @@ Afterward, `main.cpp` should begin with the header comment, then these four
 class. Quoted includes (`"gradebook.h"`) name your own files; angle-bracket
 includes (`<iostream>`) name the standard library.
 
-#### Step 7 — Rewrite `main` to use a `Gradebook`
+### Step 7 — Rewrite `main` to use a `Gradebook`
 
 Find the start of `main`:
 
@@ -646,7 +646,7 @@ What changed:
 
 > **▶ Run checkpoint:** Make sure all nine files are open in the editor, then click **Run**. The program should compile with no errors and no warnings and show the v2.6 banner and the five-option menu. An `undefined reference` error means a `.cpp` file is not open or a function name is misspelled; a `redefinition` error means a class is still defined in `main.cpp`.
 
-### Check your work
+## Check your work
 
 Run the program and type the inputs below in the Terminal.
 
@@ -683,7 +683,7 @@ Then confirm:
 - [ ] The report is printed by `std::cout << book`, and no `operator<<` uses
       `friend`.
 
-### StudySite workflow
+## StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -701,7 +701,7 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-### Save this checkpoint
+## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -719,7 +719,7 @@ Then confirm:
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-### Complete when
+## Complete when
 
 - Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 19

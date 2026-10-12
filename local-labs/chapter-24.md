@@ -2,42 +2,78 @@
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v4.0
-- **Starting point:** The working Chapter 23 v3.3 program.
+- **Starting point:** Your committed Chapter 23 v3.3 program (twelve files).
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-## Required work
+## What you will build
 
-1. Create a `GradebookError` hierarchy (`gradebookerror.h`): a base class deriving from `std::runtime_error`, plus `InvalidScaleError`, `WeightSumError`, and `FileFormatError`.
-2. Make `GradeScale`'s constructor throw `InvalidScaleError` instead of repairing bad tiers, and make `Weighted`'s weights-taking constructor throw `WeightSumError` instead of only being queryable through `weightsValid()`.
-3. Move persistence out of `Gradebook` and into two free functions, `saveGradebook` and `loadGradebook`, that throw `GradebookError`/`FileFormatError` instead of returning a bool and an out-parameter message.
-4. Make `loadGradebook` exception-safe: build a complete replacement `Gradebook` and only move-assign it over the caller's once every record has parsed and every object has constructed without throwing, so a bad file leaves the caller's gradebook completely untouched.
-5. Catch each exception where the program can explain the problem and continue — `editScale` and `chooseScheme` report the error and keep the previous scale or scheme; `main` reports a bad save file and starts a new gradebook instead of crashing.
-6. Run the complete regression plan against the Chapter 24 code checkpoint, including three new checks for the exception behavior above.
-7. Complete only the Chapter 24 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately.
+This is the release checkpoint. Until now, bad input was either quietly
+repaired (an invalid grade scale) or quietly accepted (weights that do not
+total 100). In this lab you make the program **refuse bad input with an
+exception, explain why, and carry on**. By the end you will have:
 
-Item 6 is the one most worth double-checking, exactly as in every chapter since 18 — but read "What changes from Chapter 23" below first, because this chapter deliberately retires the *lenient* half of Chapter 23's persistence, not the format it saves.
+1. An **exception hierarchy** in `gradebookerror.h`: a `GradebookError` base
+   class derived from `std::runtime_error`, and three specific errors —
+   `InvalidScaleError`, `WeightSumError`, and `FileFormatError`.
+2. A `GradeScale` constructor that **throws** `InvalidScaleError` instead of
+   repairing the tiers.
+3. A `Weighted` constructor that **throws** `WeightSumError` when the
+   weights do not total 100.
+4. **Saving and loading** the gradebook to `gradebook.csv`: loaded at
+   startup, saved from a new **Save** option, and saved again on Quit. A
+   malformed file produces a `FileFormatError` that names the file and line.
+5. `try`/`catch` blocks in `main` that report each error and keep the program
+   running, plus the return of **custom category weights** when choosing a
+   weighted scheme.
 
-## What changes from Chapter 23
+The menu grows to nine options: Add student, Report, Sort, **Edit scale**
+(renamed), Change scheme, Statistics, Find by ID, **Save** (new), and Quit.
 
-- **`GradeScale`'s constructor refuses bad input instead of repairing it.** Chapters 15 through 23 quietly fixed an out-of-order or incomplete scale so the program could keep running. That meant a user who mistyped a scale got grades computed from something they never asked for, with no warning. The constructor now throws `InvalidScaleError` for an empty tier list, a negative cutoff, tiers that do not strictly descend, or a scale that never reaches 0 — the exact same invariant Chapter 18 stated, just enforced by refusing to construct instead of silently correcting.
-- **`Weighted`'s weights-taking constructor refuses weights that do not total 100**, instead of merely letting a caller ask `weightsValid()` and choose to ignore the answer. `WeightSumError` carries the actual total, so the message can say what the total *is*, not just that it is wrong.
-- **Persistence moves out of `Gradebook` entirely.** `save()`/`load()` are gone as member functions; `saveGradebook(book, filename)` and `loadGradebook(book, filename, makeScheme)` in `main.cpp` do the same job as free functions, so `Gradebook` itself no longer needs to `#include <fstream>` or know what a file looks like.
-- **The file format on disk has not changed.** `saveGradebook`/`loadGradebook` still read and write the exact version-4 format Chapter 21 introduced — `COURSE`/`SCHEME`/`NEXTID`/`TIER`/`WEIGHT`/`STUDENT` — through the same `schemeTypeTag()`/`schemeWeightsForSave()`/`SchemeFactory` design. A file saved by Chapter 21, 22, or 23 loads correctly here, and a file saved here loads correctly there.
-- **A record `loadGradebook` cannot recognize is now refused, not skipped.** Chapter 23's `load()` collected a warning message for an unrecognized record or a bad number and kept going, loading everything else it could. This chapter's `loadGradebook` throws `FileFormatError` — naming the file, the line, and the reason — the moment it meets a record it cannot parse, on the theory that a record it cannot understand might also be one it cannot safely ignore.
-- **A failed load leaves the caller's gradebook completely untouched — not just "mostly untouched."** Every parsed value is accumulated into local variables while the file is read; only after every line has parsed and a complete `Gradebook` has been built does `loadGradebook` move-assign it over the caller's, in a single statement. If anything throws before that point — a malformed number, an unrecognized record, an invalid scale, invalid weights — the caller's original gradebook was never touched at all. This is what `Gradebook`'s move assignment operator from Chapter 22 makes possible: replacing an entire object's state is one statement, not a sequence of field-by-field updates that could be interrupted halfway through.
-- **`editScale` and `chooseScheme` catch what their own construction throws.** `editScale` never calls `book.setScale(...)` unless `GradeScale(requested)` has already succeeded, so a rejected scale leaves the working scale exactly as it was — there is nothing to roll back, because the broken replacement was never built. `chooseScheme` is guarded by the same pattern for consistency, even though every choice it currently offers uses default weights that always total 100.
-- **The regression suite grows by three checks**, all new to this chapter: constructing an invalid `GradeScale` throws `InvalidScaleError` (D11), constructing `Weighted` with weights that do not total 100 throws `WeightSumError` and reports the true total (D12), and — the one the lab's own verification list calls out by name — loading a malformed file throws `FileFormatError` *and* leaves a pre-populated sentinel gradebook completely unchanged (D13). That last check is written so that committing parsed data straight into the caller's gradebook while parsing, instead of building a separate replacement first, makes it fail.
+> **Scope:** Complete only the Chapter 24 code checkpoint here. Final-project
+> documentation, finishing touches, and submission instructions will be
+> provided separately.
+
+## Files in this checkpoint
+
+| File | What you do to it |
+|---|---|
+| `gradebookerror.h` | Create (Step 1) |
+| `gradescale.h`, `gradescale.cpp` | Edit (Step 2) |
+| `gradingscheme.h`, `gradingscheme.cpp` | Edit (Step 3) |
+| `gradebook.h`, `gradebook.cpp` | Edit (Step 4) |
+| `main.cpp` | Edit (Steps 5–10) |
+| `assignment.*`, `student.*`, `statistics.h` | **No change** — keep them open |
+
+When you are finished your project has **thirteen files**.
+
+## How to use these steps
+
+This lab is a guided exercise, not a test. Each step tells you **which file**
+to open, shows the **exact code to find**, and shows the **exact code to put in
+its place**. Work through the steps in order and copy the code from the boxes
+rather than retyping it where you can.
+
+- A **find** box shows code exactly as it appears in your program at the end
+  of the previous chapter. Use the editor's search to locate it. If you cannot
+  find it, your program differs from the previous checkpoint — compare it with
+  your last commit on GitHub before going further.
+- A **▶ Build checkpoint** marks a point where the program should build and run
+  again. Between checkpoints the program may not compile; that is expected.
+- Each step ends with a short explanation of *why*. Read it — it is the
+  chapter's concept, applied to your own program.
 
 ## Build it: step by step
 
 ### Step 1 — Write the exception hierarchy
 
+Create a new file named `gradebookerror.h` and enter this code:
+
 ```cpp
-// gradebookerror.h
+// gradebookerror.h - Grade Calculator v4.0 - Chapter 24
 #ifndef GRADEBOOKERROR_H
 #define GRADEBOOKERROR_H
 
@@ -45,10 +81,14 @@ Item 6 is the one most worth double-checking, exactly as in every chapter since 
 #include <stdexcept>
 #include <string>
 
-/** Base class for every error this application reports. Deriving from
- *  std::runtime_error means these can be caught specifically, as
- *  GradebookError, or as std::exception - a caller chooses how much it
- *  wants to know. */
+/**
+ * Base class for every error this application reports.
+ *
+ * Deriving from std::runtime_error means these can be caught either
+ * specifically, or as GradebookError, or as std::exception - a caller chooses
+ * how much it wants to know. A function that cannot produce a sensible return
+ * value for bad input throws instead of returning a sentinel nobody checks.
+ */
 class GradebookError : public std::runtime_error {
 public:
     explicit GradebookError(const std::string& what) : std::runtime_error(what) {}
@@ -95,15 +135,91 @@ private:
 #endif
 ```
 
-Every error type carries a complete, user-facing message built at the point it is thrown — `FileFormatError` in particular already knows the filename and line number, so whoever catches it does not have to reconstruct that context from scratch.
+- `GradebookError` **inherits from `std::runtime_error`**, so every error this
+  program throws can be caught as a `GradebookError`, or more generally as a
+  `std::exception`. The message passed to the constructor is what `what()`
+  returns later.
+- Each derived class adds a prefix or builds a more specific message.
+  `WeightSumError` formats the actual total into its message and also keeps it
+  in `actual()`. `FileFormatError` records the file name and line number.
+- A thrown exception carries **data**, not just a message, so the code that
+  catches it can decide what to do.
 
-### Step 2 — Make `GradeScale`'s constructor refuse instead of repair
+### Step 2 — Make `GradeScale` refuse instead of repair
+
+In `gradescale.h`, find the first line:
 
 ```cpp
-// gradescale.cpp
+// gradescale.h - Grade Calculator v2.6 - Chapter 19
+```
+
+Replace it with:
+
+```cpp
+// gradescale.h - Grade Calculator v4.0 - Chapter 24
+```
+
+Inside the class, find the two constructor declarations:
+
+```cpp
+    GradeScale();
+    explicit GradeScale(const std::vector<Tier>& requested);
+```
+
+Replace it with:
+
+```cpp
+    GradeScale();
+
+    /**
+     * Builds a scale from user-supplied tiers.
+     * @throws InvalidScaleError if the tiers do not strictly descend, if any
+     *         cutoff is negative, or if the scale does not reach 0.
+     *
+     * v2.5 quietly repaired bad input, which meant a user could type a broken
+     * scale and get grades computed from something they never asked for.
+     * Refusing to construct is the honest behavior; the caller reports why.
+     */
+    explicit GradeScale(const std::vector<Tier>& requested);
+```
+
+In `gradescale.cpp`, find the first lines of the file:
+
+```cpp
+// gradescale.cpp - Grade Calculator v2.6 - Chapter 19
+#include "gradescale.h"
+
+#include <iomanip>
+#include <ostream>
+```
+
+Replace it with:
+
+```cpp
+// gradescale.cpp - Grade Calculator v4.0 - Chapter 24
 #include "gradescale.h"
 #include "gradebookerror.h"
 
+#include <iomanip>
+#include <string>
+#include <ostream>
+```
+
+Find the start of the constructor that takes tiers:
+
+```cpp
+GradeScale::GradeScale(const std::vector<Tier>& requested) {
+```
+
+Delete that line and everything below it (the body of that constructor), down to and including this line:
+
+```cpp
+}
+```
+
+In its place, enter:
+
+```cpp
 GradeScale::GradeScale(const std::vector<Tier>& requested) {
     if (requested.empty()) {
         throw InvalidScaleError("no tiers were given.");
@@ -128,234 +244,683 @@ GradeScale::GradeScale(const std::vector<Tier>& requested) {
 }
 ```
 
-The invariant is unchanged from Chapter 18 — cutoffs strictly descend, the lowest tier is 0. Only the response to violating it changed: throwing partway through means `tiers_` is left in whatever partial state it reached, but that does not matter, because a `GradeScale` that threw during construction never finishes constructing — there is no object left for `tiers_` to be a broken member of.
+**The invariant did not change** — cutoffs still strictly descend and the
+lowest tier is still 0. Only the response to a violation changed: instead of
+skipping or patching a bad tier, the constructor **throws**. A constructor
+that throws never finishes, so **no half-built `GradeScale` can exist**.
 
-### Step 3 — Make `Weighted`'s weights-taking constructors refuse bad totals
+The doc comment in the header now says `@throws InvalidScaleError`, so anyone
+calling the constructor knows to be ready for it.
+
+> **▶ Build checkpoint:** Rebuild and run the program:
+>
+> ```bash
+> g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
+> ./gradecalc
+> ```
+>
+> The program should compile cleanly. Do **not** test *Custom scale* yet — nothing catches the new exception until Step 9, so a bad scale would end the program.
+
+### Step 3 — Make `Weighted` refuse weights that do not total 100
+
+In `gradingscheme.h`, find the first line:
 
 ```cpp
-// gradingscheme.cpp
+// gradingscheme.h - Grade Calculator v3.2 - Chapter 22
+```
+
+Replace it with:
+
+```cpp
+// gradingscheme.h - Grade Calculator v4.0 - Chapter 24
+```
+
+In `class Weighted`, find the two constructor declarations:
+
+```cpp
+    Weighted();
+    explicit Weighted(const std::vector<CategoryWeight>& weights);
+```
+
+Replace it with:
+
+```cpp
+    Weighted();
+
+    /**
+     * @throws WeightSumError if the weights do not total 100 percent.
+     *         A gradebook that silently normalizes bad weights produces
+     *         grades the instructor did not ask for.
+     */
+    explicit Weighted(const std::vector<CategoryWeight>& weights);
+```
+
+In `gradingscheme.cpp`, find the first two lines:
+
+```cpp
+// gradingscheme.cpp - Grade Calculator v3.1 - Chapter 21
+#include "gradingscheme.h"
+```
+
+Replace it with:
+
+```cpp
+// gradingscheme.cpp - Grade Calculator v4.0 - Chapter 24
+#include "gradingscheme.h"
+#include "gradebookerror.h"
+```
+
+Find the `Weighted` constructor that takes weights:
+
+```cpp
+Weighted::Weighted(const std::vector<CategoryWeight>& weights)
+    : GradingScheme("Weighted"), weights_(weights) {}
+```
+
+Replace it with:
+
+```cpp
 Weighted::Weighted(const std::vector<CategoryWeight>& weights)
     : GradingScheme("Weighted"), weights_(weights) {
     if (!weightsValid()) {
         throw WeightSumError(weightTotal());
     }
 }
-
-Weighted::Weighted(const std::string& schemeName, const std::vector<CategoryWeight>& weights)
-    : GradingScheme(schemeName), weights_(weights) {
-    if (!weightsValid()) {
-        throw WeightSumError(weightTotal());
-    }
-}
 ```
 
-`weightsValid()` and `weightTotal()` are unchanged from Chapter 20 — this chapter does not add a new way to check the weights, it adds a consequence for failing the check that already existed. `WeightedDropLowest`'s weights-taking constructor delegates to the second constructor above, so it inherits the same guarantee automatically.
+In v3.0 weights that did not total 100 were scaled proportionally, with only
+a note. Now the constructor uses its own `weightsValid()` check and throws a
+`WeightSumError` carrying the actual total.
 
-### Step 4 — Move persistence into free functions that build a replacement first
+`WeightedDropLowest`'s weights-taking constructor calls this constructor, so
+it gets the same check **for free** — you do not change `WeightedDropLowest`
+at all.
+
+### Step 4 — Let a `Gradebook` be moved, and keep IDs unique
+
+Loading a file will build a complete new `Gradebook` and then move it into
+place. A `Gradebook` cannot be copied (it holds a `unique_ptr`), but it can be
+**moved**.
+
+In `gradebook.h`, find the first line:
 
 ```cpp
-// main.cpp
+// gradebook.h - Grade Calculator v3.3 - Chapter 23
+```
+
+Replace it with:
+
+```cpp
+// gradebook.h - Grade Calculator v4.0 - Chapter 24
+```
+
+Find the constructor and the comment below it:
+
+```cpp
+    explicit Gradebook(const std::string& courseName = "Untitled Course");
+
+    // No destructor is needed now. unique_ptr releases the scheme when the
+```
+
+Replace it with:
+
+```cpp
+    explicit Gradebook(const std::string& courseName = "Untitled Course");
+
+    // Movable so a fully-built replacement can be swapped in atomically after
+    // a successful load. Copying stays disabled: schemes are uniquely owned.
+    Gradebook(Gradebook&&) = default;
+    Gradebook& operator=(Gradebook&&) = default;
+
+    // No destructor is needed now. unique_ptr releases the scheme when the
+```
+
+`= default` asks the compiler to generate the move constructor and move
+assignment operator. Each member is moved in turn — including the
+`unique_ptr`, which hands over its scheme.
+
+There is one more thing to fix before students can be loaded from a file. A
+loaded student keeps the ID it was saved with, but the `Gradebook`'s next-ID
+counter starts at 1001 every time the program runs. Without a fix, the first
+student you add after a reload would get an ID that is already taken.
+
+In `gradebook.cpp`, find the first line:
+
+```cpp
+// gradebook.cpp - Grade Calculator v3.3 - Chapter 23
+```
+
+Replace it with:
+
+```cpp
+// gradebook.cpp - Grade Calculator v4.0 - Chapter 24
+```
+
+In `addStudent`, find:
+
+```cpp
+    roster_.push_back(s);
+    idIndex_[s.id()] = roster_.size() - 1;
+```
+
+Directly below it, add:
+
+```cpp
+    // A student loaded from a file keeps its saved ID. Move the counter past
+    // it so the next new student never receives an ID that is already taken.
+    if (s.id() >= nextId_) { nextId_ = s.id() + 1; }
+```
+
+`addStudent` is the one place every student enters the roster — typed in or
+loaded — so this is the one place the counter has to be kept ahead of the
+IDs already in use. **A class protects its own invariants**; here the
+invariant is "every ID handed out is unused."
+
+### Step 5 — Update the header comment and includes in `main.cpp`
+
+At the top of `main.cpp`, find the header comment:
+
+```cpp
+// =============================================================================
+//  Grade Calculator  v3.3                                          Chapter 23
+// -----------------------------------------------------------------------------
+//  Change  : Templates and the STL. Statistics<T> computes mean, median,
+//            range, and standard deviation for any numeric type. std::map
+//            indexes students by ID and counts the letter distribution.
+//            Sorting is expressed with a lambda instead of operator<.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp
+//            student.cpp gradingscheme.cpp gradebook.cpp -o gradecalc
+// =============================================================================
+```
+
+Replace it with:
+
+```cpp
+// =============================================================================
+//  Grade Calculator  v4.0                                          Chapter 24
+//  RELEASE BUILD
+// -----------------------------------------------------------------------------
+//  Change  : Errors are reported as exceptions from a GradebookError hierarchy
+//            instead of silently repaired or returned as sentinel values.
+//              InvalidScaleError  tiers that do not descend or reach 0
+//              WeightSumError     category weights that do not total 100
+//              FileFormatError    a gradebook file that cannot be parsed
+//            Bad input now costs the user one clear message and one retry,
+//            never a grade computed from something they did not ask for.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp
+//            student.cpp gradingscheme.cpp gradebook.cpp -o gradecalc
+//  Usage   : see README.md
+// =============================================================================
+```
+
+Below it, find the includes:
+
+```cpp
+#include "gradebook.h"
+
+#include <iostream>
+#include <memory>
+#include <utility>
+#include <limits>
+#include <string>
+```
+
+Replace it with:
+
+```cpp
+#include "gradebook.h"
+#include "gradebookerror.h"
+
+#include <fstream>
+#include <iostream>
+#include <limits>
+#include <memory>
+#include <sstream>
+#include <string>
+#include <utility>
+
+const std::string DEFAULT_FILE = "gradebook.csv";
+```
+
+`<fstream>` and `<sstream>` are back for file input and output, and
+`DEFAULT_FILE` names the file the gradebook is saved to.
+
+### Step 6 — Add `splitCsv` and `saveGradebook`
+
+Find the comment just above `chooseScheme` (below `readLine`):
+
+```cpp
+/** Builds the scheme the user asked for. The only place that names the
+```
+
+Directly above it, add:
+
+```cpp
+// -----------------------------------------------------------------------------
+//  Persistence
+// -----------------------------------------------------------------------------
+
+std::vector<std::string> splitCsv(const std::string& line) {
+    std::vector<std::string> fields;
+    std::istringstream in(line);
+    std::string field;
+    while (std::getline(in, field, ',')) { fields.push_back(field); }
+    return fields;
+}
+
 void saveGradebook(const Gradebook& book, const std::string& filename) {
     std::ofstream out(filename);
     if (!out) {
-        throw GradebookError("Cannot write '" + filename + "'.");
+        throw GradebookError("Cannot open '" + filename + "' for writing.");
     }
-    out << "# Grade Calculator gradebook file, version 4 (Chapter 21)\n";
-    out << "COURSE," << book.courseName() << "\n";
-    out << "SCHEME," << book.schemeTypeTag() << "\n";
-    out << "NEXTID," << book.nextId() << "\n";
+    out << "# Grade Calculator gradebook, format version 2\n";
     for (const GradeScale::Tier& t : book.scale().tiers()) {
         out << "TIER," << t.cutoff << "," << t.letter << "\n";
     }
-    for (const auto& w : book.schemeWeightsForSave()) {
-        out << "WEIGHT," << w.first << "," << w.second << "\n";
-    }
     for (std::size_t i = 0; i < book.size(); ++i) {
         const Student& s = book[i];
-        out << "STUDENT," << s.id() << "," << s.name();
+        out << "STUDENT," << s.id() << "," << s.name() << "\n";
         for (const Assignment& a : s.assignments()) {
-            out << "," << a.name() << "," << a.pointsEarned() << ","
-                << a.pointsPossible() << "," << a.bonusPoints() << "," << a.category();
+            out << "WORK," << s.id() << "," << a.name() << "," << a.pointsEarned()
+                << "," << a.pointsPossible() << "," << a.bonusPoints()
+                << "," << a.category() << "\n";
         }
-        out << "\n";
     }
     if (!out.good()) {
         throw GradebookError("Writing '" + filename + "' failed partway through.");
     }
 }
+```
 
-bool loadGradebook(Gradebook& book, const std::string& filename, Gradebook::SchemeFactory makeScheme) {
+- `splitCsv` is the same helper you wrote in Chapter 15.
+- The file format is **version 2**: `TIER` lines for the scale, then a
+  `STUDENT` line for each student, followed by one `WORK` line per assignment
+  — including its **category**.
+- `saveGradebook` returns nothing. If the file cannot be opened, or the
+  writing fails partway through, it **throws** a `GradebookError` instead of
+  returning `false` for a caller to forget to check.
+
+### Step 7 — Add `loadGradebook`, which builds a replacement first
+
+Find the same comment line again — it is now just below `saveGradebook`:
+
+```cpp
+/** Builds the scheme the user asked for. The only place that names the
+```
+
+Directly above it, add:
+
+```cpp
+/** @throws FileFormatError if any record is malformed. */
+void loadGradebook(Gradebook& book, const std::string& filename) {
     std::ifstream in(filename);
-    if (!in) { return false; }   // no save file yet is normal, not an error
+    if (!in) {
+        throw GradebookError("No file named '" + filename + "' was found.");
+    }
 
-    std::string loadedCourse = book.courseName();
-    std::string loadedTag = book.schemeTypeTag();
-    std::vector<GradeScale::Tier> loadedTiers;
-    std::vector<Weighted::CategoryWeight> loadedWeights;
-    std::vector<Student> loadedStudents;
-    int loadedNextId = 1001;
+    std::vector<GradeScale::Tier> tiers;
+    std::vector<Student> loaded;
+    std::string line;
+    int lineNumber = 0;
 
-    // ... parse every line into the local variables above, exactly as
-    //     Chapter 23's load() did, except that a bad number or an
-    //     unrecognized record throws FileFormatError instead of noting a
-    //     message and continuing (Step 5) ...
+    while (std::getline(in, line)) {
+        ++lineNumber;
+        if (line.empty() || line[0] == '#') { continue; }
+        std::vector<std::string> f = splitCsv(line);
+        if (f.empty()) { continue; }
 
-    // Nothing above this point has touched book. Everything below builds a
-    // complete, independent replacement; only the final statement touches
-    // book, and only after every step here has succeeded.
-    Gradebook fresh(loadedCourse);
-    fresh.setScale(loadedTiers.empty() ? GradeScale() : GradeScale(loadedTiers));
-    fresh.setScheme(makeScheme(loadedTag, loadedWeights));
-    for (const Student& s : loadedStudents) { fresh.addStudent(s); }
-    fresh.setNextId(loadedNextId);
+        try {
+            if (f[0] == "TIER") {
+                if (f.size() < 3 || f[2].empty()) {
+                    throw FileFormatError(filename, lineNumber, "a TIER needs a cutoff and a letter.");
+                }
+                tiers.push_back({std::stod(f[1]), f[2][0]});
+            } else if (f[0] == "STUDENT") {
+                if (f.size() < 3) {
+                    throw FileFormatError(filename, lineNumber, "a STUDENT needs an ID and a name.");
+                }
+                loaded.push_back(Student(f[2], std::stoi(f[1])));
+            } else if (f[0] == "WORK") {
+                if (f.size() < 7) {
+                    throw FileFormatError(filename, lineNumber, "a WORK record needs seven fields.");
+                }
+                int owner = std::stoi(f[1]);
+                bool placed = false;
+                for (Student& s : loaded) {
+                    if (s.id() == owner) {
+                        s.addAssignment(Assignment(f[2], std::stod(f[3]),
+                                                   std::stod(f[4]), std::stod(f[5]), f[6]));
+                        placed = true;
+                        break;
+                    }
+                }
+                if (!placed) {
+                    throw FileFormatError(filename, lineNumber,
+                                          "work belongs to unknown student ID " + f[1] + ".");
+                }
+            } else {
+                throw FileFormatError(filename, lineNumber, "unrecognized record type '" + f[0] + "'.");
+            }
+        } catch (const std::invalid_argument&) {
+            // stod and stoi throw this on non-numeric text. Translate it into
+            // an error that names the file and line the user can actually fix.
+            throw FileFormatError(filename, lineNumber, "expected a number here.");
+        } catch (const std::out_of_range&) {
+            throw FileFormatError(filename, lineNumber, "a number is out of range.");
+        }
+    }
 
+    // Build the scale first: if it is invalid, nothing is loaded.
+    Gradebook fresh(book.courseName());
+    if (!tiers.empty()) {
+        fresh.setScale(GradeScale(tiers));   // may throw InvalidScaleError
+    }
+    for (const Student& s : loaded) { fresh.addStudent(s); }
     book = std::move(fresh);
-    return true;
 }
+
+// -----------------------------------------------------------------------------
 ```
 
-Compare this with Chapter 23's `load()`, which wrote straight into `this` at the end — `courseName_ = loadedCourse; scale_ = ...;` field by field. That worked in Chapter 23 because `load()` never threw partway through: a bad record there just meant a note in `message` and moving on to the next line. Once bad input can throw, field-by-field assignment stops being safe — a throw between the second and third field would leave `book` in a state that never existed on its own. Building `fresh` completely, then replacing `book` with one `std::move`, means there is no such window: either every field changes together, or none of them do.
+Read this function in two halves.
 
-`Gradebook::gradebook.h`'s `SchemeFactory` and `Gradebook(Gradebook&&) = default;` / `operator=(Gradebook&&) = default;` (from Chapter 22) are what make this pattern work — `Gradebook`'s move assignment already correctly replaces every member, including releasing the old `unique_ptr<GradingScheme>` and taking over the new one, with no extra code required here.
+**Reading.** Every line is parsed into local variables — `tiers` and
+`loaded` — never directly into `book`. Inside the loop:
 
-### Step 5 — Translate `stod`/`stoi` failures and reject unrecognized records
+- A record with too few fields, a `WORK` line for an unknown student, or an
+  unrecognized record type throws a `FileFormatError` naming the line.
+- `std::stod` and `std::stoi` throw `std::invalid_argument` on text that is
+  not a number, and `std::out_of_range` on a number too large. The `catch`
+  blocks **translate** those library exceptions into a `FileFormatError` that
+  names the file and line the user can actually fix.
+
+**Committing.** Only after the whole file has been read does the function
+build a `fresh` gradebook, set its scale (which may throw
+`InvalidScaleError`), add the students, and finally
+`book = std::move(fresh);`. If anything throws before that last line, `book`
+is **untouched** — the load either succeeds completely or changes nothing.
+That is what the move operations from Step 4 make possible.
+
+The `// ----` line at the end separates the persistence section from the
+menu helpers below it.
+
+> **▶ Build checkpoint:** Rebuild and run the program:
+>
+> ```bash
+> g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
+> ./gradecalc
+> ```
+>
+> The program should compile cleanly; the new functions exist but are not called yet.
+
+### Step 8 — Rewrite `chooseScheme` to accept custom weights safely
+
+Find the comment above `chooseScheme`:
 
 ```cpp
-namespace {
-    double parseDouble(const std::string& filename, int lineNumber, const std::string& text) {
-        try {
-            return std::stod(text);
-        } catch (const std::invalid_argument&) {
-            throw FileFormatError(filename, lineNumber, "'" + text + "' is not a number.");
-        } catch (const std::out_of_range&) {
-            throw FileFormatError(filename, lineNumber, "'" + text + "' is out of range.");
-        }
-    }
-
-    int parseInt(const std::string& filename, int lineNumber, const std::string& text) {
-        try {
-            return std::stoi(text);
-        } catch (const std::invalid_argument&) {
-            throw FileFormatError(filename, lineNumber, "'" + text + "' is not a whole number.");
-        } catch (const std::out_of_range&) {
-            throw FileFormatError(filename, lineNumber, "'" + text + "' is out of range.");
-        }
-    }
-}
+/** Builds the scheme the user asked for. The only place that names the
 ```
 
-Every place `loadGradebook` used to call `std::stod`/`std::stoi` directly now calls these instead — `parseInt(filename, lineNumber, f[1])` in place of `std::stoi(f[1])`, and so on for `TIER`, `WEIGHT`, and `STUDENT` records. A record type the loop does not recognize at all now throws directly:
+Delete that line and everything below it (the whole `chooseScheme` function), down to and including this line:
 
 ```cpp
-} else {
-    // Chapter 23's load() noted this in a message and kept going.
-    // This version refuses instead.
-    throw FileFormatError(filename, lineNumber, "unrecognized record '" + f[0] + "'.");
 }
 ```
 
-`std::invalid_argument` and `std::out_of_range` are standard library exceptions that say a conversion failed, but not which file, which line, or what a user should do about it. Catching them and throwing `FileFormatError` in their place turns a low-level failure into a message someone can act on.
+In its place, enter:
 
-### Step 6 — Catch each exception where the program can explain and continue
+```cpp
+void chooseScheme(Gradebook& book) {
+    std::cout << "  1) Points-based\n";
+    std::cout << "  2) Weighted by category\n";
+    std::cout << "  3) Weighted, lowest dropped per category\n";
+    std::string c = readLine("  Choice: ");
+
+    if (c.empty() || c[0] == '1') {
+        book.setScheme(std::make_unique<PointsBased>());
+    } else {
+        std::vector<Weighted::CategoryWeight> weights;
+        if (readLine("  Enter your own category weights? (y/n): ").substr(0, 1) == "y") {
+            while (true) {
+                std::string name = readLine("    Category (or 'done'): ");
+                if (name == "done" || name.empty()) { break; }
+                weights.push_back({name, readNonNegative("      Weight (percent): ")});
+            }
+        }
+        try {
+            if (c[0] == '2') {
+                book.setScheme(weights.empty() ? std::make_unique<Weighted>()
+                                               : std::make_unique<Weighted>(weights));
+            } else {
+                book.setScheme(weights.empty() ? std::make_unique<WeightedDropLowest>()
+                                               : std::make_unique<WeightedDropLowest>(weights));
+            }
+        } catch (const WeightSumError& e) {
+            std::cout << "  " << e.what() << "\n";
+            std::cout << "  The grading scheme was not changed.\n";
+            return;
+        }
+    }
+    std::cout << "  Grading is now: " << book.schemeName() << "\n";
+}
+```
+
+- Points-based grading is chosen as before.
+- For either weighted scheme, the user may now enter their own categories
+  and weights. If they enter none, the default weights are used.
+- Creating the scheme sits inside a `try` block. If the weights do not total
+  100, the `Weighted` constructor throws, the `catch` prints the error's
+  message, and the function **returns early** — `setScheme` was never reached,
+  so the previous scheme is still in effect.
+
+### Step 9 — Add `editScale`
+
+Find the first line of `main`:
+
+```cpp
+int main() {
+```
+
+Directly above it, add:
 
 ```cpp
 void editScale(Gradebook& book) {
     std::vector<GradeScale::Tier> requested;
-    // ... read tiers from the user ...
+    std::cout << "  Enter tiers highest first; the lowest must be 0. 'done' to finish.\n";
+    while (true) {
+        std::string lt = readLine("    Letter (or 'done'): ");
+        if (lt == "done" || lt.empty()) { break; }
+        requested.push_back({readNonNegative("      Minimum percentage: "), lt[0]});
+    }
     try {
         book.setScale(GradeScale(requested));
         std::cout << "  " << book.scale() << "\n";
     } catch (const InvalidScaleError& e) {
-        std::cout << "  " << e.what() << " Keeping the previous scale.\n";
+        // The old scale is untouched: the new one was never constructed.
+        std::cout << "  " << e.what() << "\n";
+        std::cout << "  Your previous scale is still in effect.\n";
     }
 }
+```
 
-void chooseScheme(Gradebook& book) {
-    // ... read the user's choice ...
+This is the *Custom scale* code from `main`, moved into its own function and
+protected by `try`/`catch`. Look at the comment in the `catch` block: because
+`GradeScale(requested)` throws **before** `book.setScale(...)` runs, the old
+scale is never replaced. The user sees why the scale was refused and keeps
+the scale they had.
+
+### Step 10 — Rewrite `main`: load, catch, save
+
+Find the start of `main`:
+
+```cpp
+int main() {
+```
+
+Delete that line and everything below it, all the way to the final closing `}` at the very end of the file.
+
+In its place, enter the new `main`:
+
+```cpp
+int main() {
+    std::cout << "=== GRADE CALCULATOR v4.0 ===\n\n";
+
+    Gradebook book("Programming Fundamentals");
+
     try {
-        // ... construct the chosen scheme with its default weights ...
-        std::cout << "  Grading is now: " << book.schemeName() << "\n";
-    } catch (const WeightSumError& e) {
-        std::cout << "  " << e.what() << " Keeping the previous scheme.\n";
+        loadGradebook(book, DEFAULT_FILE);
+        std::cout << "Loaded " << DEFAULT_FILE << " (" << book.size() << " students).\n";
+    } catch (const GradebookError& e) {
+        std::cout << e.what() << "\n";
+        std::cout << "Starting a new gradebook.\n";
     }
-}
-```
 
-In `editScale`, `book.setScale(...)` is never reached unless `GradeScale(requested)` succeeded — the broken scale was never built, so there is nothing to roll back. `main()` wraps the startup load the same way:
+    std::cout << "\nSelect a grading scheme:\n";
+    chooseScheme(book);
 
-```cpp
-try {
-    loaded = loadGradebook(book, DEFAULT_FILE, makeScheme);
-    std::cout << (loaded ? "Loaded " + DEFAULT_FILE + ".\n"
-                          : "No file named '" + DEFAULT_FILE + "' was found. Starting a new gradebook.\n");
-} catch (const GradebookError& e) {
-    std::cout << "  " << e.what() << " Starting a new gradebook instead.\n";
-}
-```
+    bool running = true;
+    while (running) {
+        std::cout << "\n1) Add student  2) Report  3) Sort  4) Edit scale\n"
+                     "5) Change scheme  6) Statistics  7) Find by ID  "
+                     "8) Save  9) Quit\nChoice: ";
+        std::string line;
+        if (!std::getline(std::cin, line)) { break; }
+        char c = line.empty() ? '?' : line[0];
 
-A missing file is not an error — `loadGradebook` returns `false` for that, not a throw. A *malformed* file is an error, and `main()` recovers from it exactly the way it recovers from a missing one: by starting fresh, after telling the user why.
+        try {
+            if (c == '1') {
+                std::string name = readLine("  Student name: ");
+                if (name.empty()) { continue; }
+                Student s(name, book.claimNextId());
+                while (true) {
+                    std::string an = readLine("    Assignment name (or 'done'): ");
+                    if (an == "done" || an.empty()) { break; }
+                    double earned   = readNonNegative("      Points earned  : ");
+                    double possible = readNonNegative("      Points possible: ");
+                    double bonus    = readNonNegative("      Bonus points   : ");
+                    std::string cat = readLine("      Category       : ");
+                    if (cat.empty()) { cat = "Uncategorized"; }
+                    s.addAssignment(Assignment(an, earned, possible, bonus, cat));
+                }
+                book.addStudent(s);
+                std::cout << "  Added " << s.name() << " as ID " << s.id() << ".\n";
+            } else if (c == '2') {
+                std::cout << book << "\n";
+            } else if (c == '3') {
+                book.sortByPercentage();
+                std::cout << "  Sorted.\n";
+            } else if (c == '4') {
+                editScale(book);
+            } else if (c == '5') {
+                chooseScheme(book);
+            } else if (c == '6') {
+                std::cout << "\n--- Class statistics ---\n";
+                book.printStatistics(std::cout);
+            } else if (c == '7') {
+                std::string s = readLine("  Student ID: ");
+                int id = 0;
+                try { id = std::stoi(s); }
+                catch (...) { std::cout << "  Not a valid ID.\n"; continue; }
+                const Student* found = book.findById(id);
+                if (found != nullptr) {
+                    std::cout << "  " << found->name() << ": "
+                              << book.percentageFor(*found) << "%\n";
+                } else {
+                    std::cout << "  No student with ID " << id << ".\n";
+                }
+            } else if (c == '8') {
+                saveGradebook(book, DEFAULT_FILE);
+                std::cout << "  Saved to " << DEFAULT_FILE << ".\n";
+            } else if (c == '9') {
+                running = false;
+            } else {
+                std::cout << "  Please enter 1-9.\n";
+            }
+        } catch (const GradebookError& e) {
+            // Any error our own code raises is reported and the loop continues.
+            // No operation leaves the gradebook half-modified.
+            std::cout << "  " << e.what() << "\n";
+        }
+    }
 
-### Step 7 — Update the menu and add three regression checks
-
-The menu is unchanged from Chapter 23 — ten options, compared as whole strings, with option 8 now calling `saveGradebook` inside a `try`/`catch` instead of checking a returned `bool`:
-
-```cpp
-} else if (c == "8") {
     try {
         saveGradebook(book, DEFAULT_FILE);
-        std::cout << "  Saved to " << DEFAULT_FILE << ".\n";
+        std::cout << "\nGradebook saved. Goodbye.\n";
     } catch (const GradebookError& e) {
-        std::cout << "  " << e.what() << "\n";
+        std::cout << "\nWarning: " << e.what() << "\n";
+        std::cout << "Your work was not saved. Goodbye.\n";
+        return 1;
     }
+    return 0;
 }
 ```
 
-The three new regression checks:
+- **Startup** tries to load `gradebook.csv`. If there is no file, or it is
+  malformed, the error is printed and a new gradebook starts.
+- **The whole menu body is inside one `try` block.** Any `GradebookError`
+  raised by an option is caught at the bottom of the loop, its message is
+  printed, and the loop continues. The `catch` names `GradebookError`, so it
+  handles all three specific errors.
+- **Edit scale** (option 4) calls `editScale`, and **Change scheme**
+  (option 5) calls the new `chooseScheme`.
+- **Save** (option 8) is new. **Quit** moves to option 9.
+- **On exit** the gradebook is saved. If that fails, the program says so and
+  returns `1` — a nonzero exit code tells the operating system something went
+  wrong.
 
-```cpp
-// Chapter 24: a scale that does not strictly descend must be refused.
-bool threw11 = false;
-try {
-    GradeScale bad({ {50.0, 'A'}, {80.0, 'B'} });   // out of order
-} catch (const InvalidScaleError&) {
-    threw11 = true;
-}
-check(threw11, "D11 GradeScale with non-descending tiers throws InvalidScaleError");
+> **▶ Build checkpoint:** Rebuild and run the program:
+>
+> ```bash
+> g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
+> ./gradecalc
+> ```
+>
+> The program should compile with no errors and no warnings. On the first run it prints `No file named 'gradebook.csv' was found.` and `Starting a new gradebook.` — that is correct.
 
-// Chapter 24: weights that do not total 100 must be refused, with the
-// actual total reported.
-bool threw12 = false;
-try {
-    Weighted bad({ {"Exam", 50.0}, {"Homework", 40.0} });   // totals 90, not 100
-} catch (const WeightSumError& e) {
-    threw12 = true;
-    check(std::abs(e.actual() - 90.0) < 0.01,
-          "D12 WeightSumError reports the actual total (90.0)");
-}
-check(threw12, "D12 Weighted with weights not totaling 100 throws WeightSumError");
+## Check your work
 
-// Chapter 24: a malformed file must be refused, and the gradebook passed
-// into loadGradebook() must come out exactly as it went in.
-// ... write a file with a STUDENT record whose ID field is not a number,
-//     pre-populate a "sentinel" Gradebook with one student, remember its
-//     course name and size, call loadGradebook(sentinel, badFile, makeScheme) ...
-check(threw13, "D13 loading a malformed file throws FileFormatError");
-check(sentinel.courseName() == sentinelCourseBefore && sentinel.size() == sentinelSizeBefore,
-      "D13 a failed load leaves the caller's gradebook completely untouched");
-```
+Work through this test plan in your terminal. A release is a claim that you
+tested the whole program, not only the cases you happened to try while typing.
 
-D13 is written so that committing parsed values straight into `book` while the file is still being read — instead of accumulating into local variables and swapping in one `std::move` at the end — makes it fail. That was checked directly while building this chapter: moving `fresh.addStudent(s)` to a `book.addStudent(s)` executed *during* the parse loop, ahead of the malformed record that throws, made the second D13 check report **FAIL**, exactly as the atomic-swap design predicts. The passing version you are building is the one that keeps every mutation inside `fresh` until the very last line.
+1. **Fresh start.** Choose `1` (Points-based). Add `Ada` with one assignment:
+   `HW1`, earned `9`, possible `10`, bonus `0`, category Enter. Report with
+   `2`: `1001  Ada                     90.0%   A`.
+2. **An invalid scale is refused.** Choose `4` (Edit scale). Enter `A` with
+   `80`, then `B` with `85`, then `done`. You should see:
 
-## Verification
+   ```text
+     Invalid grade scale: tier 'B' at 85 is not below the previous tier at 80.
+     Your previous scale is still in effect.
+   ```
 
-- Entering an out-of-order custom scale (for example, A at 80, then B at 85) is refused: **Custom scale** reports the specific problem and the working scale is unchanged.
-- Reloading with weights that do not total 100 is refused: the scheme is unchanged, and the reported message states the actual total (for example, "Category weights total 80.0 percent; they must total 100.").
-- Starting the program with no `gradebook.csv` present reports "No file... was found" and starts a new gradebook — this is not an error path.
-- Starting the program with a `gradebook.csv` containing an unrecognized record, or a non-numeric field where a number is expected, reports the specific file and line and starts a new gradebook instead of crashing.
-- A gradebook saved by this chapter loads correctly if you rename it and load it with the Chapter 21, 22, or 23 program, and vice versa — the file format itself did not change.
-- Points-based, weighted, and weighted-drop-lowest grading, plus save/load, sorting, `findById`, and statistics, all still work exactly as in Chapter 23.
-- `Run tests` should report **26 of 26 checks passed**.
-- Building with `-fsanitize=address` and switching schemes, throwing and catching every exception path, and exiting reports no leaks — `Gradebook`'s move assignment (Chapter 22) still runs cleanly when it is invoked from `loadGradebook` instead of by hand.
+   Report again: Ada is still an `A` under the default scale.
+3. **A scale that does not reach 0 is refused.** Choose `4` and enter only `A`
+   with `90`, then `done`. You should see a message that the lowest tier must
+   have a cutoff of 0, and the previous scale stays in effect.
+4. **Bad weights are refused.** Choose `5`, then `2`, answer `y`, and enter
+   `Exam` `50` and `Homework` `30`, then `done`. You should see:
+
+   ```text
+     Category weights total 80.0 percent; they must total 100.
+     The grading scheme was not changed.
+   ```
+
+5. **Save and reload.** Choose `8`. You should see
+   `Saved to gradebook.csv.` Then choose `9` to quit; the program prints
+   `Gradebook saved. Goodbye.` Run `./gradecalc` again: the program should print
+   `Loaded gradebook.csv (1 students).` Choose a scheme, then report — Ada is
+   back with 90.0%. Now add a new student, `Bo`, with no assignments
+   (type `done` right away). The program should print `Added Bo as ID 1002.`
+   — not 1001, which Ada already has.
+
+Then confirm:
+
+- [ ] All thirteen files build together with no errors and no warnings.
+- [ ] No input you can type makes the program crash or stop unexpectedly.
+- [ ] Every `throw` in the program throws a class derived from
+      `GradebookError`, and every `catch` catches by **`const` reference**.
+- [ ] `assignment.*`, `student.*`, and `statistics.h` are unchanged from
+      Chapter 23.
 
 ## Optional local workflow
 
@@ -368,15 +933,10 @@ toolchain. An equivalent local C++17 environment is acceptable.
    git pull --ff-only
    ```
 
-2. Edit the current project files in your local editor.
-3. Build every source file:
-
-   ```bash
-   g++ -std=c++17 -Wall -Wextra *.cpp -o gradecalc
-   ```
-
-4. Fix every compiler error and warning.
-5. Run the program and complete the verification list:
+2. Work through Steps 1–10 above in your local editor, in order, building and running at each ▶ Build checkpoint.
+3. Fix every compiler error and warning before moving past a Build
+   checkpoint.
+4. Run the program and complete the **Check your work** list:
 
    ```bash
    ./gradecalc
@@ -394,6 +954,6 @@ Confirm the new commit appears in the correct repository on GitHub.
 
 ## Complete when
 
-- The verification list passes in your local environment.
+- Every item in **Check your work** passes in your local environment.
 - The correct cumulative repository contains the Chapter 24 checkpoint.
 - The commit is pushed to GitHub.

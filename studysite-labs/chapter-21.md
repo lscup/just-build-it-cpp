@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-### What you will build
+## What you will build
 
 In v3.0 the grading scheme was chosen once at startup, and `Gradebook` used
 an `if` to decide which scheme's `computePercentage` to call. In this lab you
@@ -28,7 +28,7 @@ make the scheme **polymorphic**. By the end you will have:
    user can switch schemes mid-session and every grade recomputes
    immediately.
 
-### What is different about v3.1
+## What is different about v3.1
 
 - **No startup weights prompt.** v3.0 let you type custom category weights
   at startup. v3.1 removes that prompt to keep the focus on polymorphism:
@@ -37,7 +37,7 @@ make the scheme **polymorphic**. By the end you will have:
 - **The menu grows to six options**: Add student, Report, Sort, Custom scale,
   **Change scheme** (new), and Quit (now option 6).
 
-### Files in this checkpoint
+## Files in this checkpoint
 
 | File | What you do to it |
 |---|---|
@@ -46,7 +46,7 @@ make the scheme **polymorphic**. By the end you will have:
 | `main.cpp` | Edit (Steps 5–7) |
 | `assignment.*`, `gradescale.*`, `student.*` | **No change** — keep them open |
 
-### How to use these steps
+## How to use these steps
 
 This lab is a guided exercise, not a test. Each step tells you **which file**
 to open, shows the **exact code to find**, and shows the **exact code to put in
@@ -63,9 +63,9 @@ rather than retyping it where you can.
 - Each step ends with a short explanation of *why*. Read it — it is the
   chapter's concept, applied to your own program.
 
-### Build it: step by step
+## Build it: step by step
 
-#### Step 1 — Make `GradingScheme` abstract (`gradingscheme.h`)
+### Step 1 — Make `GradingScheme` abstract (`gradingscheme.h`)
 
 In `gradingscheme.h`, find the first line:
 
@@ -216,7 +216,7 @@ public:
   `Weighted` — the weights, `weightTotal()`, `weightsValid()`, even its name —
   and overrides only `computePercentage`.
 
-#### Step 2 — Implement the third scheme (`gradingscheme.cpp`)
+### Step 2 — Implement the third scheme (`gradingscheme.cpp`)
 
 In `gradingscheme.cpp`, find the first line:
 
@@ -283,12 +283,12 @@ double WeightedDropLowest::computePercentage(const std::vector<Assignment>& work
 
 > **▶ Run checkpoint:** Click **Run**. The program should compile cleanly and behave exactly like v3.0. `Gradebook` still holds concrete `PointsBased` and `Weighted` objects, which is allowed — only `GradingScheme` itself is abstract.
 
-#### Step 3 — Hold the scheme through a base-class pointer (`gradebook.h`)
+### Step 3 — Hold the scheme through a base-class pointer (`gradebook.h`)
 
 In `gradebook.h`, find the first line:
 
 ```cpp
-// gradebook.h - Grade Calculator v2.6 - Chapter 19
+// gradebook.h - Grade Calculator v3.0 - Chapter 20
 ```
 
 Replace it with:
@@ -367,12 +367,12 @@ Replace it with:
   3. **copying is disabled** with `= delete`. A copied `Gradebook` would
      hold the same pointer as the original, and both would `delete` it.
 
-#### Step 4 — Dispatch through the pointer (`gradebook.cpp`)
+### Step 4 — Dispatch through the pointer (`gradebook.cpp`)
 
 In `gradebook.cpp`, find the first line:
 
 ```cpp
-// gradebook.cpp - Grade Calculator v2.6 - Chapter 19
+// gradebook.cpp - Grade Calculator v3.0 - Chapter 20
 ```
 
 Replace it with:
@@ -441,7 +441,7 @@ The rest of `gradebook.cpp` — `classAverage`, `sortByPercentage`, and
 > **Heads-up:** `main.cpp` still uses `Gradebook::Scheme`, which no longer
 > exists, so the program will not compile until the end of Step 7.
 
-#### Step 5 — Update the header comment in `main.cpp`
+### Step 5 — Update the header comment in `main.cpp`
 
 At the top of `main.cpp`, find the header comment:
 
@@ -482,7 +482,7 @@ Replace it with:
 // =============================================================================
 ```
 
-#### Step 6 — Add `chooseScheme`, the one place that names concrete types
+### Step 6 — Add `chooseScheme`, the one place that names concrete types
 
 In `main.cpp`, find the first line of `main`:
 
@@ -512,7 +512,7 @@ when the user makes a choice, and its only job is to **create** the right
 object with `new` and hand it to `book.setScheme(...)`, which takes
 ownership. Nothing downstream ever asks which scheme it has.
 
-#### Step 7 — Rewrite `main` with a *Change scheme* option
+### Step 7 — Rewrite `main` with a *Change scheme* option
 
 Find the start of `main`:
 
@@ -596,7 +596,7 @@ int main() {
 
 > **▶ Run checkpoint:** Make sure all eleven files are open and click **Run**. The program should compile with no errors and no warnings and open by asking you to select a grading scheme.
 
-### Check your work
+## Check your work
 
 Run the program and choose `1` (Points-based). Add `Ada` with three
 assignments:
@@ -636,7 +636,7 @@ Then confirm:
 - [ ] `assignment.*`, `gradescale.*`, and `student.*` are unchanged from
       Chapter 20.
 
-### StudySite workflow
+## StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -654,7 +654,7 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-### Save this checkpoint
+## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -672,7 +672,7 @@ Then confirm:
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-### Complete when
+## Complete when
 
 - Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 21

@@ -1,24 +1,31 @@
 # Lab Instruction Authoring
 
-The file chapters.json is the shared source for the StudySite and optional
-local Grade Calculator lab instructions.
+The Grade Calculator labs exist in three forms that must always say the same
+thing:
 
-After changing the manifest or an instruction template, regenerate both sets:
+- **Embedded labs** — the "Your StudySite Lab" section near the end of each
+  chapter (`NN-*.md`). This is the canonical text.
+- **`studysite-labs/chapter-NN.md`** — the embedded lab as a standalone page,
+  headings promoted two levels (`###` → `#`, `####` → `##`, `#####` → `###`).
+  This is the file copied into each student repository as
+  `Instructions/ChapterNN_instructions.md`.
+- **`local-labs/chapter-NN.md`** — the same lab for students working with a
+  local C++17 toolchain: identical steps, with build commands in place of
+  StudySite's **Run**, and `git` commands in place of **Save to GitHub**.
 
-    python3 scripts/generate_lab_instructions.py
+`chapters.json` holds summary metadata for every chapter (title, version,
+starting point, what is built, verification items, commit message). It is
+also the manifest the `lscup/grade-calculator` repository uses to generate its
+own short-form lab pages, so keep its Chapter 13–24 entries in step with the
+embedded labs.
 
-Then validate that all generated files are current and that the two
-environment workflows remain separate:
+## Chapters 18–24
 
-    python3 scripts/generate_lab_instructions.py --check
-    python3 scripts/validate_lab_instructions.py
-
-Generated output:
-
-- studysite-labs/ — StudySite internal editor, Run, embedded Terminal, Tutor,
-  and Load from GitHub/Save to GitHub workflow.
-- local-labs/ — local editor, C++17 compiler, executable, Git commit, and push
-  workflow.
-
-Do not hand-edit generated chapter files. Update chapters.json or the generator
-so both instruction sets stay aligned.
+The Chapter 18–24 labs walk students from one solution version to the next
+(`v2.4` → `v4.0` in `lscup/grade-calculator`) with explicit find-and-replace
+steps. Each lab has been checked mechanically: applying its steps to the
+previous version's solution reproduces the next version's solution exactly,
+and every Run checkpoint compiles with `g++ -std=c++17 -Wall -Wextra` and no
+warnings. Any change to a solution version in `lscup/grade-calculator` must be
+reflected in the matching lab, and any change to a lab's code boxes must match
+the solution.

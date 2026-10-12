@@ -329,19 +329,19 @@
     "chapter": 18,
     "title": "Introduce Classes and Invariants",
     "version": "v2.5",
-    "start": "The working Chapter 17 v2.4 program.",
+    "start": "Your committed Chapter 17 v2.4 program (@@BT@@main.cpp@@BT@@).",
     "requirements": [
-      "Convert @@BT@@Assignment@@BT@@, @@BT@@Student@@BT@@, and @@BT@@GradeScale@@BT@@ from structs to classes.",
-      "Make data members private and expose only the constructors, accessors, and operations callers need.",
-      "Give @@BT@@GradeScale@@BT@@ an invariant: cutoffs descend, no cutoff is negative, and the lowest tier is 0.",
-      "Add @@BT@@Student::letterGrade(const GradeScale&) const@@BT@@.",
-      "Preserve the Chapter 17 features and output."
+      "An @@BT@@Assignment@@BT@@ class that holds one graded item — its name, points earned, points possible, and bonus — behind @@BT@@private@@BT@@ data and @@BT@@const@@BT@@ accessors. The old @@BT@@Score@@BT@@ struct is folded into it.",
+      "A @@BT@@GradeScale@@BT@@ class whose constructor **enforces an invariant**: cutoffs strictly descend and the lowest tier is 0. Whatever tiers a user types, the constructor repairs them into a usable scale, so no other code ever has to check.",
+      "A @@BT@@Student@@BT@@ class that **owns its own assignments** and computes its own percentage with a @@BT@@percentage()@@BT@@ member that needs no parameters.",
+      "A smaller, cleaner @@BT@@main@@BT@@ with four menu options: **Add student**, **Report**, **Custom scale**, and **Quit**."
     ],
     "verify": [
-      "Code outside a class cannot modify its private data directly.",
-      "Ascending, negative, empty, and no-zero grade scales are handled by the class.",
-      "The same input produces the same report as Chapter 17.",
-      "All accessors that do not change an object are @@BT@@const@@BT@@."
+      "The program compiles with no errors **and no warnings**.",
+      "@@BT@@Assignment@@BT@@, @@BT@@GradeScale@@BT@@, and @@BT@@Student@@BT@@ have only @@BT@@private@@BT@@ data members; @@BT@@main@@BT@@ reaches their data only through member functions.",
+      "Every accessor that does not change its object is marked @@BT@@const@@BT@@.",
+      "The structs @@BT@@Score@@BT@@, @@BT@@GradeTier@@BT@@, and @@BT@@Gradebook@@BT@@ no longer appear anywhere in @@BT@@main.cpp@@BT@@.",
+      "The menu shows exactly four options: Add student, Report, Custom scale, Quit."
     ],
     "commit": "Complete Chapter 18 Grade Calculator v2.5"
   },
@@ -349,19 +349,19 @@
     "chapter": 19,
     "title": "Split Classes into Files",
     "version": "v2.6",
-    "start": "The working Chapter 18 v2.5 program.",
+    "start": "Your committed Chapter 18 v2.5 program (@@BT@@main.cpp@@BT@@).",
     "requirements": [
-      "Create one header and one implementation file for each class; keep @@BT@@main.cpp@@BT@@ focused on application flow.",
-      "Add include guards and keep implementation details out of headers.",
-      "Create a @@BT@@Gradebook@@BT@@ class that owns the roster, assignments, scale, and reporting operations.",
-      "Implement @@BT@@operator<<@@BT@@ for Assignment, Student, GradeScale, and Gradebook using public accessors.",
-      "Add checked @@BT@@at@@BT@@ access alongside unchecked @@BT@@operator[]@@BT@@."
+      "@@BT@@assignment.h@@BT@@/@@BT@@.cpp@@BT@@, @@BT@@gradescale.h@@BT@@/@@BT@@.cpp@@BT@@, and @@BT@@student.h@@BT@@/@@BT@@.cpp@@BT@@ — the Chapter 18 classes, split into declaration and definition, each header protected by an **include guard**.",
+      "An @@BT@@operator<<@@BT@@ for @@BT@@Assignment@@BT@@, @@BT@@GradeScale@@BT@@, and @@BT@@Student@@BT@@, written using only each class's public accessors — no @@BT@@friend@@BT@@ needed.",
+      "@@BT@@Student::operator<@@BT@@, which orders students by percentage, highest first.",
+      "A new @@BT@@Gradebook@@BT@@ class (@@BT@@gradebook.h@@BT@@/@@BT@@.cpp@@BT@@) that owns the course name, the roster, the grade scale, and the next-ID counter, and prints a whole class report with a single @@BT@@operator<<@@BT@@.",
+      "A short @@BT@@main.cpp@@BT@@ with five menu options: **Add student**, **Report**, **Sort by grade** (new), **Custom scale**, and **Quit**."
     ],
     "verify": [
-      "Every source file builds as one program.",
-      "Writing a Gradebook to the Terminal and to a file uses the same @@BT@@operator<<@@BT@@.",
-      "Checked access rejects an invalid index.",
-      "The Chapter 18 behavior is unchanged."
+      "All nine files are in the project, and the program compiles with no errors and no warnings.",
+      "Every header starts with an include guard (@@BT@@#ifndef@@BT@@ / @@BT@@#define@@BT@@) and ends with @@BT@@#endif@@BT@@.",
+      "@@BT@@main.cpp@@BT@@ no longer contains @@BT@@class Assignment@@BT@@, @@BT@@class GradeScale@@BT@@, @@BT@@class Student@@BT@@, or @@BT@@CAP_AT_100@@BT@@.",
+      "The report is printed by @@BT@@std::cout << book@@BT@@, and no @@BT@@operator<<@@BT@@ uses @@BT@@friend@@BT@@."
     ],
     "commit": "Complete Chapter 19 Grade Calculator v2.6"
   },
@@ -369,20 +369,17 @@
     "chapter": 20,
     "title": "Add Weighted Grading with Inheritance",
     "version": "v3.0",
-    "start": "The working Chapter 19 v2.6 multi-file program.",
+    "start": "Your committed Chapter 19 v2.6 program (nine files).",
     "requirements": [
-      "Add an assignment category while preserving existing constructor calls with defaults.",
-      "Create a @@BT@@GradingScheme@@BT@@ base class and @@BT@@PointsBased@@BT@@ and @@BT@@Weighted@@BT@@ derived classes.",
-      "Move common final rounding and capping into the base class.",
-      "Validate that category weights total 100 within a floating-point tolerance.",
-      "Let the user choose the grading scheme at startup.",
-      "Do not penalize a student for a weighted category with no assignments."
+      "A **category** on every @@BT@@Assignment@@BT@@ (for example @@BT@@Exam@@BT@@ or @@BT@@Homework@@BT@@), added in a way that leaves every existing call compiling unchanged.",
+      "A base class @@BT@@GradingScheme@@BT@@ holding the behavior every scheme shares (a name, and the cap-and-round policy), and two **derived classes**: @@BT@@PointsBased@@BT@@ and @@BT@@Weighted@@BT@@.",
+      "A @@BT@@Gradebook@@BT@@ that grades each student with whichever scheme was chosen at startup, and shows the scheme in the report.",
+      "A startup question in @@BT@@main@@BT@@ that picks the scheme for the session, an optional step to enter your own category weights, and a *Category* prompt for each assignment."
     ],
     "verify": [
-      "The existing points-based examples still produce the same grades.",
-      "A 90/100 exam at weight 50 and 10/10 homework at weight 30 reports 93.8% when only those categories contain work.",
-      "Weights totaling 80% are rejected.",
-      "Unchanged classes and report code remain unchanged."
+      "All eleven files build together with no errors and no warnings.",
+      "@@BT@@PointsBased@@BT@@ and @@BT@@Weighted@@BT@@ both inherit @@BT@@public@@BT@@ly from @@BT@@GradingScheme@@BT@@, and neither repeats the cap-and-round code — both call @@BT@@finalize@@BT@@.",
+      "@@BT@@gradescale.h@@BT@@, @@BT@@gradescale.cpp@@BT@@, and @@BT@@student.cpp@@BT@@ are unchanged from Chapter 19."
     ],
     "commit": "Complete Chapter 20 Grade Calculator v3.0"
   },
@@ -390,19 +387,18 @@
     "chapter": 21,
     "title": "Select Schemes with Polymorphism",
     "version": "v3.1",
-    "start": "The working Chapter 20 v3.0 program.",
+    "start": "Your committed Chapter 20 v3.0 program (eleven files).",
     "requirements": [
-      "Make @@BT@@GradingScheme::computePercentage@@BT@@ pure virtual and add a virtual destructor.",
-      "Have @@BT@@Gradebook@@BT@@ own a base-class scheme pointer and delegate calculations through it.",
-      "Allow the user to switch schemes without restarting or re-entering data.",
-      "Add @@BT@@WeightedDropLowest@@BT@@ as a third scheme without editing Student, Assignment, GradeScale, or report formatting.",
-      "Extend the Chapter 15 file format so category names and weights persist."
+      "An **abstract** @@BT@@GradingScheme@@BT@@ base class with a **pure virtual** @@BT@@computePercentage@@BT@@ and a **virtual destructor**.",
+      "A third scheme, @@BT@@WeightedDropLowest@@BT@@, that drops the weakest assignment in each category — added **without changing** @@BT@@Gradebook@@BT@@, @@BT@@Student@@BT@@, @@BT@@GradeScale@@BT@@, @@BT@@Assignment@@BT@@, or the report code.",
+      "A @@BT@@Gradebook@@BT@@ that holds a single @@BT@@GradingScheme*@@BT@@ and calls through it. The @@BT@@if@@BT@@ is gone, and because the @@BT@@Gradebook@@BT@@ owns that pointer, it manages the memory correctly by hand: a destructor, a @@BT@@delete@@BT@@ before replacing, and copying disabled.",
+      "A @@BT@@chooseScheme@@BT@@ function and a new menu option, **Change scheme**, so the user can switch schemes mid-session and every grade recomputes immediately."
     ],
     "verify": [
-      "With Exam 1 at 90/100, Homework 1 at 10/10, Homework 2 at 5/10, and category weights of 50 and 30, the three schemes report 87.5%, 84.4%, and 93.8%.",
-      "Switching schemes immediately recomputes reports.",
-      "The grade calculation contains no type-selection branch.",
-      "Saving and loading preserves categories and weights."
+      "The program compiles with no errors and no warnings.",
+      "@@BT@@Gradebook::percentageFor@@BT@@ contains no @@BT@@if@@BT@@ — the call goes through @@BT@@scheme_->computePercentage@@BT@@.",
+      "@@BT@@Gradebook@@BT@@ has a destructor that deletes @@BT@@scheme_@@BT@@, @@BT@@setScheme@@BT@@ deletes the old scheme before storing the new one, and the copy constructor and copy assignment are @@BT@@= delete@@BT@@.",
+      "@@BT@@assignment.*@@BT@@, @@BT@@gradescale.*@@BT@@, and @@BT@@student.*@@BT@@ are unchanged from Chapter 20."
     ],
     "commit": "Complete Chapter 21 Grade Calculator v3.1"
   },
@@ -410,19 +406,18 @@
     "chapter": 22,
     "title": "Replace Manual Ownership with Smart Pointers",
     "version": "v3.2",
-    "start": "The working Chapter 21 v3.1 program.",
+    "start": "Your committed Chapter 21 v3.1 program (eleven files).",
     "requirements": [
-      "Confirm the correct v3.1 program switches schemes and exits normally.",
-      "Temporarily remove the manual delete in @@BT@@setScheme@@BT@@ and observe the memory-safety failure using the available memory check; then restore it.",
-      "Replace the raw owning scheme pointer with @@BT@@std::unique_ptr<GradingScheme>@@BT@@.",
-      "Remove the manual destructor, manual delete, and explicitly deleted copy operations that unique ownership now handles.",
-      "Keep all grading behavior unchanged."
+      "@@BT@@Gradebook@@BT@@ holds a @@BT@@std::unique_ptr<GradingScheme>@@BT@@.",
+      "@@BT@@Gradebook@@BT@@ has **no destructor**, **no @@BT@@delete@@BT@@**, and **no deleted copy operations** — @@BT@@unique_ptr@@BT@@ handles all of it.",
+      "@@BT@@setScheme@@BT@@ takes a @@BT@@std::unique_ptr<GradingScheme>@@BT@@, so every caller must visibly hand over ownership.",
+      "@@BT@@chooseScheme@@BT@@ creates schemes with **@@BT@@std::make_unique@@BT@@** instead of @@BT@@new@@BT@@."
     ],
     "verify": [
-      "The intentional raw-pointer defect is detected by a memory-safety check.",
-      "The final smart-pointer version reports no leak.",
-      "Copying a Gradebook is rejected by the type system.",
-      "All three grading schemes still produce the Chapter 21 results."
+      "The program compiles with no errors and no warnings.",
+      "Searching your project for @@BT@@delete@@BT@@ and for @@BT@@new @@BT@@ finds nothing in @@BT@@gradebook.cpp@@BT@@ or @@BT@@main.cpp@@BT@@.",
+      "@@BT@@Gradebook@@BT@@ declares no destructor and no @@BT@@= delete@@BT@@ copy operations.",
+      "Switching schemes several times and quitting works normally. (If you have a local toolchain, an AddressSanitizer build reports no leaks.)"
     ],
     "commit": "Complete Chapter 22 Grade Calculator v3.2",
     "local_memory_check": true
@@ -431,19 +426,19 @@
     "chapter": 23,
     "title": "Add Generic Statistics and an ID Index",
     "version": "v3.3",
-    "start": "The working Chapter 22 v3.2 program.",
+    "start": "Your committed Chapter 22 v3.2 program (eleven files).",
     "requirements": [
-      "Create header-only @@BT@@Statistics<T>@@BT@@ with mean, median, minimum, maximum, and population standard deviation.",
-      "Add a @@BT@@std::map@@BT@@ index from student ID to roster position and maintain it whenever the roster changes order.",
-      "Add @@BT@@findById@@BT@@ using the index.",
-      "Replace the implicit Student ordering with a lambda at the sort call.",
-      "Add class statistics, letter-grade distribution, and assignment count by category."
+      "**@@BT@@Statistics<T>@@BT@@**, a header-only class template that computes count, mean, median, lowest, highest, and standard deviation for any numeric type.",
+      "An **ID index** — a @@BT@@std::map<int, std::size_t>@@BT@@ from student ID to roster position — that @@BT@@Gradebook@@BT@@ keeps up to date, and a @@BT@@findById@@BT@@ member that uses it.",
+      "A **letter-grade distribution** counted with a @@BT@@std::map<char, int>@@BT@@.",
+      "@@BT@@sortByPercentage@@BT@@ rewritten with a **lambda** that states the ordering right where the sort happens.",
+      "Two new menu options: **Statistics** and **Find by ID**. Quit moves to option 8."
     ],
     "verify": [
-      "@@BT@@Statistics<double>@@BT@@ and @@BT@@Statistics<int>@@BT@@ are both exercised.",
-      "ID lookup works before and after sorting.",
-      "A regression test fails if the index rebuild is removed.",
-      "The reported statistics match a hand calculation."
+      "The program compiles with no errors and no warnings.",
+      "@@BT@@statistics.h@@BT@@ has an include guard and there is no @@BT@@statistics.cpp@@BT@@.",
+      "@@BT@@addStudent@@BT@@ updates @@BT@@idIndex_@@BT@@, and @@BT@@sortByPercentage@@BT@@ rebuilds it.",
+      "Every use of @@BT@@findById@@BT@@ checks for @@BT@@nullptr@@BT@@."
     ],
     "commit": "Complete Chapter 23 Grade Calculator v3.3"
   },
@@ -451,20 +446,20 @@
     "chapter": 24,
     "title": "Add Release-Safe Error Handling",
     "version": "v4.0",
-    "start": "The working Chapter 23 v3.3 program.",
+    "start": "Your committed Chapter 23 v3.3 program (twelve files).",
     "requirements": [
-      "Create a @@BT@@GradebookError@@BT@@ hierarchy for invalid scales, invalid weights, malformed files, and lookup failures.",
-      "Throw meaningful exceptions at the point of failure and catch them where the program can explain the problem and continue.",
-      "Translate low-level conversion and file errors into messages that identify the affected operation.",
-      "Run the complete regression plan against the Chapter 24 code checkpoint.",
+      "An **exception hierarchy** in @@BT@@gradebookerror.h@@BT@@: a @@BT@@GradebookError@@BT@@ base class derived from @@BT@@std::runtime_error@@BT@@, and three specific errors — @@BT@@InvalidScaleError@@BT@@, @@BT@@WeightSumError@@BT@@, and @@BT@@FileFormatError@@BT@@.",
+      "A @@BT@@GradeScale@@BT@@ constructor that **throws** @@BT@@InvalidScaleError@@BT@@ instead of repairing the tiers.",
+      "A @@BT@@Weighted@@BT@@ constructor that **throws** @@BT@@WeightSumError@@BT@@ when the weights do not total 100.",
+      "**Saving and loading** the gradebook to @@BT@@gradebook.csv@@BT@@: loaded at startup, saved from a new **Save** option, and saved again on Quit. A malformed file produces a @@BT@@FileFormatError@@BT@@ that names the file and line.",
+      "@@BT@@try@@BT@@/@@BT@@catch@@BT@@ blocks in @@BT@@main@@BT@@ that report each error and keep the program running, plus the return of **custom category weights** when choosing a weighted scheme.",
       "Complete only the Chapter 24 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately."
     ],
     "verify": [
-      "Invalid scales and invalid weights are refused without changing the working gradebook.",
-      "Missing and malformed files produce clear messages instead of crashes.",
-      "Points-based, weighted, and weighted-drop-lowest grading all work.",
-      "Save/load, lookup, statistics, and reports all work.",
-      "The repository contains the Chapter 12 foundation plus the completed Chapter 13–24 code checkpoints."
+      "All thirteen files build together with no errors and no warnings.",
+      "No input you can type makes the program crash or stop unexpectedly.",
+      "Every @@BT@@throw@@BT@@ in the program throws a class derived from @@BT@@GradebookError@@BT@@, and every @@BT@@catch@@BT@@ catches by **@@BT@@const@@BT@@ reference**.",
+      "@@BT@@assignment.*@@BT@@, @@BT@@student.*@@BT@@, and @@BT@@statistics.h@@BT@@ are unchanged from Chapter 23."
     ],
     "commit": "Complete Chapter 24 Grade Calculator v4.0"
   }

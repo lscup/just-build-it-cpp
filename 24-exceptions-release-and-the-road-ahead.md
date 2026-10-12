@@ -461,6 +461,10 @@ exception, explain why, and carry on**. By the end you will have:
 The menu grows to nine options: Add student, Report, Sort, **Edit scale**
 (renamed), Change scheme, Statistics, Find by ID, **Save** (new), and Quit.
 
+> **Scope:** Complete only the Chapter 24 code checkpoint here. Final-project
+> documentation, finishing touches, and submission instructions will be
+> provided separately.
+
 #### Files in this checkpoint
 
 | File | What you do to it |
@@ -468,9 +472,9 @@ The menu grows to nine options: Add student, Report, Sort, **Edit scale**
 | `gradebookerror.h` | Create (Step 1) |
 | `gradescale.h`, `gradescale.cpp` | Edit (Step 2) |
 | `gradingscheme.h`, `gradingscheme.cpp` | Edit (Step 3) |
-| `gradebook.h` | Edit (Step 4) |
+| `gradebook.h`, `gradebook.cpp` | Edit (Step 4) |
 | `main.cpp` | Edit (Steps 5–10) |
-| `assignment.*`, `student.*`, `gradebook.cpp`, `statistics.h` | **No change** — keep them open |
+| `assignment.*`, `student.*`, `statistics.h` | **No change** — keep them open |
 
 When you are finished your project has **thirteen files**.
 
@@ -684,7 +688,7 @@ calling the constructor knows to be ready for it.
 In `gradingscheme.h`, find the first line:
 
 ```cpp
-// gradingscheme.h - Grade Calculator v3.1 - Chapter 21
+// gradingscheme.h - Grade Calculator v3.2 - Chapter 22
 ```
 
 Replace it with:
@@ -754,7 +758,7 @@ a note. Now the constructor uses its own `weightsValid()` check and throws a
 it gets the same check **for free** — you do not change `WeightedDropLowest`
 at all.
 
-##### Step 4 — Let a `Gradebook` be moved (`gradebook.h`)
+##### Step 4 — Let a `Gradebook` be moved, and keep IDs unique
 
 Loading a file will build a complete new `Gradebook` and then move it into
 place. A `Gradebook` cannot be copied (it holds a `unique_ptr`), but it can be
@@ -795,7 +799,44 @@ Replace it with:
 
 `= default` asks the compiler to generate the move constructor and move
 assignment operator. Each member is moved in turn — including the
-`unique_ptr`, which hands over its scheme. `gradebook.cpp` does not change.
+`unique_ptr`, which hands over its scheme.
+
+There is one more thing to fix before students can be loaded from a file. A
+loaded student keeps the ID it was saved with, but the `Gradebook`'s next-ID
+counter starts at 1001 every time the program runs. Without a fix, the first
+student you add after a reload would get an ID that is already taken.
+
+In `gradebook.cpp`, find the first line:
+
+```cpp
+// gradebook.cpp - Grade Calculator v3.3 - Chapter 23
+```
+
+Replace it with:
+
+```cpp
+// gradebook.cpp - Grade Calculator v4.0 - Chapter 24
+```
+
+In `addStudent`, find:
+
+```cpp
+    roster_.push_back(s);
+    idIndex_[s.id()] = roster_.size() - 1;
+```
+
+Directly below it, add:
+
+```cpp
+    // A student loaded from a file keeps its saved ID. Move the counter past
+    // it so the next new student never receives an ID that is already taken.
+    if (s.id() >= nextId_) { nextId_ = s.id() + 1; }
+```
+
+`addStudent` is the one place every student enters the roster — typed in or
+loaded — so this is the one place the counter has to be kept ahead of the
+IDs already in use. **A class protects its own invariants**; here the
+invariant is "every ID handed out is unused."
 
 ##### Step 5 — Update the header comment and includes in `main.cpp`
 
@@ -1276,17 +1317,18 @@ tested the whole program, not only the cases you happened to try while typing.
    `Saved to gradebook.csv.` Then choose `9` to quit; the program prints
    `Gradebook saved. Goodbye.` Click **Run** again: the program should print
    `Loaded gradebook.csv (1 students).` Choose a scheme, then report — Ada is
-   back with 90.0%.
+   back with 90.0%. Now add a new student, `Bo`, with no assignments
+   (type `done` right away). The program should print `Added Bo as ID 1002.`
+   — not 1001, which Ada already has.
 
 Then confirm:
 
-- [ ] The program compiles with no errors and no warnings with all thirteen
-      files open.
+- [ ] All thirteen files build together with no errors and no warnings.
 - [ ] No input you can type makes the program crash or stop unexpectedly.
 - [ ] Every `throw` in the program throws a class derived from
       `GradebookError`, and every `catch` catches by **`const` reference**.
-- [ ] `gradebook.cpp`, `assignment.*`, `student.*`, and `statistics.h` are
-      unchanged from Chapter 23.
+- [ ] `assignment.*`, `student.*`, and `statistics.h` are unchanged from
+      Chapter 23.
 
 #### StudySite workflow
 

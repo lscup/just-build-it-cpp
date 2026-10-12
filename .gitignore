@@ -17,3 +17,5 @@ studysite-metadata/
 incremental-grading-feasibility-brief.md
 appendix-a_to_g.md
 update-repos-output.txt
+lab-instructions/labsrc/out/
+lab-instructions/labsrc/__pycache__/

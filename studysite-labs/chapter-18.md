@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-### What you will build
+## What you will build
 
 In this lab you rebuild the Grade Calculator's data around **classes** instead
 of structs. By the end you will have:
@@ -26,7 +26,7 @@ of structs. By the end you will have:
 4. A smaller, cleaner `main` with four menu options: **Add student**,
    **Report**, **Custom scale**, and **Quit**.
 
-### What is different about v2.5
+## What is different about v2.5
 
 v2.5 is a *rebuild*, not an add-on, so a few things from Chapter 17 change on
 purpose. Read this before you start so nothing surprises you.
@@ -48,13 +48,13 @@ purpose. Read this before you start so nothing surprises you.
 - **The grading math does not change.** The same scores still produce the
   same percentage and letter grade.
 
-### Files in this checkpoint
+## Files in this checkpoint
 
 | File | What you do to it |
 |---|---|
 | `main.cpp` | Edit. Everything in this lab happens in this one file. |
 
-### How to use these steps
+## How to use these steps
 
 This lab is a guided exercise, not a test. Each step tells you **which file**
 to open, shows the **exact code to find**, and shows the **exact code to put in
@@ -76,9 +76,9 @@ rather than retyping it where you can.
 > end of Step 8. That is expected. Do not try to fix compiler errors in the
 > middle — finish the steps in order, then Run.
 
-### Build it: step by step
+## Build it: step by step
 
-#### Step 1 — Update the header comment
+### Step 1 — Update the header comment
 
 Every version of the program opens with a comment block that says what
 changed. Update it so the file describes v2.5.
@@ -117,7 +117,7 @@ Replace it with:
 *Why:* the header is the first thing a reader (including future you) sees. It
 should describe the code that is actually in the file.
 
-#### Step 2 — Update the `#include` list and constants
+### Step 2 — Update the `#include` list and constants
 
 v2.5 no longer reads or writes files, so it no longer needs `<fstream>`,
 `<sstream>`, or the `DEFAULT_FILE` constant. It does need `<algorithm>`,
@@ -156,7 +156,7 @@ const bool CAP_AT_100 = true;
 *Why:* include what you use, and only what you use (Appendix D, Section D.4).
 `CAP_AT_100` stays — the course still caps a reported percentage at 100.
 
-#### Step 3 — Replace the structs with an `Assignment` class
+### Step 3 — Replace the structs with an `Assignment` class
 
 Chapter 17's data lived in five structs: `Assignment` (a name and points
 possible), `Score` (points earned and bonus), `Student` (which held a list of
@@ -222,7 +222,7 @@ Look at what changed:
   Bonus is added to points earned, never to points possible — the D2 rule from
   Chapter 16, now written once in the class that owns the numbers.
 
-#### Step 4 — Add the `GradeScale` class and its invariant
+### Step 4 — Add the `GradeScale` class and its invariant
 
 In v2.4 the scale was a plain `std::vector<GradeTier>`, and nothing stopped
 the program from holding a broken one (tiers out of order, no 0 tier). The
@@ -311,7 +311,7 @@ Study the second constructor — it is the heart of this chapter:
 - `describe()` prints the scale on one line, so `main` does not need to know
   how a scale is stored.
 
-#### Step 5 — Add the `Student` class
+### Step 5 — Add the `Student` class
 
 A `Student` now owns a `std::vector<Assignment>`. Everything needed to compute
 a grade is inside the object.
@@ -377,7 +377,7 @@ skip a zero total to avoid dividing by zero, cap at 100 when `CAP_AT_100` is
 `addAssignment` is the **only** way to put work into a student, so there is
 exactly one place to look if a student's work ever looks wrong.
 
-#### Step 6 — Update the input-helpers banner
+### Step 6 — Update the input-helpers banner
 
 Your `readNonNegative` and `readLine` functions do not change. Only the
 comment above them changes, to match the banner style of the classes above it.
@@ -396,7 +396,7 @@ Replace it with:
 // -----------------------------------------------------------------------------
 ```
 
-#### Step 7 — Remove the code that v2.5 sets aside
+### Step 7 — Remove the code that v2.5 sets aside
 
 Everything between `readLine` and `main` belonged to the struct-based design:
 the CSV helpers and `saveGradebook`/`loadGradebook` (Chapter 15), the free
@@ -425,7 +425,7 @@ blank line and then `int main() {`.
 produce compiler errors. Your Chapter 17 commit still has every line of it if
 you want to look back.
 
-#### Step 8 — Rewrite `main` around the new classes
+### Step 8 — Rewrite `main` around the new classes
 
 `main` gets simpler: three local variables replace the `Gradebook` struct, and
 the menu has four options.
@@ -531,7 +531,7 @@ Walk through what each part does:
 
 > **▶ Run checkpoint:** Click **Run**. The program should compile with no errors and no warnings and show the v2.5 banner, the default scale, and the four-option menu. If you see errors, the message names a line — compare that area with the code boxes above.
 
-### Check your work
+## Check your work
 
 Run the program and type the inputs below in the Terminal. Your output should
 match.
@@ -576,7 +576,7 @@ Then confirm:
 - [ ] The menu shows exactly four options: Add student, Report, Custom scale,
       Quit.
 
-### StudySite workflow
+## StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -594,7 +594,7 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-### Save this checkpoint
+## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -612,7 +612,7 @@ Then confirm:
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-### Complete when
+## Complete when
 
 - Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 18

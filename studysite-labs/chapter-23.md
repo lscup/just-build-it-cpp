@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-### What you will build
+## What you will build
 
 In this lab you put the Standard Template Library to work and write a class
 template of your own. By the end you will have:
@@ -25,7 +25,7 @@ template of your own. By the end you will have:
 5. Two new menu options: **Statistics** and **Find by ID**. Quit moves to
    option 8.
 
-### Files in this checkpoint
+## Files in this checkpoint
 
 | File | What you do to it |
 |---|---|
@@ -36,7 +36,7 @@ template of your own. By the end you will have:
 
 When you are finished your project has **twelve files**.
 
-### How to use these steps
+## How to use these steps
 
 This lab is a guided exercise, not a test. Each step tells you **which file**
 to open, shows the **exact code to find**, and shows the **exact code to put in
@@ -53,9 +53,9 @@ rather than retyping it where you can.
 - Each step ends with a short explanation of *why*. Read it — it is the
   chapter's concept, applied to your own program.
 
-### Build it: step by step
+## Build it: step by step
 
-#### Step 1 — Write the `Statistics<T>` class template
+### Step 1 — Write the `Statistics<T>` class template
 
 Create a new file named `statistics.h` and enter this code:
 
@@ -139,7 +139,7 @@ private:
 - `std::min_element` and `std::max_element` from `<algorithm>` return
   iterators; the `*` in front reads the value they point to.
 
-#### Step 2 — Declare the new `Gradebook` members (`gradebook.h`)
+### Step 2 — Declare the new `Gradebook` members (`gradebook.h`)
 
 In `gradebook.h`, find the first line:
 
@@ -206,13 +206,13 @@ Directly below it, add:
 - `letterDistribution` returns a `std::map<char, int>`: each letter grade
   mapped to how many students earned it.
 - `printStatistics` writes to whatever `std::ostream` it is given — the
-  Terminal today, a file tomorrow.
+  screen today, a file tomorrow.
 - `idIndex_` maps an ID (the **key**) to the student's position in `roster_`
   (the **value**). A `std::map` keeps its keys sorted and finds a key in
   logarithmic time — the job Chapter 17's binary search did, without needing
   a sorted copy of the roster.
 
-#### Step 3 — Keep the index current, and look students up (`gradebook.cpp`)
+### Step 3 — Keep the index current, and look students up (`gradebook.cpp`)
 
 In `gradebook.cpp`, find the first line:
 
@@ -277,7 +277,7 @@ const Student* Gradebook::findById(int id) const {
 
 > **▶ Run checkpoint:** Open `statistics.h` along with the other files and click **Run**. The program should compile cleanly and behave exactly like v3.2. `letterDistribution` and `printStatistics` are declared but not yet defined; that is allowed as long as nothing calls them, and nothing does yet.
 
-#### Step 4 — Count letter grades and compute statistics (`gradebook.cpp`)
+### Step 4 — Count letter grades and compute statistics (`gradebook.cpp`)
 
 Directly below the `findById` function you just added — after this code:
 
@@ -334,7 +334,7 @@ void Gradebook::printStatistics(std::ostream& out) const {
 - `for (const auto& entry : letterDistribution())` walks the map;
   `entry.first` is the letter and `entry.second` is the count.
 
-#### Step 5 — Sort with a lambda, and rebuild the index (`gradebook.cpp`)
+### Step 5 — Sort with a lambda, and rebuild the index (`gradebook.cpp`)
 
 In `sortByPercentage`, find:
 
@@ -369,7 +369,7 @@ Replace it with:
   now wrong. The loop clears the index and rebuilds it from the sorted roster.
   Forget this, and *Find by ID* silently returns the wrong student.
 
-#### Step 6 — Add *Statistics* and *Find by ID* to the menu (`main.cpp`)
+### Step 6 — Add *Statistics* and *Find by ID* to the menu (`main.cpp`)
 
 At the top of `main.cpp`, find these lines of the header comment:
 
@@ -467,7 +467,7 @@ Replace it with:
 
 > **▶ Run checkpoint:** Make sure all twelve files are open and click **Run**. The program should compile with no errors and no warnings and show the eight-option menu.
 
-### Check your work
+## Check your work
 
 Choose `1` (Points-based). Add three students, each with one assignment
 (category: press Enter):
@@ -505,7 +505,7 @@ Then confirm:
 - [ ] `addStudent` updates `idIndex_`, and `sortByPercentage` rebuilds it.
 - [ ] Every use of `findById` checks for `nullptr`.
 
-### StudySite workflow
+## StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -523,7 +523,7 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-### Save this checkpoint
+## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -541,7 +541,7 @@ Then confirm:
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-### Complete when
+## Complete when
 
 - Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 23

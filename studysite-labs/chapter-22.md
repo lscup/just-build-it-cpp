@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-### What you will build
+## What you will build
 
 v3.1 is correct: its `Gradebook` owns a raw `GradingScheme*` and does three
 separate things by hand to avoid leaks and double deletes — a destructor, a
@@ -28,15 +28,16 @@ The program's **behavior does not change at all** — same menu, same grades.
 What changes is that its correctness no longer depends on anyone remembering
 three things.
 
-### Files in this checkpoint
+## Files in this checkpoint
 
 | File | What you do to it |
 |---|---|
 | `gradebook.h`, `gradebook.cpp` | Edit (Steps 2–3) |
-| `main.cpp` | Edit (Steps 4–5) |
+| `gradingscheme.h` | Edit — comments only (Step 4) |
+| `main.cpp` | Edit (Steps 5–6) |
 | All other files | **No change** — keep them open |
 
-### How to use these steps
+## How to use these steps
 
 This lab is a guided exercise, not a test. Each step tells you **which file**
 to open, shows the **exact code to find**, and shows the **exact code to put in
@@ -53,9 +54,9 @@ rather than retyping it where you can.
 - Each step ends with a short explanation of *why*. Read it — it is the
   chapter's concept, applied to your own program.
 
-### Build it: step by step
+## Build it: step by step
 
-#### Step 1 (try it, then undo it) — See why manual ownership is fragile
+### Step 1 (try it, then undo it) — See why manual ownership is fragile
 
 Before you change anything, see how easy it is to break v3.1.
 
@@ -80,9 +81,9 @@ in the output tells you, which is why leaks are called *silent*.
 > Otherwise, ask your instructor which memory check to use.
 
 4. **Remove the `//` you added** so the line is restored exactly as it was.
-   Steps 2–5 assume the original v3.1 code.
+   Steps 2–6 assume the original v3.1 code.
 
-#### Step 2 — Own the scheme with `std::unique_ptr` (`gradebook.h`)
+### Step 2 — Own the scheme with `std::unique_ptr` (`gradebook.h`)
 
 In `gradebook.h`, find the first line:
 
@@ -172,7 +173,7 @@ Replace it with:
 - **The polymorphism is untouched.** `scheme_` still points to the abstract
   base, and calls through it still dispatch to the right scheme.
 
-#### Step 3 — Simplify the implementation (`gradebook.cpp`)
+### Step 3 — Simplify the implementation (`gradebook.cpp`)
 
 In `gradebook.cpp`, find the first line:
 
@@ -242,9 +243,48 @@ void Gradebook::setScheme(std::unique_ptr<GradingScheme> scheme) {
 
 > **Heads-up:** `main.cpp` still calls `setScheme(new ...)`, and a raw pointer
 > does not convert to a `unique_ptr` automatically. The program will not
-> compile until the end of Step 5.
+> compile until the end of Step 6.
 
-#### Step 4 — Update the header comment and includes in `main.cpp`
+### Step 4 — Update the ownership note (`gradingscheme.h`)
+
+The comment above `class GradingScheme` still describes v3.1's hand-written
+ownership. Make it describe the code you now have.
+
+In `gradingscheme.h`, find the first line:
+
+```cpp
+// gradingscheme.h - Grade Calculator v3.1 - Chapter 21
+```
+
+Replace it with:
+
+```cpp
+// gradingscheme.h - Grade Calculator v3.2 - Chapter 22
+```
+
+Then find the ownership note in the comment block:
+
+```cpp
+ * OWNERSHIP NOTE (revisited in Chapter 22): Gradebook owns a raw pointer.
+ * That is correct here, but only because Gradebook also writes a destructor,
+ * deletes the old scheme before replacing it, and disables copying. Miss any
+ * one of those three and the program leaks or double-frees. Chapter 22 shows
+ * how to get the same behavior with none of that hand-written ceremony.
+```
+
+Replace it with:
+
+```cpp
+ * OWNERSHIP NOTE (Chapter 22): Gradebook owns its scheme through a
+ * std::unique_ptr, so a scheme is released automatically when it is replaced
+ * and when the Gradebook is destroyed. No hand-written destructor, delete, or
+ * deleted copy operations are needed.
+```
+
+Comments are part of the code. A comment that describes code that no longer
+exists is a defect, even though the compiler never notices it.
+
+### Step 5 — Update the header comment and includes in `main.cpp`
 
 At the top of `main.cpp`, find the header comment:
 
@@ -300,7 +340,7 @@ Directly below it, add:
 #include <utility>
 ```
 
-#### Step 5 — Create schemes with `std::make_unique`
+### Step 6 — Create schemes with `std::make_unique`
 
 In `chooseScheme`, find the three `setScheme` calls:
 
@@ -342,7 +382,7 @@ Nothing else in `main` changes.
 
 > **▶ Run checkpoint:** Make sure all eleven files are open and click **Run**. The program should compile with no errors and no warnings and show the `v3.2 (leak-free)` banner.
 
-### Check your work
+## Check your work
 
 Repeat the Chapter 21 test — it must produce **exactly the same results**.
 Choose `1` (Points-based) and add `Ada` with `Exam 1` (90/100, bonus 0,
@@ -371,7 +411,7 @@ Then confirm:
 | Deleted copy operations | required | **not needed** |
 | Behavior | identical | identical |
 
-### StudySite workflow
+## StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -381,7 +421,7 @@ Then confirm:
 3. Click **Load from GitHub**, select
    **COSC1437xxx-Grade-Calculator-YourLastName**, and click all eleven project files to open them.
    Confirm the editor shows the expected file paths before editing.
-4. Do the Step 1 experiment and undo it, then work through Steps 2–5 above in StudySite's internal editor, in order, and click **Run** at the ▶ Run checkpoint.
+4. Do the Step 1 experiment and undo it, then work through Steps 2–6 above in StudySite's internal editor, in order, and click **Run** at the ▶ Run checkpoint.
 5. Read compiler messages and program output in the embedded Terminal, and
    type program input there when prompted. Fix every compiler error and
    warning before moving past a Run checkpoint.
@@ -389,7 +429,7 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-### Save this checkpoint
+## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -407,7 +447,7 @@ Then confirm:
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-### Complete when
+## Complete when
 
 - Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 22
