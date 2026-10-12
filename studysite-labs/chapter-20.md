@@ -2,62 +2,177 @@
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v3.0
-- **Starting point:** The working Chapter 19 v2.6 multi-file program.
+- **Starting point:** Your committed Chapter 19 v2.6 program (nine files).
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-## Required work
+### What you will build
 
-1. Add a `category` parameter to `Assignment`, defaulted to `"Uncategorized"`, so every existing constructor call still compiles unchanged.
-2. Create a `GradingScheme` base class and `PointsBased` and `Weighted` derived classes.
-3. Move the shared cap-and-round policy (`finalize`) into the base class so neither derived class repeats it.
-4. Give `Weighted` a `weightsValid()` that checks whether its category weights total 100 within a floating-point tolerance (`std::abs(weightTotal() - 100.0) < 0.001`) — but see "What changes from Chapter 19" below for what happens when they don't.
-5. Let the user choose the grading scheme (points-based or weighted) at startup, through `Gradebook`'s constructor.
-6. Do not penalize a student for a weighted category with no graded assignments yet: skip it, and redistribute its weight across the categories that do have work.
-7. Carry the Chapter 15–19 features forward onto the scheme-aware `Gradebook`: saving and loading, the regression-test suite, checked access, and sort/search all still need to work under either scheme.
+The Grade Calculator has always graded by points: total earned ÷ total
+possible. In this lab you add a second rule — **weighted categories** — using
+**inheritance**. By the end you will have:
 
-Item 7 is the one most worth double-checking, as in the last two chapters: it is easy, while adding a second grading scheme, to carry forward only the report and quietly lose the rest.
+1. A **category** on every `Assignment` (for example `Exam` or `Homework`),
+   added in a way that leaves every existing call compiling unchanged.
+2. A base class `GradingScheme` holding the behavior every scheme shares (a
+   name, and the cap-and-round policy), and two **derived classes**:
+   `PointsBased` and `Weighted`.
+3. A `Gradebook` that grades each student with whichever scheme was chosen at
+   startup, and shows the scheme in the report.
+4. A startup question in `main` that picks the scheme for the session, an
+   optional step to enter your own category weights, and a *Category* prompt
+   for each assignment.
 
-## What changes from Chapter 19
+The menu keeps the same five options as Chapter 19.
 
-- **"Validate" means detect and warn, not reject.** Item 4's `weightsValid()` is a query, not a gate — `Gradebook::setWeights` accepts whatever weights it is given, valid or not. This lab's own verification list once said "weights totaling 80% are rejected," which is not what the reference program does or should do: dividing by `weightTotal()` (the weight actually used) rather than by a hardcoded 100 already normalizes correctly no matter what the weights sum to, so there is nothing to reject. Report the total to the user with `weightsValid()` when it looks wrong; do not block the run.
-- **Two independent sort mechanisms now sit on top of two grading schemes.** `Gradebook::sortByPercentage()` (Chapter 19's `operator<`) always orders by `Student`'s raw points-based `percentage()`, regardless of which scheme is active. `Gradebook::sortRoster(SortKey::Percentage)` (the Chapter 17 selection sort, carried forward again this chapter) uses `percentageFor()` — the scheme-aware grade the report actually shows. Under `Weighted` grading these two can disagree on ordering. That is not a defect to fix in this chapter; it is a difference worth knowing about, because it is exactly the kind of thing Chapter 21's redesign will make easier to reason about.
-- **The save file grows two new fields**: a `SCHEME` line (`POINTS` or `WEIGHTED`) and, for a weighted gradebook, one `WEIGHT` line per category. Loading a saved gradebook restores its scheme and its weights — including custom weights the user entered — rather than always falling back to the session's startup prompt. If the two disagree, the loaded file's scheme wins, and the program says so.
-- **Each `STUDENT` row gains a fifth field per assignment**: the category. Chapter 19's four-field-per-assignment format (`name, earned, possible, bonus`) becomes five (`name, earned, possible, bonus, category`).
-- **The regression suite grows by two checks.** Both are new to this chapter, and both come directly from required-work items 4 and 6: the documented 93.8% example (a 90/100 exam at weight 50 plus 10/10 homework at weight 30, with participation ungraded) and a check that an ungraded category's weight is redistributed rather than counted against the student.
+### Files in this checkpoint
 
-Everything else genuinely carries over: `GradeScale`, `Student`, `Gradebook`'s report layout, and the D1–D3 defects' pass/fail wording are all unchanged from Chapter 19 — exactly the point the chapter's own "What did not change" table makes.
+| File | What you do to it |
+|---|---|
+| `assignment.h`, `assignment.cpp` | Edit (Step 1) |
+| `gradingscheme.h`, `gradingscheme.cpp` | Create (Steps 2–3) |
+| `student.h` | Edit — one comment (Step 4) |
+| `gradebook.h`, `gradebook.cpp` | Edit (Steps 5–6) |
+| `main.cpp` | Edit (Steps 7–8) |
+| `gradescale.h`, `gradescale.cpp`, `student.cpp` | No change — keep them open |
 
-## Build it: step by step
+When you are finished your project has **eleven files**, and all of them must
+be open in the editor when you click **Run**.
 
-### Step 1 — Add a category to `Assignment`, with a default
+### How to use these steps
+
+This lab is a guided exercise, not a test. Each step tells you **which file**
+to open, shows the **exact code to find**, and shows the **exact code to put in
+its place**. Work through the steps in order and copy the code from the boxes
+rather than retyping it where you can.
+
+- A **find** box shows code exactly as it appears in your program at the end
+  of the previous chapter. Use the editor's search to locate it. If you cannot
+  find it, your program differs from the previous checkpoint — compare it with
+  your last commit on GitHub, or ask the Tutor to help you line it up, before
+  going further.
+- A **▶ Run checkpoint** marks a point where the program should build and run
+  again. Between checkpoints the program may not compile; that is expected.
+- Each step ends with a short explanation of *why*. Read it — it is the
+  chapter's concept, applied to your own program.
+
+### Build it: step by step
+
+#### Step 1 — Give `Assignment` a category
+
+Weighted grading needs to know which category each assignment belongs to. Add
+a `category` to `Assignment`, with a **default value** so that every existing
+call to the constructor still compiles without being edited.
+
+In `assignment.h`, find the constructor declaration:
 
 ```cpp
-class Assignment {
-public:
-    Assignment() = default;
-    Assignment(const std::string& name, double earned, double possible,
-               double bonus = 0.0, const std::string& category = "Uncategorized");
-    // ...
-    const std::string& category() const { return category_; }
-    // ...
-private:
-    // ...
-    std::string category_ = "Uncategorized";
-};
+    Assignment(const std::string& name, double earned, double possible, double bonus = 0.0);
 ```
 
-Every call site from Chapters 13–19 that constructs an `Assignment` with three or four arguments still compiles: the new parameter defaults, so nothing already written breaks.
-
-### Step 2 — Create `GradingScheme` and its two derived classes
+Replace it with:
 
 ```cpp
+    Assignment(const std::string& name, double earned, double possible,
+               double bonus = 0.0, const std::string& category = "Uncategorized");
+```
+
+Still in `assignment.h`, find the `bonusPoints()` accessor:
+
+```cpp
+    double bonusPoints() const      { return bonusPoints_; }
+```
+
+Directly below it, add:
+
+```cpp
+    const std::string& category() const { return category_; }
+```
+
+Near the bottom of the class, find the last data member:
+
+```cpp
+    double bonusPoints_    = 0.0;
+```
+
+Directly below it, add:
+
+```cpp
+    std::string category_  = "Uncategorized";
+```
+
+In `assignment.cpp`, find the constructor definition:
+
+```cpp
+Assignment::Assignment(const std::string& name, double earned, double possible, double bonus)
+    : name_(name), pointsEarned_(earned), pointsPossible_(possible), bonusPoints_(bonus) {}
+```
+
+Replace it with:
+
+```cpp
+Assignment::Assignment(const std::string& name, double earned, double possible,
+                       double bonus, const std::string& category)
+    : name_(name), pointsEarned_(earned), pointsPossible_(possible),
+      bonusPoints_(bonus), category_(category) {}
+```
+
+Still in `assignment.cpp`, near the end of `operator<<`, find:
+
+```cpp
+        out << "  (+" << a.bonusPoints() << " bonus)";
+    }
+```
+
+Directly below it, add:
+
+```cpp
+    out << "  [" << a.category() << "]";
+```
+
+*Why:* adding a parameter **with a default** at the end of a parameter list
+extends a function without breaking any caller — the Chapter 10 technique.
+`Assignment("HW1", 9, 10)` still compiles and simply gets the category
+`"Uncategorized"`. The default value appears only in the header declaration.
+
+> **▶ Run checkpoint:** Click **Run** with all nine files open. The program should compile cleanly and behave exactly like v2.6. Nothing uses the category yet.
+
+#### Step 2 — Create the `GradingScheme` hierarchy (`gradingscheme.h`)
+
+A **base class** holds what every grading scheme has in common. Each **derived
+class** adds its own rule.
+
+Create a new file named `gradingscheme.h` and enter this code:
+
+```cpp
+// gradingscheme.h - Grade Calculator v3.0 - Chapter 20
+#ifndef GRADINGSCHEME_H
+#define GRADINGSCHEME_H
+
+#include "assignment.h"
+
+#include <string>
+#include <vector>
+
+/**
+ * Base class for grading schemes.
+ *
+ * Chapter 20 compares two designs for supporting more than one grading rule:
+ * a scheme flag branched on inside every calculation, or a small class
+ * hierarchy. This is the hierarchy. Shared behavior - capping and rounding -
+ * lives here once, so no derived class repeats it.
+ *
+ * LIMITATION (removed in Chapter 21): selection still happens through a single
+ * branch in Gradebook, because these functions are not yet virtual. The scheme
+ * is therefore fixed once the program starts.
+ */
 class GradingScheme {
 public:
     explicit GradingScheme(const std::string& name) : name_(name) {}
+
     const std::string& name() const { return name_; }
 
 protected:
@@ -68,23 +183,26 @@ private:
     std::string name_;
 };
 
+/** Total points earned divided by total points possible. */
 class PointsBased : public GradingScheme {
 public:
     PointsBased() : GradingScheme("Points-based") {}
     double computePercentage(const std::vector<Assignment>& work) const;
 };
 
+/** Each category scored separately, then combined by weight. */
 class Weighted : public GradingScheme {
 public:
     struct CategoryWeight {
         std::string name;
-        double weight = 0.0;
+        double weight = 0.0;   // percentage points, should total 100
     };
 
     Weighted();
     explicit Weighted(const std::vector<CategoryWeight>& weights);
 
     double computePercentage(const std::vector<Assignment>& work) const;
+
     const std::vector<CategoryWeight>& weights() const { return weights_; }
     double weightTotal() const;
     bool weightsValid() const;
@@ -92,11 +210,46 @@ public:
 private:
     std::vector<CategoryWeight> weights_;
 };
+
+#endif
 ```
 
-`PointsBased::computePercentage` is the same total-earned-over-total-possible math every chapter since Chapter 14 has used, just moved into its own class:
+Read the three classes carefully:
+
+- `GradingScheme` stores a `name_` and provides `finalize()`, the course's
+  cap-and-round policy. `finalize` is **`protected`**: derived classes can
+  call it, but code outside the hierarchy cannot. It is `static` because it
+  does not need any one object's data.
+- `class PointsBased : public GradingScheme` reads "a `PointsBased` **is a**
+  `GradingScheme`." Its constructor passes the name `"Points-based"` up to the
+  base-class constructor in its initializer list.
+- `Weighted` adds a nested `CategoryWeight` struct (a category name and its
+  weight) and a list of weights. It can tell you whether the weights total
+  100 (`weightsValid()`).
+- Notice that `computePercentage` is **not** `virtual` yet. Each derived class
+  has its own version, but the program must still decide by hand which one to
+  call. Chapter 21 removes that limitation.
+
+#### Step 3 — Implement the two schemes (`gradingscheme.cpp`)
+
+Create a new file named `gradingscheme.cpp` and enter this code:
 
 ```cpp
+// gradingscheme.cpp - Grade Calculator v3.0 - Chapter 20
+#include "gradingscheme.h"
+
+#include <algorithm>
+#include <cmath>
+
+namespace {
+    const bool CAP_AT_100 = true;
+}
+
+double GradingScheme::finalize(double rawPercentage) {
+    double reported = CAP_AT_100 ? std::min(rawPercentage, 100.0) : rawPercentage;
+    return std::round(reported * 10.0) / 10.0;
+}
+
 double PointsBased::computePercentage(const std::vector<Assignment>& work) const {
     double earned = 0.0;
     double possible = 0.0;
@@ -107,11 +260,24 @@ double PointsBased::computePercentage(const std::vector<Assignment>& work) const
     if (possible <= 0.0) { return 0.0; }
     return finalize(earned / possible * 100.0);
 }
-```
 
-### Step 3 — Implement weighted grading, without penalizing ungraded categories
+Weighted::Weighted() : GradingScheme("Weighted") {
+    weights_ = { {"Exam", 50.0}, {"Homework", 30.0}, {"Participation", 20.0} };
+}
 
-```cpp
+Weighted::Weighted(const std::vector<CategoryWeight>& weights)
+    : GradingScheme("Weighted"), weights_(weights) {}
+
+double Weighted::weightTotal() const {
+    double sum = 0.0;
+    for (const CategoryWeight& w : weights_) { sum += w.weight; }
+    return sum;
+}
+
+bool Weighted::weightsValid() const {
+    return std::abs(weightTotal() - 100.0) < 0.001;
+}
+
 double Weighted::computePercentage(const std::vector<Assignment>& work) const {
     double weightedSum = 0.0;
     double weightUsed  = 0.0;
@@ -139,171 +305,398 @@ double Weighted::computePercentage(const std::vector<Assignment>& work) const {
 }
 ```
 
-Dividing by `weightUsed` — the weight actually seen, not a hardcoded 100 — is what makes weights that don't total 100 still produce a sane percentage, and what makes an ungraded category's weight vanish rather than count against the student.
+- `PointsBased::computePercentage` is the same points math you have used since
+  Chapter 4, now ending in `finalize(...)` from the base class.
+- `Weighted::Weighted()` sets the default weights: Exam 50, Homework 30,
+  Participation 20.
+- `weightsValid()` compares the total to 100 **with a tolerance**
+  (`< 0.001`), never with `==`, because the weights are `double`s — the
+  floating-point trap from Chapter 6.
+- `Weighted::computePercentage` scores each category separately and combines
+  them by weight. A category with **no graded work yet is skipped**, and its
+  weight is spread across the categories that do have work, so a student is
+  not penalized for assignments that have not been given.
 
-### Step 4 — Make `Gradebook` scheme-aware
+> **▶ Run checkpoint:** Open both new files and click **Run**. The program should compile cleanly and still behave exactly like v2.6 — the new classes exist but nothing uses them yet.
+
+#### Step 4 — Note the new role of `Student::percentage()`
+
+`Student::percentage()` still computes a points-based percentage, but the
+course grade will now come from a grading scheme. Record that in a comment so
+the next reader is not misled.
+
+In `student.h`, find:
 
 ```cpp
-enum class Scheme { Points, Weighted };
-
-explicit Gradebook(const std::string& courseName = "Untitled Course",
-                   Scheme scheme = Scheme::Points);
-
-double percentageFor(const Student& s) const;
-std::string schemeName() const;
-Scheme scheme() const { return scheme_; }
-const Weighted& weightedScheme() const { return weighted_; }
-void setWeights(const std::vector<Weighted::CategoryWeight>& w) { weighted_ = Weighted(w); }
+    double totalPossible() const;
+    double percentage() const;
 ```
 
+Replace it with:
+
 ```cpp
+    double totalPossible() const;
+
+    /** Points-based percentage. Kept for the report header and for sorting;
+     *  the course grade now comes from a GradingScheme instead. */
+    double percentage() const;
+```
+
+This is a comment-only change; `student.cpp` does not change at all.
+
+#### Step 5 — Make `Gradebook` scheme-aware (`gradebook.h`)
+
+In `gradebook.h`, find the first project include:
+
+```cpp
+#include "gradescale.h"
+```
+
+Directly above it, add:
+
+```cpp
+#include "gradingscheme.h"
+```
+
+Find the constructor declaration:
+
+```cpp
+    explicit Gradebook(const std::string& courseName = "Untitled Course");
+```
+
+Replace it with:
+
+```cpp
+    /** Which grading rule this gradebook applies. Fixed at construction in
+     *  v3.0; Chapter 21 makes it changeable at any time. */
+    enum class Scheme { Points, Weighted };
+
+    explicit Gradebook(const std::string& courseName = "Untitled Course",
+                       Scheme scheme = Scheme::Points);
+
+    /** The course grade for one student under the selected scheme. */
+    double percentageFor(const Student& s) const;
+    std::string schemeName() const;
+    const Weighted& weightedScheme() const { return weighted_; }
+    void setWeights(const std::vector<Weighted::CategoryWeight>& w) { weighted_ = Weighted(w); }
+```
+
+At the bottom of the class, find:
+
+```cpp
+    int nextId_ = 1001;
+};
+```
+
+Replace it with:
+
+```cpp
+    int nextId_ = 1001;
+
+    // Both schemes are held as concrete objects, and a single branch in
+    // percentageFor() chooses between them. That branch is the limitation
+    // Chapter 21 removes with virtual functions.
+    Scheme scheme_ = Scheme::Points;
+    PointsBased points_;
+    Weighted    weighted_;
+};
+```
+
+What you added:
+
+- `enum class Scheme { Points, Weighted };` names the two choices. Because it
+  is declared inside `Gradebook`, its full name is `Gradebook::Scheme`.
+- The constructor takes a second parameter, the scheme, **defaulting to
+  `Scheme::Points`** — so `Gradebook book("Programming Fundamentals");` still
+  compiles.
+- `percentageFor(s)` returns a student's course grade under the selected
+  scheme; `schemeName()` returns its display name.
+- `weightedScheme()` and `setWeights()` let `main` read and replace the
+  weights.
+- The `Gradebook` **holds one object of each scheme** (`points_` and
+  `weighted_`) plus the `scheme_` flag that says which to use.
+
+#### Step 6 — Grade through the selected scheme (`gradebook.cpp`)
+
+In `gradebook.cpp`, find the constructor:
+
+```cpp
+Gradebook::Gradebook(const std::string& courseName) : courseName_(courseName) {}
+```
+
+Replace it with:
+
+```cpp
+Gradebook::Gradebook(const std::string& courseName, Scheme scheme)
+    : courseName_(courseName), scheme_(scheme) {}
+
 double Gradebook::percentageFor(const Student& s) const {
     // The single branch. One place today; one place per operation as soon as
-    // a third scheme or a second calculation is added.
+    // a third scheme or a second calculation is added. See Section 20.2.
     if (scheme_ == Scheme::Weighted) {
         return weighted_.computePercentage(s.assignments());
     }
     return points_.computePercentage(s.assignments());
 }
-```
 
-Every place that used to call `s.percentage()` for the *course grade* now calls `book.percentageFor(s)` instead — the report, the class average, and (see Step 6) the scheme-aware sort key. `s.percentage()` itself is untouched and still used for the raw points-based ordering in `sortByPercentage()`.
-
-### Step 5 — Carry persistence forward, with a `SCHEME` line and per-category `WEIGHT` lines
-
-```cpp
-bool Gradebook::save(const std::string& filename) const {
-    std::ofstream out(filename);
-    if (!out) { return false; }
-
-    out << "# Grade Calculator gradebook file, version 3 (Chapter 20)\n";
-    out << "# Section tags allow new record types to be added later.\n";
-    out << "COURSE," << courseName_ << "\n";
-    out << "SCHEME," << (scheme_ == Scheme::Weighted ? "WEIGHTED" : "POINTS") << "\n";
-    out << "NEXTID," << nextId_ << "\n";
-    for (const GradeScale::Tier& t : scale_.tiers()) {
-        out << "TIER," << t.cutoff << "," << t.letter << "\n";
-    }
-    if (scheme_ == Scheme::Weighted) {
-        for (const Weighted::CategoryWeight& w : weighted_.weights()) {
-            out << "WEIGHT," << w.name << "," << w.weight << "\n";
-        }
-    }
-    for (const Student& s : roster_) {
-        out << "STUDENT," << s.id() << "," << s.name();
-        for (const Assignment& a : s.assignments()) {
-            out << "," << a.name() << "," << a.pointsEarned() << ","
-                << a.pointsPossible() << "," << a.bonusPoints() << "," << a.category();
-        }
-        out << "\n";
-    }
-    return out.good();
+std::string Gradebook::schemeName() const {
+    return scheme_ == Scheme::Weighted ? weighted_.name() : points_.name();
 }
 ```
 
-`load` mirrors it: a `SCHEME` line sets `scheme_`, `WEIGHT` lines are collected and, if any were found, replace `weighted_` with `Weighted(loadedWeights)`; each `STUDENT` row's assignments are now read five fields at a time instead of four, with the fifth restoring `category()`.
-
-### Step 6 — Carry sort/search forward, using the scheme-aware grade where it matters
+In `classAverage()`, find:
 
 ```cpp
-void Gradebook::sortRoster(SortKey key) {
-    for (std::size_t i = 0; i + 1 < roster_.size(); ++i) {
-        std::size_t best = i;
-        for (std::size_t j = i + 1; j < roster_.size(); ++j) {
-            bool jComesFirst = false;
-            switch (key) {
-                case SortKey::Name:       jComesFirst = roster_[j].name() < roster_[best].name(); break;
-                case SortKey::Percentage: jComesFirst = percentageFor(roster_[j]) > percentageFor(roster_[best]); break;
-                case SortKey::Id:         jComesFirst = roster_[j].id() < roster_[best].id(); break;
+    for (const Student& s : roster_) { sum += s.percentage(); }
+```
+
+Replace it with:
+
+```cpp
+    for (const Student& s : roster_) { sum += percentageFor(s); }
+```
+
+In `operator<<`, find the line that prints the scale:
+
+```cpp
+    out << "  " << book.scale() << "\n";
+```
+
+Directly below it, add:
+
+```cpp
+    out << "  Grading: " << book.schemeName() << "\n";
+```
+
+Further down in `operator<<`, inside the loop, find:
+
+```cpp
+        out << s << "   " << book.scale().letterFor(s.percentage()) << "\n";
+```
+
+Replace it with:
+
+```cpp
+        double pct = book.percentageFor(s);
+        out << std::fixed << std::setprecision(1)
+            << std::left << std::setw(6) << s.id()
+            << std::setw(20) << s.name()
+            << std::right << std::setw(8) << pct << "%   "
+            << book.scale().letterFor(pct) << "\n";
+```
+
+- `percentageFor` contains **the single branch**: if the scheme is
+  `Weighted`, ask `weighted_`; otherwise ask `points_`. Every grade in the
+  program now flows through this one function.
+- The class average and every report row now use `percentageFor(s)` instead
+  of `s.percentage()`, so they honor the chosen scheme.
+- The report row is now written out field by field, because the percentage
+  printed must be the *scheme's* percentage, which `Student`'s own
+  `operator<<` knows nothing about.
+
+> **▶ Run checkpoint:** Click **Run**. The program should compile cleanly. Because the scheme defaults to points, it still behaves like v2.6 — except that the report now shows a `Grading: Points-based` line.
+
+#### Step 7 — Update the header comment in `main.cpp`
+
+At the top of `main.cpp`, find the header comment:
+
+```cpp
+// =============================================================================
+//  Grade Calculator  v2.6                                          Chapter 19
+// -----------------------------------------------------------------------------
+//  Change  : One header/implementation pair per class. Reports print through
+//            operator<<, so a whole Gradebook is written with a single <<.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp
+//            student.cpp gradebook.cpp -o gradecalc
+// =============================================================================
+```
+
+Replace it with:
+
+```cpp
+// =============================================================================
+//  Grade Calculator  v3.0                                          Chapter 20
+// -----------------------------------------------------------------------------
+//  Change  : Weighted-category grading works. A GradingScheme base class with
+//            PointsBased and Weighted derived classes replaces the single
+//            hard-coded rule. Assignments now carry a category.
+//  Chooses : the scheme is selected at STARTUP and fixed for the session.
+//  Limit   : switching schemes requires restarting, because the selection is
+//            a branch in Gradebook::percentageFor rather than dynamic
+//            dispatch. Chapter 21 removes this.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp
+//            student.cpp gradingscheme.cpp gradebook.cpp -o gradecalc
+// =============================================================================
+```
+
+#### Step 8 — Choose a scheme at startup, and read each assignment's category
+
+`main` now asks for a scheme before the menu starts. If the user picks
+weighted grading, it offers to replace the default weights. The *Add student*
+loop also asks for a category.
+
+Find the start of `main`:
+
+```cpp
+int main() {
+```
+
+Delete that line and everything below it, all the way to the final closing `}` at the very end of the file.
+
+In its place, enter the new `main`:
+
+```cpp
+int main() {
+    std::cout << "=== GRADE CALCULATOR v3.0 (two grading schemes) ===\n\n";
+    std::cout << "Grading scheme for this session:\n";
+    std::cout << "  1) Points-based   2) Weighted by category\n";
+    std::string choice = readLine("Choice: ");
+
+    Gradebook::Scheme scheme = (!choice.empty() && choice[0] == '2')
+                             ? Gradebook::Scheme::Weighted
+                             : Gradebook::Scheme::Points;
+    Gradebook book("Programming Fundamentals", scheme);
+
+    if (scheme == Gradebook::Scheme::Weighted) {
+        std::cout << "\nDefault weights: Exam 50, Homework 30, Participation 20.\n";
+        if (readLine("Enter your own weights? (y/n): ").substr(0, 1) == "y") {
+            std::vector<Weighted::CategoryWeight> weights;
+            while (true) {
+                std::string name = readLine("  Category name (or 'done'): ");
+                if (name == "done" || name.empty()) { break; }
+                weights.push_back({name, readNonNegative("    Weight (percent): ")});
             }
-            if (jComesFirst) { best = j; }
+            book.setWeights(weights);
+            if (!book.weightedScheme().weightsValid()) {
+                std::cout << "  Note: weights total "
+                          << book.weightedScheme().weightTotal()
+                          << ", not 100. Categories are scaled proportionally.\n";
+            }
         }
-        if (best != i) { std::swap(roster_[i], roster_[best]); }
+        std::cout << "\nWhen adding assignments, use the category names above.\n";
     }
+
+    bool running = true;
+    while (running) {
+        std::cout << "\n1) Add student  2) Report  3) Sort by grade  "
+                     "4) Custom scale  5) Quit\nChoice: ";
+        std::string line;
+        if (!std::getline(std::cin, line)) { break; }
+        char c = line.empty() ? '?' : line[0];
+
+        if (c == '1') {
+            std::string name = readLine("  Student name: ");
+            if (name.empty()) { continue; }
+            Student s(name, book.claimNextId());
+            while (true) {
+                std::string an = readLine("    Assignment name (or 'done'): ");
+                if (an == "done" || an.empty()) { break; }
+                double earned   = readNonNegative("      Points earned  : ");
+                double possible = readNonNegative("      Points possible: ");
+                double bonus    = readNonNegative("      Bonus points   : ");
+                std::string cat = readLine("      Category       : ");
+                if (cat.empty()) { cat = "Uncategorized"; }
+                s.addAssignment(Assignment(an, earned, possible, bonus, cat));
+            }
+            book.addStudent(s);
+            std::cout << "  Added " << s.name() << " as ID " << s.id() << ".\n";
+
+        } else if (c == '2') {
+            std::cout << book << "\n";
+        } else if (c == '3') {
+            book.sortByPercentage();
+            std::cout << "  Sorted.\n";
+        } else if (c == '4') {
+            std::vector<GradeScale::Tier> requested;
+            std::cout << "  Enter tiers highest first, 'done' to finish.\n";
+            while (true) {
+                std::string lt = readLine("    Letter (or 'done'): ");
+                if (lt == "done" || lt.empty()) { break; }
+                requested.push_back({readNonNegative("      Minimum percentage: "), lt[0]});
+            }
+            book.setScale(GradeScale(requested));
+            std::cout << "  " << book.scale() << "\n";
+        } else if (c == '5') {
+            running = false;
+        } else {
+            std::cout << "  Please enter 1-5.\n";
+        }
+    }
+    std::cout << "\nGoodbye.\n";
+    return 0;
 }
 ```
 
-Notice the `Percentage` case calls `percentageFor(roster_[j])`, not `roster_[j].percentage()`. `linearFindById` and `binaryFindById` are otherwise byte-for-byte what Chapter 19 had; only the printed percentage on a successful find changes, from `s.percentage()` to `book.percentageFor(s)`, so **Find by ID** reports the grade the active scheme actually produces.
+What changed, from top to bottom:
 
-### Step 7 — Rebuild `main`: choose a scheme, weigh in on weights, keep every menu option
+- **Choosing the scheme.** The answer is read into a `std::string` named
+  `choice`, and a conditional expression turns it into a `Gradebook::Scheme`
+  value, which is passed to the `Gradebook` constructor. The scheme is fixed
+  for the session.
+- **Optional custom weights.** For weighted grading, the user can enter their
+  own categories and weights. If they do not total 100, the program prints a
+  note — it does not reject them; categories are scaled proportionally.
+- **The menu variable is renamed `c`.** The name `choice` is now taken by the
+  scheme answer, so the menu choice uses `char c`. Every `if` in the loop
+  compares `c`.
+- **Add student** asks for a `Category` after the bonus. Pressing Enter with no
+  category stores `"Uncategorized"`. The category is passed as the fifth
+  constructor argument.
+- **Sort** prints `Sorted.`, and **Custom scale** reads each letter into `lt`
+  and passes `readNonNegative(...)` straight into the tier — the same steps as
+  before, written more compactly.
 
-```cpp
-std::cout << "Grading scheme for this session:\n";
-std::cout << "  1) Points-based   2) Weighted by category\n";
-std::string choice = readLine("Choice: ");
+> **▶ Run checkpoint:** Make sure all eleven files are open and click **Run**. The program should compile with no errors and no warnings and open with the scheme question.
 
-Gradebook::Scheme requestedScheme = (!choice.empty() && choice[0] == '2')
-                         ? Gradebook::Scheme::Weighted
-                         : Gradebook::Scheme::Points;
-Gradebook book("Programming Fundamentals", requestedScheme);
+### Check your work
 
-std::string message;
-if (book.load(DEFAULT_FILE, message)) {
-    std::cout << "\n" << message << "\n";
-    if (book.scheme() != requestedScheme) {
-        std::cout << "  Note: " << DEFAULT_FILE << " was saved under "
-                  << (book.scheme() == Gradebook::Scheme::Weighted ? "weighted" : "points-based")
-                  << " grading; using the saved scheme instead of tonight's choice.\n";
-    }
-} else {
-    std::cout << "\n" << message << " Starting a new gradebook.\n";
-}
+**Run 1 — points-based.** Answer the scheme question with `1`. Add `Ada` with
+two assignments: `Exam 1` (earned `90`, possible `100`, bonus `0`, category
+`Exam`) and `HW1` (earned `10`, possible `10`, bonus `0`, category `Homework`).
+Type `done`, then choose `2`. The report should include:
+
+```text
+  Grading: Points-based
+=====================================
+1001  Ada                     90.9%   A
 ```
 
-A saved gradebook's scheme takes precedence over tonight's prompt, and the program says so rather than silently overriding the user's choice. If the active scheme is `Weighted`, the current weights — the loaded ones if a file existed, the defaults otherwise — are shown before offering to replace them:
+Check: (90 + 10) ÷ (100 + 10) = 100 ÷ 110 = 90.9%. Choose `5` to quit.
 
-```cpp
-if (book.scheme() == Gradebook::Scheme::Weighted) {
-    std::cout << "\nCurrent weights: ";
-    for (const Weighted::CategoryWeight& w : book.weightedScheme().weights()) {
-        std::cout << w.name << " " << w.weight << "   ";
-    }
-    std::cout << "\n";
-    if (readLine("Enter your own weights? (y/n): ").substr(0, 1) == "y") {
-        // ... unchanged from the original ...
-    }
-}
+**Run 2 — weighted, default weights.** Run again, choose `2`, and answer `n`
+to custom weights. Add the same two assignments for `Ada` and choose `2`:
+
+```text
+  Grading: Weighted
+=====================================
+1001  Ada                     93.8%   A
 ```
 
-The menu itself is unchanged from Chapter 19 — all nine options carry forward, none of them new to this chapter:
+Check: Exam 0.90 × 50 = 45; Homework 1.00 × 30 = 30. Participation has no
+work, so its 20 is skipped: 75 ÷ 80 = 93.75%, rounded to 93.8%. **The same
+scores, two different grades** — that is the point of choosing a scheme.
 
-```cpp
-std::cout << "\n1) Add student  2) Report  3) Sort by grade  4) Custom scale  5) Save\n"
-             "6) Run tests  7) Sort roster  8) Find by ID  9) Quit\nChoice: ";
+**Run 3 — weights that do not total 100.** Run again, choose `2`, answer `y`,
+and enter `Exam` `60`, `Homework` `30`, then `done`. You should see:
+
+```text
+  Note: weights total 90, not 100. Categories are scaled proportionally.
 ```
 
-**Add student** now also prompts for each assignment's category, defaulting to `"Uncategorized"` when left blank, matching the required default on the constructor itself.
+Add the same two assignments for `Ada` and report: she shows `93.3%`
+((0.90 × 60 + 1.00 × 30) ÷ 90).
 
-The regression suite gains its two new checks — the documented weighted example, and the no-penalty-for-ungraded-categories rule:
+Then confirm:
 
-```cpp
-Weighted defaultWeights;
-Student weightedExample("Test", 9999);
-weightedExample.addAssignment(Assignment("Midterm", 90.0, 100.0, 0.0, "Exam"));
-weightedExample.addAssignment(Assignment("HW1", 10.0, 10.0, 0.0, "Homework"));
-check(defaultWeights.computePercentage(weightedExample.assignments()) == 93.8,
-      "D4 exam 90/100@50 + homework 10/10@30 (no participation) is 93.8%");
+- [ ] The program compiles with no errors and no warnings with all eleven
+      files open.
+- [ ] `PointsBased` and `Weighted` both inherit `public`ly from
+      `GradingScheme`, and neither repeats the cap-and-round code — both call
+      `finalize`.
+- [ ] `gradescale.h`, `gradescale.cpp`, and `student.cpp` are unchanged from
+      Chapter 19.
 
-Student redistribute("Test", 9999);
-redistribute.addAssignment(Assignment("Midterm", 80.0, 100.0, 0.0, "Exam"));
-redistribute.addAssignment(Assignment("Speech", 10.0, 10.0, 0.0, "Participation"));
-// Homework (weight 30) has no assignments yet and must not count against the total.
-check(defaultWeights.computePercentage(redistribute.assignments()) == 85.7,
-      "D5 Weighted redistributes an ungraded category's weight, not penalizes it");
-```
-
-## Verification
-
-- The existing points-based examples still produce the same grades as Chapter 19.
-- A 90/100 exam at weight 50 and 10/10 homework at weight 30 reports 93.8% when only those categories contain work — `Run tests` checks this automatically now.
-- Weights totaling 80% are **not** rejected: `weightsValid()` reports them as invalid and the program says so, but the percentage is still computed correctly because it divides by the weight actually used, not by a hardcoded 100.
-- A weighted category with no assignments yet does not lower a student's grade — `Run tests` checks this automatically too, and should report **11 of 11 checks passed**.
-- Saving, quitting, and relaunching restores the course name, roster, grade scale, chosen scheme, and (for a weighted gradebook) its category weights.
-- `GradeScale`, `Student`, and the report layout are unchanged from Chapter 19, exactly as the "What did not change" table claims — verify this with a diff if you want to see it rather than take it on trust.
-- `Sort by grade`, `Sort roster`, and `Find by ID` all still work under either scheme.
-
-
-## StudySite workflow
+### StudySite workflow
 
 1. Confirm that your previous chapter is committed on GitHub, then open this
    chapter's **coding panel on the StudySite main stage**.
@@ -311,20 +704,17 @@ check(defaultWeights.computePercentage(redistribute.assignments()) == 85.7,
    avoids creating files with names such as `_imported` when the same path
    is already open.
 3. Click **Load from GitHub**, select
-   **COSC1437xxx-Grade-Calculator-YourLastName**, and click each source,
-   header, or documentation file needed for this chapter. Confirm the editor
-   shows the expected file paths before editing.
-4. Continue the existing project in StudySite's internal editor. For a
-   multi-file program, keep every source and header file needed by the build
-   open in the editor.
-5. Click **Run**. Read compiler messages and program output in the embedded
-   Terminal, and type program input there when prompted.
-6. Fix every compiler error and warning, then complete the verification
-   list.
+   **COSC1437xxx-Grade-Calculator-YourLastName**, and click every file in the project (`main.cpp` and the eight class files) to open it. You will create two new files during the lab.
+   Confirm the editor shows the expected file paths before editing.
+4. Work through Steps 1–8 above in StudySite's internal editor, in order, clicking **Run** at each ▶ Run checkpoint.
+5. Read compiler messages and program output in the embedded Terminal, and
+   type program input there when prompted. Fix every compiler error and
+   warning before moving past a Run checkpoint.
+6. Complete the **Check your work** list.
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
-## Save this checkpoint
+### Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs
 > locally on this device, but local autosave is not a durable GitHub backup.
@@ -332,8 +722,8 @@ check(defaultWeights.computePercentage(redistribute.assignments()) == 85.7,
 > finishes a successful **Commit**.
 
 1. Keep every project file that belongs in this checkpoint open in the
-   editor. **Save to GitHub includes every open editor file**, so close
-   scratch files and accidental `_imported` duplicates first.
+   editor — all eleven files: `main.cpp`, and the `.h` and `.cpp` files for `Assignment`, `GradeScale`, `Student`, `Gradebook`, and `GradingScheme`. **Save to GitHub includes every open editor file**,
+   so close scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
 3. Select **COSC1437xxx-Grade-Calculator-YourLastName** and the existing
    **main** branch.
@@ -342,9 +732,9 @@ check(defaultWeights.computePercentage(redistribute.assignments()) == 85.7,
 6. Open the commit link, or open the repository on GitHub, and confirm the
    new commit and expected files are present before leaving StudySite.
 
-## Complete when
+### Complete when
 
-- The verification list passes.
+- Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 20
   checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not

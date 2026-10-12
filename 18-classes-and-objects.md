@@ -363,7 +363,9 @@ Note also that `Tier` is declared *inside* `GradeScale`. A tier has no meaning a
 
 ### What v2.5 does
 
-Everything v2.4 did, with `Student`, `Assignment`, and `GradeScale` converted from structs to classes. The grading math and the saved report are unchanged; **what can reach the data is** — and one class of defect disappears. One workflow detail does change: because each `Student` now owns its own `Assignment` objects instead of sharing one course-wide list, assignments are entered per student (when you add the student) rather than in a separate "add an assignment" step. See "A restructure worth noting" below.
+The v2.4 data model rebuilt with classes: `Assignment`, `Student`, and `GradeScale` become classes with private data, and the grading math is unchanged. Because each `Student` now owns its own `Assignment` objects instead of sharing one course-wide list, assignments are entered per student (when you add the student) rather than in a separate "add an assignment" step. See "A restructure worth noting" below.
+
+v2.5 also starts from a deliberately smaller core — Add student, Report, Custom scale, and Quit — so the class design gets your full attention. Saving and loading, the regression tests, and sort and find are set aside for this checkpoint; sorting returns in Chapter 19, lookup by ID in Chapter 23, and saving and loading in Chapter 24.
 
 ### A restructure worth noting
 
@@ -437,50 +439,186 @@ Three things happened. The `ZZZ` tier at 99 was **silently rejected**, because 9
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v2.5
-- **Starting point:** The working Chapter 17 v2.4 program.
+- **Starting point:** Your committed Chapter 17 v2.4 program (`main.cpp`).
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-#### Required work
+#### What you will build
 
-1. Convert `Assignment`, `Student`, and `GradeScale` from structs to classes with private data members.
-2. Merge the old `Score` struct into `Assignment`: an assignment now carries its own `pointsEarned`, `pointsPossible`, and `bonusPoints` directly, because each `Assignment` belongs to exactly one `Student` instead of being shared and indexed in parallel with a separate scores list.
-3. Give `GradeScale` an invariant, enforced in its constructors: cutoffs strictly descend, no cutoff is negative, and the lowest tier is 0. An out-of-order or invalid tier is repaired or dropped, not rejected with an error — the constructor always produces a usable scale.
-4. Add `Student::letterGrade(const GradeScale&) const`, which looks up the student's own `percentage()` on the given scale.
-5. Add a **Custom scale** menu option that reads tiers from the user (highest first, `'done'` to finish) and replaces the active `GradeScale` by constructing a new one from what was entered — letting the invariant-enforcing constructor repair whatever the user typed.
-6. Carry the Chapter 15–17 features forward onto the new classes: saving and loading the gradebook, the `runTests()` regression suite, and sorting/searching the roster all still need to work — update them to call the new class members instead of the old free functions, but do not drop them.
+In this lab you rebuild the Grade Calculator's data around **classes** instead
+of structs. By the end you will have:
 
-Item 6 is the one most worth double-checking. It is easy, while converting structs to classes, to rewrite `main` around the new `Student`/`GradeScale`/`Assignment` types and forget to carry every menu option across. Chapter 18 should still have all eight menu options Chapter 17 had, plus the new **Custom scale** option — nine total.
+1. An `Assignment` class that holds one graded item — its name, points earned,
+   points possible, and bonus — behind `private` data and `const` accessors.
+   The old `Score` struct is folded into it.
+2. A `GradeScale` class whose constructor **enforces an invariant**: cutoffs
+   strictly descend and the lowest tier is 0. Whatever tiers a user types, the
+   constructor repairs them into a usable scale, so no other code ever has to
+   check.
+3. A `Student` class that **owns its own assignments** and computes its own
+   percentage with a `percentage()` member that needs no parameters.
+4. A smaller, cleaner `main` with four menu options: **Add student**,
+   **Report**, **Custom scale**, and **Quit**.
 
-#### What changes from Chapter 17
+#### What is different about v2.5
 
-Three real structural changes come with the class conversion, not just renamed types:
+v2.5 is a *rebuild*, not an add-on, so a few things from Chapter 17 change on
+purpose. Read this before you start so nothing surprises you.
 
-- **The `Gradebook` struct is retired.** Chapter 17 grouped `assignments`, `roster`, `scale`, and `nextId` into one `Gradebook` struct passed around together. Chapter 18 has no equivalent struct — `main` now holds a `GradeScale scale`, a `std::vector<Student> roster`, and an `int nextId` as three separate local variables, and the free functions that touched a `Gradebook` (`saveGradebook`, `loadGradebook`) take these three directly as parameters instead.
-- **The course-wide assignment list is retired.** Chapter 17 had one shared `std::vector<Assignment> assignments` that every student's `scores` lined up against by index. Chapter 18 has no shared list at all — each `Student` owns its own `std::vector<Assignment>`, added with `Student::addAssignment`. This removes the **Add assignment** menu option entirely; there is nothing course-wide left to add.
-- **Assignments are entered per student, not once up front.** Because there is no shared assignment list, the workflow moves: when you choose **Add student**, you now enter that student's name and then loop entering that one student's assignments (name, points earned, points possible, bonus) before the student is added to the roster. This is a real workflow change, not just an implementation detail — the same *grading math* Chapter 17 used is still there, but the *sequence of prompts* a user sees is different, so "the same input reproduces the same run" is no longer literally true input-for-input. What must still match is the same percentage and letter grade for the same scores.
-- **The gradebook file format changes to match.** The `ASSIGNMENT` record type is retired — there is no course-wide assignment list left to save. Each `STUDENT` row now carries its own assignment fields inline: `STUDENT,<id>,<name>,<assignmentName>,<earned>,<possible>,<bonus>`, repeated for every assignment that student has. A file saved by Chapter 17 is not compatible with Chapter 18's loader.
+- **Assignments are entered per student.** In v2.4 you added assignments once
+  for the whole course, and each student held a list of scores that lined up
+  with that list by position. In v2.5 each `Student` owns its own `Assignment`
+  objects, so you enter a student's assignments right after the student's
+  name. The separate *Add assignment* menu option goes away.
+- **The `Gradebook` struct goes away.** `main` holds a `GradeScale`, a
+  `std::vector<Student>`, and a next-ID counter directly. (Chapter 19 brings
+  back a `Gradebook` — as a real class.)
+- **v2.5 starts from a smaller core.** Saving and loading (Chapter 15), the
+  regression tests (Chapter 16), and sort and find (Chapter 17) are set aside
+  in this checkpoint so you can concentrate on classes. They are not lost:
+  your Chapter 17 commit keeps them in your repository's history. Sorting
+  returns in Chapter 19, Find by ID in Chapter 23, and saving and loading in
+  Chapter 24 — each rebuilt on top of the classes you write today.
+- **The grading math does not change.** The same scores still produce the
+  same percentage and letter grade.
 
-Everything else genuinely carries over: `readNonNegative` and `readLine` are untouched, the default A/B/C/D/F scale is unchanged, the report layout is unchanged, and the D1–D3 regression tests still check the exact same three defects with the exact same pass/fail wording.
+#### Files in this checkpoint
+
+| File | What you do to it |
+|---|---|
+| `main.cpp` | Edit. Everything in this lab happens in this one file. |
+
+#### How to use these steps
+
+This lab is a guided exercise, not a test. Each step tells you **which file**
+to open, shows the **exact code to find**, and shows the **exact code to put in
+its place**. Work through the steps in order and copy the code from the boxes
+rather than retyping it where you can.
+
+- A **find** box shows code exactly as it appears in your program at the end
+  of the previous chapter. Use the editor's search to locate it. If you cannot
+  find it, your program differs from the previous checkpoint — compare it with
+  your last commit on GitHub, or ask the Tutor to help you line it up, before
+  going further.
+- A **▶ Run checkpoint** marks a point where the program should build and run
+  again. Between checkpoints the program may not compile; that is expected.
+- Each step ends with a short explanation of *why*. Read it — it is the
+  chapter's concept, applied to your own program.
+
+> **Heads-up:** Steps 2 through 7 take the program apart before Step 8 puts
+> `main` back together, so the program will **not** compile again until the
+> end of Step 8. That is expected. Do not try to fix compiler errors in the
+> middle — finish the steps in order, then Run.
 
 #### Build it: step by step
 
-##### Step 1 — Turn `Assignment` into a class, and fold `Score` into it
+##### Step 1 — Update the header comment
 
-Chapter 17's `Assignment` only stored a name and a point value; the earned points and bonus lived in a separate `Score` struct, matched to an assignment by list position:
+Every version of the program opens with a comment block that says what
+changed. Update it so the file describes v2.5.
+
+At the very top of `main.cpp`, find the header comment:
 
 ```cpp
-// Chapter 17 (retired)
-struct Assignment { std::string name; double pointsPossible = 0.0; };
-struct Score      { double pointsEarned = 0.0; double bonusPoints = 0.0; };
+// =============================================================================
+//  Grade Calculator  v2.4                                          Chapter 17
+// -----------------------------------------------------------------------------
+//  Change  : Sorting and searching. The roster can be sorted by name, by
+//            percentage, or by ID, with the comparison chosen at run time.
+//            Search by ID is implemented both linearly and with binary search
+//            so the two can be compared on the same data.
+//  Format  : documented in gradebook-format.md (section-tagged CSV, chosen so
+//            new record types can be added later without breaking old files).
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// =============================================================================
 ```
 
-Replace both with one class. Since an `Assignment` now belongs to a single `Student`, it can hold everything about itself:
+Replace it with:
 
 ```cpp
+// =============================================================================
+//  Grade Calculator  v2.5                                          Chapter 18
+// -----------------------------------------------------------------------------
+//  Change  : Structs become classes with private data and behavior.
+//            GradeScale validates its own tiers in the constructor, so an
+//            invalid scale can no longer be constructed at all. The loose
+//            validation functions of Chapter 11 are gone.
+//            Each Student now owns its own Assignment records.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// =============================================================================
+```
+
+*Why:* the header is the first thing a reader (including future you) sees. It
+should describe the code that is actually in the file.
+
+##### Step 2 — Update the `#include` list and constants
+
+v2.5 no longer reads or writes files, so it no longer needs `<fstream>`,
+`<sstream>`, or the `DEFAULT_FILE` constant. It does need `<algorithm>`,
+because `Student::percentage()` will call `std::min`.
+
+Just below the header comment, find the `#include` lines and the two constants:
+
+```cpp
+#include <cmath>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <sstream>
+#include <string>
+#include <vector>
+
+const bool CAP_AT_100 = true;
+const std::string DEFAULT_FILE = "gradebook.csv";
+```
+
+Replace it with:
+
+```cpp
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <string>
+#include <vector>
+
+const bool CAP_AT_100 = true;
+```
+
+*Why:* include what you use, and only what you use (Appendix D, Section D.4).
+`CAP_AT_100` stays — the course still caps a reported percentage at 100.
+
+##### Step 3 — Replace the structs with an `Assignment` class
+
+Chapter 17's data lived in five structs: `Assignment` (a name and points
+possible), `Score` (points earned and bonus), `Student` (which held a list of
+`Score`s), `GradeTier`, and `Gradebook`. In v2.5 an assignment belongs to
+exactly one student, so it can hold *everything* about itself — and `Score`
+is no longer needed.
+
+Find the first struct, just below `CAP_AT_100`:
+
+```cpp
+struct Assignment { std::string name; double pointsPossible = 0.0; };
+```
+
+Delete that line and everything below it (the `Score`, `Student`, `GradeTier`, and `Gradebook` structs), down to and including this line:
+
+```cpp
+};
+```
+
+In the space where the five structs were, enter the `Assignment` class:
+
+```cpp
+// -----------------------------------------------------------------------------
+//  Assignment - one graded item belonging to one student.
+// -----------------------------------------------------------------------------
 class Assignment {
 public:
     Assignment() = default;
@@ -495,6 +633,11 @@ public:
     /** Points credited to the student: raw score plus any bonus. */
     double totalEarned() const { return pointsEarned_ + bonusPoints_; }
 
+    /** Fraction of possible points earned, or 0 for an ungraded item. */
+    double ratio() const {
+        return pointsPossible_ > 0.0 ? totalEarned() / pointsPossible_ : 0.0;
+    }
+
 private:
     std::string name_;
     double pointsEarned_   = 0.0;
@@ -503,13 +646,39 @@ private:
 };
 ```
 
-`Score` is deleted entirely — do not keep it around unused.
+Look at what changed:
 
-##### Step 2 — Turn `GradeScale` into a class with an invariant-enforcing constructor
+- The data members are **`private`** and end in an underscore (`name_`,
+  `pointsEarned_`) — the naming convention from Appendix D that marks a member
+  variable. Code outside the class can no longer change them directly.
+- The **constructor** uses a member initializer list to set all four values
+  at once. `bonus` has a default of `0.0`, so a caller can leave it out.
+- Every accessor ends in **`const`**, which promises the compiler it does not
+  change the object.
+- `totalEarned()` and `ratio()` are **behavior that lives with the data**.
+  Bonus is added to points earned, never to points possible — the D2 rule from
+  Chapter 16, now written once in the class that owns the numbers.
 
-Chapter 17's grade scale was a `std::vector<GradeTier>` built by the free function `readGradeScale`, with no guarantee anything downstream actually validated it. Chapter 18 makes an invalid scale impossible to construct:
+##### Step 4 — Add the `GradeScale` class and its invariant
+
+In v2.4 the scale was a plain `std::vector<GradeTier>`, and nothing stopped
+the program from holding a broken one (tiers out of order, no 0 tier). The
+`GradeScale` class makes a broken scale impossible to build.
+
+Find the comment line that now sits just below the `Assignment` class:
 
 ```cpp
+// ---------- input helpers ----------
+```
+
+Directly above it, add:
+
+```cpp
+// -----------------------------------------------------------------------------
+//  GradeScale - an ordered set of cutoffs and letters.
+//  INVARIANT: cutoffs strictly descend and the lowest tier is 0.
+//  The constructor enforces this, so no other code needs to check it.
+// -----------------------------------------------------------------------------
 class GradeScale {
 public:
     struct Tier {
@@ -538,17 +707,12 @@ public:
         }
     }
 
-    /**
-     * Every non-negative percentage maps to a letter; a negative percentage
-     * (which should never occur from real grading math, but a save file
-     * could contain one) returns '?' rather than guessing.
-     */
+    /** Every percentage from 0 upward maps to a letter. Cannot fail. */
     char letterFor(double percentage) const {
-        if (percentage < 0.0) { return '?'; }
         for (const Tier& t : tiers_) {
             if (percentage >= t.cutoff) { return t.letter; }
         }
-        return '?';
+        return tiers_.back().letter;
     }
 
     std::size_t tierCount() const { return tiers_.size(); }
@@ -568,11 +732,39 @@ private:
 };
 ```
 
-`readGradeScale` and the old free-function `letterFor(pct, scale_vector)` are both retired. Validation now lives in exactly one place: the constructor.
+Study the second constructor — it is the heart of this chapter:
 
-##### Step 3 — Turn `Student` into a class that owns its own assignments
+- `GradeScale()` with no arguments builds the default A/B/C/D/F scale.
+- `explicit GradeScale(const std::vector<Tier>& requested)` walks the tiers
+  the user asked for and **keeps only the ones that preserve the invariant**:
+  a negative cutoff is skipped, and a cutoff that is not lower than the
+  previous kept tier is skipped. If the result does not reach 0, an `F` tier
+  at 0 is added.
+- Because *every* `GradeScale` passes through one of these constructors, the
+  invariant is always true. That is why `letterFor` has no error handling: it
+  cannot be handed a bad scale.
+- `Tier` is a small struct **nested inside** the class, so its full name is
+  `GradeScale::Tier`. It replaces the old `GradeTier` struct.
+- `describe()` prints the scale on one line, so `main` does not need to know
+  how a scale is stored.
+
+##### Step 5 — Add the `Student` class
+
+A `Student` now owns a `std::vector<Assignment>`. Everything needed to compute
+a grade is inside the object.
+
+Find the same comment line again — it is now just below the `GradeScale` class:
 
 ```cpp
+// ---------- input helpers ----------
+```
+
+Directly above it, add:
+
+```cpp
+// -----------------------------------------------------------------------------
+//  Student - owns a name, an ID, and its own assignments.
+// -----------------------------------------------------------------------------
 class Student {
 public:
     Student() = default;
@@ -605,11 +797,6 @@ public:
         return std::round(reported * 10.0) / 10.0;
     }
 
-    /** Looks up this student's own letter grade on the given scale. */
-    char letterGrade(const GradeScale& scale) const {
-        return scale.letterFor(percentage());
-    }
-
 private:
     std::string name_;
     int id_ = 0;
@@ -617,235 +804,214 @@ private:
 };
 ```
 
-Notice `percentage()` takes no parameters — Chapter 17's `percentageOf(student, assignments)` needed the shared assignment list passed in; Chapter 18's `Student` has everything it needs about itself.
+Compare `percentage()` with Chapter 17's `percentageOf(student, assignments)`.
+The old function needed the course-wide assignment list passed in, because a
+student only held scores. The new member function takes **no parameters** —
+the student has everything it needs. It still applies the same course policy:
+skip a zero total to avoid dividing by zero, cap at 100 when `CAP_AT_100` is
+`true`, and round to one decimal place.
 
-##### Step 4 — Update persistence for the new per-student format
+`addAssignment` is the **only** way to put work into a student, so there is
+exactly one place to look if a student's work ever looks wrong.
 
-`splitCsv` does not change. `saveGradebook` and `loadGradebook` do: they no longer take a `Gradebook`, and each `STUDENT` row now carries its assignment fields inline instead of matching against a separate `ASSIGNMENT` section:
+##### Step 6 — Update the input-helpers banner
 
-```cpp
-bool saveGradebook(const GradeScale& scale, const std::vector<Student>& roster,
-                   int nextId, const std::string& filename) {
-    std::ofstream out(filename);
-    if (!out) { return false; }
+Your `readNonNegative` and `readLine` functions do not change. Only the
+comment above them changes, to match the banner style of the classes above it.
 
-    out << "# Grade Calculator gradebook file, version 2 (Chapter 18)\n";
-    out << "# Section tags allow new record types to be added later.\n";
-    out << "NEXTID," << nextId << "\n";
-    for (const GradeScale::Tier& t : scale.tiers()) {
-        out << "TIER," << t.cutoff << "," << t.letter << "\n";
-    }
-    for (const Student& s : roster) {
-        out << "STUDENT," << s.id() << "," << s.name();
-        for (const Assignment& a : s.assignments()) {
-            out << "," << a.name() << "," << a.pointsEarned() << ","
-                << a.pointsPossible() << "," << a.bonusPoints();
-        }
-        out << "\n";
-    }
-    return out.good();
-}
-```
+Find the comment line:
 
 ```cpp
-bool loadGradebook(GradeScale& scale, std::vector<Student>& roster, int& nextId,
-                   const std::string& filename, std::string& message) {
-    std::ifstream in(filename);
-    if (!in) {
-        message = "No file named '" + filename + "' was found.";
-        return false;
-    }
-
-    std::vector<GradeScale::Tier> loadedTiers;
-    std::vector<Student> loadedRoster;
-    int loadedNextId = 1001;
-    std::string line;
-    int lineNumber = 0;
-    while (std::getline(in, line)) {
-        ++lineNumber;
-        if (line.empty() || line[0] == '#') { continue; }
-        std::vector<std::string> f = splitCsv(line);
-        if (f.empty()) { continue; }
-
-        try {
-            if (f[0] == "NEXTID" && f.size() >= 2) {
-                loadedNextId = std::stoi(f[1]);
-            } else if (f[0] == "TIER" && f.size() >= 3) {
-                loadedTiers.push_back({std::stod(f[1]), f[2].empty() ? '?' : f[2][0]});
-            } else if (f[0] == "STUDENT" && f.size() >= 3) {
-                Student s(f[2], std::stoi(f[1]));
-                for (std::size_t i = 3; i + 3 < f.size(); i += 4) {
-                    s.addAssignment(Assignment(f[i], std::stod(f[i + 1]),
-                                               std::stod(f[i + 2]), std::stod(f[i + 3])));
-                }
-                loadedRoster.push_back(s);
-            } else {
-                message = "Unrecognized record on line " + std::to_string(lineNumber)
-                        + "; the rest of the file was still loaded.";
-            }
-        } catch (...) {
-            message = "Malformed number on line " + std::to_string(lineNumber)
-                    + "; that record was skipped.";
-        }
-    }
-
-    scale = loadedTiers.empty() ? GradeScale() : GradeScale(loadedTiers);
-    if (loadedTiers.empty()) {
-        message = "File had no grade scale; the default scale was used.";
-    }
-    roster = loadedRoster;
-    nextId = loadedNextId;
-    if (message.empty()) { message = "Loaded " + filename + "."; }
-    return true;
-}
+// ---------- input helpers ----------
 ```
 
-The `ASSIGNMENT` record type from Chapter 17's file format is gone — do not write or read it.
-
-##### Step 5 — Update the regression tests to exercise the classes
-
-Same three defects (D1, D2, D3), same pass/fail text, now checked through the class API instead of the old free functions:
+Replace it with:
 
 ```cpp
-void runTests() {
-    std::cout << "\n--- Regression tests ---\n";
-    GradeScale scale;
-
-    // D3: exactly at a cutoff must take the higher grade.
-    check(scale.letterFor(90.0) == 'A', "D3 90.0 is an A, not a B");
-    check(scale.letterFor(80.0) == 'B', "D3 80.0 is a B, not a C");
-    check(scale.letterFor(60.0) == 'D', "D3 60.0 is a D, not an F");
-
-    // D1: a percentage below every cutoff must not read past the end.
-    check(scale.letterFor(0.0)  == 'F', "D1 0.0 is an F, no out-of-range read");
-    check(scale.letterFor(-5.0) == '?', "D1 below scale returns '?', no crash");
-
-    // D2: bonus raises earned points only, never points possible.
-    Student withBonus("Test", 9999);
-    withBonus.addAssignment(Assignment("HW1", 8.0, 10.0, 2.0));  // 8 earned + 2 bonus of 10
-    check(withBonus.percentage() == 100.0, "D2 8+2 bonus of 10 is 100%, not 83.3%");
-
-    Student noBonus("Test", 9999);
-    noBonus.addAssignment(Assignment("HW1", 8.0, 10.0, 0.0));
-    check(noBonus.percentage() == 80.0, "D2 8 of 10 with no bonus is 80%");
-
-    // Boundary: an assignment worth zero points must not divide by zero.
-    Student zeroPoints("Test", 9999);
-    zeroPoints.addAssignment(Assignment("Ungraded", 0.0, 0.0, 0.0));
-    check(zeroPoints.percentage() == 0.0, "zero points possible does not crash");
-
-    std::cout << "  " << (checksRun - checksFailed) << " of " << checksRun
-              << " checks passed.\n\n";
-    checksRun = 0;
-    checksFailed = 0;
-}
+// -----------------------------------------------------------------------------
+//  Input helpers
+// -----------------------------------------------------------------------------
 ```
 
-`check` and the `checksRun`/`checksFailed` counters are unchanged from Chapter 16.
+##### Step 7 — Remove the code that v2.5 sets aside
 
-##### Step 6 — Update sorting and searching to compare `Student` objects directly
+Everything between `readLine` and `main` belonged to the struct-based design:
+the CSV helpers and `saveGradebook`/`loadGradebook` (Chapter 15), the free
+functions `letterFor`, `percentageOf`, and `printReport`, the regression tests
+(Chapter 16), and the sort and search functions (Chapter 17). The classes now
+do the grading work, and the other features are set aside for this checkpoint
+(see *What is different about v2.5*).
 
-Chapter 17's `StudentComparer` took the shared assignment list as a third parameter, because `percentageOf` needed it. Chapter 18's comparers do not, because `Student::percentage()` is self-contained:
+Find the line just below the end of `readLine`:
 
 ```cpp
-typedef bool (*StudentComparer)(const Student&, const Student&);
-
-bool byName(const Student& a, const Student& b) { return a.name() < b.name(); }
-bool byId(const Student& a, const Student& b)   { return a.id() < b.id(); }
-bool byPercentageDescending(const Student& a, const Student& b) {
-    return a.percentage() > b.percentage();
-}
-
-/** Selection sort: same algorithm as Chapter 17, now comparing Students directly. */
-void selectionSort(std::vector<Student>& roster, StudentComparer comesFirst) {
-    for (std::size_t i = 0; i + 1 < roster.size(); ++i) {
-        std::size_t best = i;
-        for (std::size_t j = i + 1; j < roster.size(); ++j) {
-            if (comesFirst(roster[j], roster[best])) { best = j; }
-        }
-        if (best != i) { std::swap(roster[i], roster[best]); }
-    }
-}
+// ---------- CSV helpers ----------
 ```
 
-`linearSearchById` and `binarySearchById` keep the exact same bodies as Chapter 17 — only the call `roster[i].id` becomes `roster[i].id()`, since `id` is now a private member reached through an accessor. Binary search still runs against a sorted **copy** of the roster, never the live one, exactly as in Chapter 17.
+Delete that line and everything below it (all the CSV, persistence, grading, test, sorting, and searching code), stopping just **above** this line, which you keep:
 
-##### Step 7 — Rebuild `main`: retire `Gradebook`, add the Custom scale option
+```cpp
+int main() {
+```
 
-The `Gradebook` struct is gone. `main` now holds three separate variables, loads them on startup, and saves them on exit — unchanged from Chapter 15's persistence pattern:
+When you are done, the closing `}` of `readLine` should be followed by one
+blank line and then `int main() {`.
+
+*Why:* in Chapter 17 this code worked on `Student::scores` and the shared
+`book.assignments` list. Neither exists any more, so keeping it would only
+produce compiler errors. Your Chapter 17 commit still has every line of it if
+you want to look back.
+
+##### Step 8 — Rewrite `main` around the new classes
+
+`main` gets simpler: three local variables replace the `Gradebook` struct, and
+the menu has four options.
+
+Find the start of `main`:
+
+```cpp
+int main() {
+```
+
+Delete that line and everything below it, all the way to the final closing `}` at the very end of the file.
+
+In its place, enter the new `main`:
 
 ```cpp
 int main() {
     std::cout << "=== GRADE CALCULATOR v2.5 (classes) ===\n\n";
 
     GradeScale scale;   // default scale; invariant guaranteed by construction
+    scale.describe();
+
     std::vector<Student> roster;
     int nextId = 1001;
 
-    std::string message;
-    if (loadGradebook(scale, roster, nextId, DEFAULT_FILE, message)) {
-        std::cout << message << "\n\n";
-    } else {
-        std::cout << message << " Starting a new gradebook.\n\n";
+    bool running = true;
+    while (running) {
+        std::cout << "\n1) Add student  2) Report  3) Custom scale  4) Quit\nChoice: ";
+        std::string line;
+        if (!std::getline(std::cin, line)) { break; }
+        char choice = line.empty() ? '?' : line[0];
+
+        if (choice == '1') {
+            std::string name = readLine("  Student name: ");
+            if (name.empty()) { continue; }
+            Student s(name, nextId++);
+            while (true) {
+                std::string an = readLine("    Assignment name (or 'done'): ");
+                if (an == "done" || an.empty()) { break; }
+                double earned   = readNonNegative("      Points earned  : ");
+                double possible = readNonNegative("      Points possible: ");
+                double bonus    = readNonNegative("      Bonus points   : ");
+                s.addAssignment(Assignment(an, earned, possible, bonus));
+            }
+            roster.push_back(s);
+            std::cout << "  Added " << s.name() << " as ID " << s.id() << ".\n";
+
+        } else if (choice == '2') {
+            std::cout << "\n=====================================\n  CLASS REPORT\n";
+            std::cout << "=====================================\n";
+            std::cout << std::fixed << std::setprecision(1);
+            if (roster.empty()) { std::cout << "No students yet.\n"; continue; }
+            for (const Student& s : roster) {
+                std::cout << std::left << std::setw(6) << s.id()
+                          << std::setw(20) << s.name()
+                          << std::right << std::setw(8) << s.percentage() << "%   "
+                          << scale.letterFor(s.percentage()) << "\n";
+            }
+
+        } else if (choice == '3') {
+            std::vector<GradeScale::Tier> requested;
+            std::cout << "  Enter tiers highest first, 'done' to finish.\n";
+            while (true) {
+                std::string letterText = readLine("    Letter (or 'done'): ");
+                if (letterText == "done" || letterText.empty()) { break; }
+                double cutoff = readNonNegative("      Minimum percentage: ");
+                requested.push_back({cutoff, letterText[0]});
+            }
+            // Any bad input is repaired by the constructor, not by this code.
+            scale = GradeScale(requested);
+            std::cout << "  Scale accepted.\n";
+            scale.describe();
+
+        } else if (choice == '4') {
+            running = false;
+        } else {
+            std::cout << "  Please enter 1-4.\n";
+        }
     }
-    scale.describe();
+    std::cout << "\nGoodbye.\n";
+    return 0;
+}
 ```
 
-The menu drops **Add assignment** (there is nothing course-wide left to add) and gains **Custom scale**:
+Walk through what each part does:
 
-```cpp
-    std::cout << "\n1) Add student  2) Report  3) Custom scale  4) Save\n"
-                 "5) Run tests  6) Sort roster  7) Find by ID  8) Quit\nChoice: ";
-```
+- **Startup.** `GradeScale scale;` builds the default scale — valid by
+  construction. `scale.describe()` prints it so the user can see it.
+- **Option 1 — Add student.** After reading the name, `Student s(name,
+  nextId++)` creates the student with the next ID. The inner loop reads one
+  assignment at a time (name, points earned, points possible, bonus) until the
+  user types `done` or presses Enter on an empty name, adding each one with
+  `s.addAssignment(...)`. Only then is the finished student added to the
+  roster.
+- **Option 2 — Report.** Each row calls `s.id()`, `s.name()`, and
+  `s.percentage()` — accessors, not data members — and
+  `scale.letterFor(...)` for the letter.
+- **Option 3 — Custom scale.** The loop collects tiers into a
+  `std::vector<GradeScale::Tier>` without checking them, then
+  `scale = GradeScale(requested);` builds a new scale. **The constructor does
+  the repairing** — this code contains no validation at all.
+- **Option 4 — Quit** ends the loop. Because there is no file to save in
+  v2.5, the program simply says goodbye.
 
-**Add student** now loops entering that student's own assignments before adding them to the roster:
+> **▶ Run checkpoint:** Click **Run**. The program should compile with no errors and no warnings and show the v2.5 banner, the default scale, and the four-option menu. If you see errors, the message names a line — compare that area with the code boxes above.
 
-```cpp
-if (choice == '1') {
-    std::string name = readLine("  Student name: ");
-    if (name.empty()) { continue; }
-    Student s(name, nextId++);
-    while (true) {
-        std::string an = readLine("    Assignment name (or 'done'): ");
-        if (an == "done" || an.empty()) { break; }
-        double earned   = readNonNegative("      Points earned  : ");
-        double possible = readNonNegative("      Points possible: ");
-        double bonus    = readNonNegative("      Bonus points   : ");
-        s.addAssignment(Assignment(an, earned, possible, bonus));
-    }
-    roster.push_back(s);
-    std::cout << "  Added " << s.name() << " as ID " << s.id() << ".\n";
-```
+#### Check your work
 
-**Custom scale** is new — it reads tiers the same way Chapter 14's `readGradeScale` did, but instead of validating them by hand, it hands whatever was entered to the `GradeScale` constructor and lets the invariant repair it:
+Run the program and type the inputs below in the Terminal. Your output should
+match.
 
-```cpp
-} else if (choice == '3') {
-    std::vector<GradeScale::Tier> requested;
-    std::cout << "  Enter tiers highest first, 'done' to finish.\n";
-    while (true) {
-        std::string letterText = readLine("    Letter (or 'done'): ");
-        if (letterText == "done" || letterText.empty()) { break; }
-        double cutoff = readNonNegative("      Minimum percentage: ");
-        requested.push_back({cutoff, letterText[0]});
-    }
-    // Any bad input is repaired by the constructor, not by this code.
-    scale = GradeScale(requested);
-    std::cout << "  Scale accepted.\n";
-    scale.describe();
-```
+1. Choose `1` (Add student). Enter the name `Ada`. Add two assignments:
+   `HW1` with points earned `9`, points possible `10`, bonus `1`; and
+   `Midterm` with `84`, `100`, bonus `5`. Type `done`. The program should
+   print `Added Ada as ID 1001.`
+2. Choose `2` (Report). You should see:
 
-**Report**, **Save**, **Run tests**, **Sort roster**, and **Find by ID** keep the same menu positions and output shape as Chapter 17 — they now just call the class members (`printReport(roster, scale)`, `s.letterGrade(scale)`, and so on) instead of the old free functions.
+   ```text
+   =====================================
+     CLASS REPORT
+   =====================================
+   1001  Ada                     90.0%   A
+   ```
 
-#### Verification
+   Check it by hand: (9 + 1 + 84 + 5) ÷ (10 + 100) = 99 ÷ 110 = 90.0%.
+3. Choose `3` (Custom scale). Enter `A` with `93`, `B` with `85`, and then
+   `ZZZ` with `99`. Type `done`. You should see:
 
-- Code outside a class cannot modify `Assignment`, `Student`, or `GradeScale` data directly — every field is private.
-- Building a `GradeScale` from ascending, negative, empty, or floor-missing tiers always produces a valid, usable scale; nothing crashes or throws.
-- For the same scores, a student's reported percentage and letter grade match the same math Chapter 17 used — verify this by comparing a report you already have from Chapter 17 against the same scores entered in Chapter 18.
-- Saving, quitting, and relaunching reloads the roster with matching IDs, names, scores, and percentages.
-- `Run tests` still reports **8 of 8 checks passed**.
-- `Sort roster` and `Find by ID` still work, including the linear-vs-binary comparison counts on **Find by ID**.
-- All accessors that do not change an object are `const`.
+   ```text
+     Scale accepted.
+     Scale: A >= 93   B >= 85   F >= 0
+   ```
+
+   The `ZZZ` tier was dropped because 99 is not below 85, and an `F` tier at
+   0 was added because your scale did not reach 0. The constructor repaired
+   the input — no error, no crash.
+4. Choose `2` again. Ada's 90.0% is now a `B` under the stricter scale. The
+   data did not change; only the scale did.
+5. Choose `4` (Quit). The program prints `Goodbye.` and ends normally.
+
+Then confirm:
+
+- [ ] The program compiles with no errors **and no warnings**.
+- [ ] `Assignment`, `GradeScale`, and `Student` have only `private` data
+      members; `main` reaches their data only through member functions.
+- [ ] Every accessor that does not change its object is marked `const`.
+- [ ] The structs `Score`, `GradeTier`, and `Gradebook` no longer appear
+      anywhere in `main.cpp`.
+- [ ] The menu shows exactly four options: Add student, Report, Custom scale,
+      Quit.
 
 #### StudySite workflow
 
@@ -855,16 +1021,13 @@ if (choice == '1') {
    avoids creating files with names such as `_imported` when the same path
    is already open.
 3. Click **Load from GitHub**, select
-   **COSC1437xxx-Grade-Calculator-YourLastName**, and click each source,
-   header, or documentation file needed for this chapter. Confirm the editor
-   shows the expected file paths before editing.
-4. Continue the existing project in StudySite's internal editor. For a
-   multi-file program, keep every source and header file needed by the build
-   open in the editor.
-5. Click **Run**. Read compiler messages and program output in the embedded
-   Terminal, and type program input there when prompted.
-6. Fix every compiler error and warning, then complete the verification
-   list.
+   **COSC1437xxx-Grade-Calculator-YourLastName**, and click `main.cpp` to open it.
+   Confirm the editor shows the expected file paths before editing.
+4. Work through Steps 1–8 above in StudySite's internal editor, in order. Click **Run** at the ▶ Run checkpoint at the end of Step 8.
+5. Read compiler messages and program output in the embedded Terminal, and
+   type program input there when prompted. Fix every compiler error and
+   warning before moving past a Run checkpoint.
+6. Complete the **Check your work** list.
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
@@ -876,8 +1039,8 @@ if (choice == '1') {
 > finishes a successful **Commit**.
 
 1. Keep every project file that belongs in this checkpoint open in the
-   editor. **Save to GitHub includes every open editor file**, so close
-   scratch files and accidental `_imported` duplicates first.
+   editor — for this chapter that is just `main.cpp`. **Save to GitHub includes every open editor file**,
+   so close scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
 3. Select **COSC1437xxx-Grade-Calculator-YourLastName** and the existing
    **main** branch.
@@ -888,11 +1051,12 @@ if (choice == '1') {
 
 #### Complete when
 
-- The verification list passes.
+- Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 18
   checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.
+
 
 ---
 

@@ -327,7 +327,7 @@ std::ostream& operator<<(std::ostream& out, const Student& s) {
 
 ### What v2.6 does
 
-Everything v2.5 did, reorganized: a `Gradebook` class owns the roster, the scale, and the course name; reports print through `operator<<`; and every class lives in its own header and implementation file. `Gradebook` also adds a checked `at()` alongside `operator[]`, and a second way to sort — `operator<` plus `std::sort` — alongside the Chapter 17 selection sort it still keeps for ID lookups.
+Everything v2.5 did, reorganized: a `Gradebook` class owns the roster, the scale, the course name, and the next-ID counter; reports print through `operator<<`; and every class lives in its own header and implementation file. It also adds one feature, **Sort by grade**, built on `Student::operator<` and `std::sort`.
 
 ### The file layout
 
@@ -461,43 +461,84 @@ CLASS AVERAGE                 75.0%
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v2.6
-- **Starting point:** The working Chapter 18 v2.5 program.
+- **Starting point:** Your committed Chapter 18 v2.5 program (`main.cpp`).
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-#### Required work
+#### What you will build
 
-1. Create one header and one implementation file for each class (`Assignment`, `GradeScale`, `Student`, `Gradebook`); keep `main.cpp` focused on application flow.
-2. Add include guards, and keep implementation details out of headers — use `<iosfwd>` for a forward declaration instead of a full `#include` wherever only a reference or pointer is needed.
-3. Create a `Gradebook` class that owns the roster, the grade scale, the course name, and the next-ID counter, replacing the loose `scale`/`roster`/`nextId` variables `main` held directly in Chapter 18.
-4. Implement `operator<<` for `Assignment`, `GradeScale`, `Student`, and `Gradebook`, each using only that class's own public accessors — no `friend` anywhere.
-5. Add checked `Gradebook::at(index)` alongside the existing unchecked `operator[]`. `at` must throw `std::out_of_range` for an invalid index — delegate to `std::vector::at`, which already does this, rather than writing the check by hand.
-6. Give `Student` an `operator<` that orders by percentage, highest first, and use it to implement `Gradebook::sortByPercentage()` with `std::sort`.
-7. Carry the Chapter 15–18 features forward onto `Gradebook`: saving and loading, the `runTests()` regression suite, and the Chapter 17 sort/search all still need to work as `Gradebook` member functions — do not drop them while splitting files.
+In Chapter 18 all three classes lived in `main.cpp`. In this lab you give each
+class its own **header** (`.h`) and **implementation** (`.cpp`) file, add a
+`Gradebook` class, and teach every class to print itself with
+**`operator<<`**. By the end you will have:
 
-Item 7 is the one most worth double-checking, for the same reason it was in Chapter 18: it is easy, while carving `main`'s logic into a new `Gradebook` class, to carry forward only the features the chapter narrative shows in its example and quietly lose the rest.
+1. `assignment.h`/`.cpp`, `gradescale.h`/`.cpp`, and `student.h`/`.cpp` —
+   the Chapter 18 classes, split into declaration and definition, each header
+   protected by an **include guard**.
+2. An `operator<<` for `Assignment`, `GradeScale`, and `Student`, written
+   using only each class's public accessors — no `friend` needed.
+3. `Student::operator<`, which orders students by percentage, highest first.
+4. A new `Gradebook` class (`gradebook.h`/`.cpp`) that owns the course name,
+   the roster, the grade scale, and the next-ID counter, and prints a whole
+   class report with a single `operator<<`.
+5. A short `main.cpp` with five menu options: **Add student**, **Report**,
+   **Sort by grade** (new), **Custom scale**, and **Quit**.
 
-#### What changes from Chapter 18
+#### Files in this checkpoint
 
-- **`Gradebook` replaces three loose variables.** Chapter 18's `main` held a `GradeScale scale`, a `std::vector<Student> roster`, and an `int nextId` side by side and passed them to free functions. Chapter 19 wraps all three (plus a course name) in one `Gradebook` class, so `main` now holds a single `Gradebook book` and calls its member functions.
-- **Two sorting mechanisms now coexist, deliberately.** `Gradebook::sortByPercentage()` is new: it uses `std::sort` with `Student::operator<`, this chapter's operator-overloading lesson. `Gradebook::sortRoster(SortKey)` is the Chapter 17 selection sort carried forward unchanged in algorithm, generalized to a `Gradebook` member and given a three-way `SortKey` enum (`Name`, `Percentage`, `Id`) so it can still sort by ID — which `binaryFindById` needs — and by name, neither of which `operator<` provides. **These are not redundant**: one teaches operator overloading, the other keeps the algorithm-comparison lesson (linear vs. binary search, with comparison counts) from Chapter 17 intact.
-- **Checked access is new.** `Gradebook::at(std::size_t)` did not exist before this chapter. It is a one-line delegation to `std::vector::at`, which already throws `std::out_of_range` for a bad index — there is nothing to hand-write.
-- **The save file gains a `COURSE` line**, since `Gradebook` now has a course name that did not exist as a saved field before.
-- **The regression suite grows to nine checks.** The eight Chapter 16–18 checks (D1–D3, plus the zero-points boundary check) are unchanged. A ninth check is added for the new checked-access requirement: constructing an empty `Gradebook` and confirming `at(0)` throws `std::out_of_range`.
+| File | What you do to it |
+|---|---|
+| `assignment.h`, `assignment.cpp` | Create (Step 1) |
+| `gradescale.h`, `gradescale.cpp` | Create (Step 2) |
+| `student.h`, `student.cpp` | Create (Step 3) |
+| `gradebook.h`, `gradebook.cpp` | Create (Step 4) |
+| `main.cpp` | Edit (Steps 5–7) |
 
-Everything else genuinely carries over: the grading math, the CSV record shapes for `TIER` and `STUDENT` rows, and the D1–D3 defects' pass/fail wording are all unchanged from Chapter 18.
+When you are finished your project has **nine files**. Every one of them must
+be open in the StudySite editor when you click **Run** — a `.cpp` file that is
+not open is not compiled, and the linker error you get names the missing
+function, not the missing tab.
+
+> **How to create a file:** in the StudySite editor, create a new file with
+> the exact name shown (spelling and lowercase matter, because `#include`
+> lines refer to these names). Keep each new file open after you create it.
+
+#### How to use these steps
+
+This lab is a guided exercise, not a test. Each step tells you **which file**
+to open, shows the **exact code to find**, and shows the **exact code to put in
+its place**. Work through the steps in order and copy the code from the boxes
+rather than retyping it where you can.
+
+- A **find** box shows code exactly as it appears in your program at the end
+  of the previous chapter. Use the editor's search to locate it. If you cannot
+  find it, your program differs from the previous checkpoint — compare it with
+  your last commit on GitHub, or ask the Tutor to help you line it up, before
+  going further.
+- A **▶ Run checkpoint** marks a point where the program should build and run
+  again. Between checkpoints the program may not compile; that is expected.
+- Each step ends with a short explanation of *why*. Read it — it is the
+  chapter's concept, applied to your own program.
+
+> **Heads-up:** Steps 1–4 create the new files; Steps 5–7 remove the old
+> class code from `main.cpp`. Do **not** click Run until the checkpoint at the
+> end of Step 7 — until then, the classes exist in two places at once.
 
 #### Build it: step by step
 
-##### Step 1 — Split `Assignment`, `GradeScale`, and `Student` into header/implementation pairs
+##### Step 1 — Create `assignment.h` and `assignment.cpp`
 
-Each class keeps exactly the members and behavior it had in Chapter 18. Only the file layout changes: declarations go in a header behind an include guard, definitions go in a matching `.cpp`. `Assignment`:
+A **header** declares what a class looks like; its **implementation file**
+defines the function bodies. Other files `#include` the header, never the
+`.cpp`.
+
+Create a new file named `assignment.h` and enter this code:
 
 ```cpp
-// assignment.h
+// assignment.h - Grade Calculator v2.6 - Chapter 19
 #ifndef ASSIGNMENT_H
 #define ASSIGNMENT_H
 
@@ -530,8 +571,24 @@ std::ostream& operator<<(std::ostream& out, const Assignment& a);
 #endif
 ```
 
+Notice:
+
+- `#ifndef ASSIGNMENT_H` / `#define ASSIGNMENT_H` / `#endif` is an **include
+  guard**. If two files both include `assignment.h`, the class is still
+  defined only once.
+- Short accessors stay in the header. `totalEarned()` and `ratio()` are now
+  only **declared** here (they end in `;`); their bodies move to the `.cpp`.
+- The header includes `<iosfwd>`, not `<iostream>`. `<iosfwd>` only
+  *announces* that `std::ostream` exists, which is all a declaration like
+  `operator<<(std::ostream&, ...)` needs. Files that include this header
+  compile faster and do not drag in all of `<iostream>`.
+- `operator<<` is declared **outside** the class. It is a free function that
+  uses the class's public accessors.
+
+Create a new file named `assignment.cpp` and enter this code:
+
 ```cpp
-// assignment.cpp
+// assignment.cpp - Grade Calculator v2.6 - Chapter 19
 #include "assignment.h"
 
 #include <iomanip>
@@ -540,7 +597,9 @@ std::ostream& operator<<(std::ostream& out, const Assignment& a);
 Assignment::Assignment(const std::string& name, double earned, double possible, double bonus)
     : name_(name), pointsEarned_(earned), pointsPossible_(possible), bonusPoints_(bonus) {}
 
-double Assignment::totalEarned() const { return pointsEarned_ + bonusPoints_; }
+double Assignment::totalEarned() const {
+    return pointsEarned_ + bonusPoints_;
+}
 
 double Assignment::ratio() const {
     return pointsPossible_ > 0.0 ? totalEarned() / pointsPossible_ : 0.0;
@@ -558,14 +617,86 @@ std::ostream& operator<<(std::ostream& out, const Assignment& a) {
 }
 ```
 
-`GradeScale` and `Student` split the same way — declarations in the header, bodies in the `.cpp`, `<iosfwd>` in the header wherever a full `<string>`/`<vector>` include is not actually needed there. `GradeScale::letterFor` keeps the exact behavior it had at the end of Chapter 18: a negative percentage returns `'?'` rather than guessing, which the D1 regression test below still checks.
+Each definition outside the class is written with the class name and the
+**scope resolution operator**: `Assignment::totalEarned()`. The constructor's
+default argument (`bonus = 0.0`) appears only in the header, never again here.
 
-##### Step 2 — Add `operator<<` for each class, and `operator<` for `Student`
+`operator<<` prints an assignment as one aligned line — name, total earned,
+and points possible, plus a bonus note when there is one — and **returns the
+stream**, which is what lets you chain `<<` calls.
 
-Each `operator<<` uses only its class's public accessors:
+##### Step 2 — Create `gradescale.h` and `gradescale.cpp`
+
+Create a new file named `gradescale.h` and enter this code:
 
 ```cpp
-// gradescale.cpp (excerpt)
+// gradescale.h - Grade Calculator v2.6 - Chapter 19
+#ifndef GRADESCALE_H
+#define GRADESCALE_H
+
+#include <iosfwd>
+#include <vector>
+
+/**
+ * An ordered set of grade cutoffs.
+ * INVARIANT: cutoffs strictly descend and the lowest tier is 0, so every
+ * percentage from 0 upward maps to exactly one letter. The constructor
+ * establishes this, and no member function can break it.
+ */
+class GradeScale {
+public:
+    struct Tier {
+        double cutoff = 0.0;
+        char   letter = 'F';
+    };
+
+    GradeScale();
+    explicit GradeScale(const std::vector<Tier>& requested);
+
+    char letterFor(double percentage) const;
+    std::size_t tierCount() const { return tiers_.size(); }
+    const std::vector<Tier>& tiers() const { return tiers_; }
+
+private:
+    std::vector<Tier> tiers_;
+};
+
+std::ostream& operator<<(std::ostream& out, const GradeScale& scale);
+
+#endif
+```
+
+Create a new file named `gradescale.cpp` and enter this code:
+
+```cpp
+// gradescale.cpp - Grade Calculator v2.6 - Chapter 19
+#include "gradescale.h"
+
+#include <iomanip>
+#include <ostream>
+
+GradeScale::GradeScale() {
+    tiers_ = { {90.0,'A'}, {80.0,'B'}, {70.0,'C'}, {60.0,'D'}, {0.0,'F'} };
+}
+
+GradeScale::GradeScale(const std::vector<Tier>& requested) {
+    for (const Tier& t : requested) {
+        if (t.cutoff < 0.0) { continue; }
+        if (!tiers_.empty() && t.cutoff >= tiers_.back().cutoff) { continue; }
+        tiers_.push_back(t);
+    }
+    if (tiers_.empty() || tiers_.back().cutoff > 0.0) {
+        tiers_.push_back({0.0, 'F'});
+    }
+}
+
+char GradeScale::letterFor(double percentage) const {
+    for (const Tier& t : tiers_) {
+        if (percentage >= t.cutoff) { return t.letter; }
+    }
+    return tiers_.back().letter;
+}
+
 std::ostream& operator<<(std::ostream& out, const GradeScale& scale) {
     out << "Scale: ";
     for (const GradeScale::Tier& t : scale.tiers()) {
@@ -576,8 +707,101 @@ std::ostream& operator<<(std::ostream& out, const GradeScale& scale) {
 }
 ```
 
+Two changes from Chapter 18 besides the split:
+
+- The invariant now lives in a **comment above the class**, where anyone
+  reading the header will see it. The constructor logic that enforces it is
+  unchanged.
+- Chapter 18's `describe()` member is gone. **`operator<<` replaces it**, so
+  printing a scale is `std::cout << scale` — the same way you print anything
+  else. Unlike `describe()`, it does not add `"  "` in front or a newline at the
+  end; the caller decides the layout.
+
+##### Step 3 — Create `student.h` and `student.cpp`
+
+Create a new file named `student.h` and enter this code:
+
 ```cpp
-// student.cpp (excerpt)
+// student.h - Grade Calculator v2.6 - Chapter 19
+#ifndef STUDENT_H
+#define STUDENT_H
+
+#include "assignment.h"
+
+#include <iosfwd>
+#include <string>
+#include <vector>
+
+class Student {
+public:
+    Student() = default;
+    Student(const std::string& name, int id);
+
+    const std::string& name() const { return name_; }
+    int id() const { return id_; }
+    const std::vector<Assignment>& assignments() const { return assignments_; }
+
+    void addAssignment(const Assignment& a);
+
+    double totalEarned() const;
+    double totalPossible() const;
+    double percentage() const;
+
+    /** Orders students by percentage, highest first. Enables sorting. */
+    bool operator<(const Student& other) const;
+
+private:
+    std::string name_;
+    int id_ = 0;
+    std::vector<Assignment> assignments_;
+};
+
+std::ostream& operator<<(std::ostream& out, const Student& s);
+
+#endif
+```
+
+Create a new file named `student.cpp` and enter this code:
+
+```cpp
+// student.cpp - Grade Calculator v2.6 - Chapter 19
+#include "student.h"
+
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <ostream>
+
+namespace {
+    const bool CAP_AT_100 = true;
+}
+
+Student::Student(const std::string& name, int id) : name_(name), id_(id) {}
+
+void Student::addAssignment(const Assignment& a) {
+    assignments_.push_back(a);
+}
+
+double Student::totalEarned() const {
+    double sum = 0.0;
+    for (const Assignment& a : assignments_) { sum += a.totalEarned(); }
+    return sum;
+}
+
+double Student::totalPossible() const {
+    double sum = 0.0;
+    for (const Assignment& a : assignments_) { sum += a.pointsPossible(); }
+    return sum;
+}
+
+double Student::percentage() const {
+    double possible = totalPossible();
+    if (possible <= 0.0) { return 0.0; }
+    double raw = totalEarned() / possible * 100.0;
+    double reported = CAP_AT_100 ? std::min(raw, 100.0) : raw;
+    return std::round(reported * 10.0) / 10.0;
+}
+
 bool Student::operator<(const Student& other) const {
     return percentage() > other.percentage();   // highest first
 }
@@ -591,12 +815,31 @@ std::ostream& operator<<(std::ostream& out, const Student& s) {
 }
 ```
 
-`Student::operator<` means "higher percentage first," not numeric less-than — worth remembering when `Gradebook::sortByPercentage()` calls `std::sort` on it in Step 3.
+Notice:
 
-##### Step 3 — Create the `Gradebook` class
+- `student.h` includes `"assignment.h"` — a `Student` holds a
+  `std::vector<Assignment>`, so the compiler must see the full `Assignment`
+  class first.
+- `CAP_AT_100` moved out of `main.cpp` and into an **unnamed namespace** in
+  `student.cpp`, the only file that uses it. An unnamed namespace makes the
+  name private to that one file.
+- **`operator<`** is a member function. It answers "does this student come
+  before `other`?" and it means *higher percentage first* — not ordinary
+  numeric less-than. That is the convenience and the risk of overloading an
+  operator; Chapter 23 revisits it.
+- `operator<<` prints ID, name, and percentage. It leaves out the letter
+  grade, because a `Student` does not know which scale is in use.
+
+##### Step 4 — Create the `Gradebook` class
+
+In Chapter 18, `main` held a scale, a roster, and a next-ID counter as three
+separate variables. A `Gradebook` class gathers them into one object that
+guards them.
+
+Create a new file named `gradebook.h` and enter this code:
 
 ```cpp
-// gradebook.h
+// gradebook.h - Grade Calculator v2.6 - Chapter 19
 #ifndef GRADEBOOK_H
 #define GRADEBOOK_H
 
@@ -610,9 +853,6 @@ std::ostream& operator<<(std::ostream& out, const Student& s) {
 /** Owns the roster and the grading scale, and produces reports. */
 class Gradebook {
 public:
-    /** Sort key for sortRoster(). */
-    enum class SortKey { Name, Percentage, Id };
-
     explicit Gradebook(const std::string& courseName = "Untitled Course");
 
     void addStudent(const Student& s);
@@ -623,24 +863,14 @@ public:
     std::size_t size() const { return roster_.size(); }
     bool empty() const { return roster_.empty(); }
 
-    /** Unchecked access. Precondition: index < size(). */
+    /** Retrieves a student by position. Precondition: index < size(). */
     const Student& operator[](std::size_t index) const { return roster_[index]; }
-
-    /** Checked access: throws std::out_of_range for an invalid index. */
-    const Student& at(std::size_t index) const { return roster_.at(index); }
 
     int nextId() const { return nextId_; }
     int claimNextId() { return nextId_++; }
 
     double classAverage() const;
     void sortByPercentage();
-
-    void sortRoster(SortKey key);
-    int linearFindById(int id, int& comparisons) const;
-    int binaryFindById(int id, int& comparisons) const;
-
-    bool save(const std::string& filename) const;
-    bool load(const std::string& filename, std::string& message);
 
 private:
     std::string courseName_;
@@ -654,15 +884,41 @@ std::ostream& operator<<(std::ostream& out, const Gradebook& book);
 #endif
 ```
 
-`at` is one line, because `std::vector::at` already does exactly what the requirement asks:
+- All the data is `private`. The roster can change only through
+  `addStudent` and `sortByPercentage`, so those are the only two places that
+  could ever corrupt it.
+- `operator[]` returns a `const Student&` for a position. Its comment states
+  the **precondition** (`index < size()`); it does not check.
+- `claimNextId()` returns the next ID and advances the counter in one call,
+  so an ID can never be handed out twice.
+
+Create a new file named `gradebook.cpp` and enter this code:
 
 ```cpp
-const Student& at(std::size_t index) const { return roster_.at(index); }
-```
+// gradebook.cpp - Grade Calculator v2.6 - Chapter 19
+#include "gradebook.h"
 
-##### Step 4 — Implement `Gradebook::operator<<`: the whole report, one operator
+#include <algorithm>
+#include <iomanip>
+#include <ostream>
 
-```cpp
+Gradebook::Gradebook(const std::string& courseName) : courseName_(courseName) {}
+
+void Gradebook::addStudent(const Student& s) {
+    roster_.push_back(s);
+}
+
+double Gradebook::classAverage() const {
+    if (roster_.empty()) { return 0.0; }
+    double sum = 0.0;
+    for (const Student& s : roster_) { sum += s.percentage(); }
+    return sum / static_cast<double>(roster_.size());
+}
+
+void Gradebook::sortByPercentage() {
+    std::sort(roster_.begin(), roster_.end());   // uses Student::operator<
+}
+
 std::ostream& operator<<(std::ostream& out, const Gradebook& book) {
     out << "\n=====================================\n";
     out << "  " << book.courseName() << "\n";
@@ -685,149 +941,206 @@ std::ostream& operator<<(std::ostream& out, const Gradebook& book) {
 }
 ```
 
-Notice the nesting: `Gradebook`'s `operator<<` calls `Student`'s, which calls `GradeScale`'s indirectly through `letterFor`. Each class prints itself; nothing prints anything else's internals.
+- `sortByPercentage()` is one line: `std::sort` puts the roster in order
+  using `Student::operator<`, so it sorts highest percentage first.
+- `operator<<` for `Gradebook` prints the whole report. It prints the course
+  name, then the scale **using the scale's own `<<`**, then each student
+  **using the student's own `<<`**, followed by the letter grade, and finally
+  a class average. Each class knows how to print itself, and nothing knows how
+  to print anything else.
 
-##### Step 5 — Carry Chapter 15's persistence onto `Gradebook`
+##### Step 5 — Update the header comment in `main.cpp`
 
-Same CSV shape as Chapter 18, with one addition: a `COURSE` line, since `Gradebook` now has a name to save.
+Now switch to `main.cpp`. From here on, `main.cpp` only runs the menu.
 
-```cpp
-bool Gradebook::save(const std::string& filename) const {
-    std::ofstream out(filename);
-    if (!out) { return false; }
-
-    out << "# Grade Calculator gradebook file, version 2 (Chapter 19)\n";
-    out << "# Section tags allow new record types to be added later.\n";
-    out << "COURSE," << courseName_ << "\n";
-    out << "NEXTID," << nextId_ << "\n";
-    for (const GradeScale::Tier& t : scale_.tiers()) {
-        out << "TIER," << t.cutoff << "," << t.letter << "\n";
-    }
-    for (const Student& s : roster_) {
-        out << "STUDENT," << s.id() << "," << s.name();
-        for (const Assignment& a : s.assignments()) {
-            out << "," << a.name() << "," << a.pointsEarned() << ","
-                << a.pointsPossible() << "," << a.bonusPoints();
-        }
-        out << "\n";
-    }
-    return out.good();
-}
-```
-
-`load` mirrors it: read each tagged line, fall back to `Untitled Course`/the default scale when a `COURSE`/`TIER` line is missing, and rebuild `roster_` from the `STUDENT` rows exactly as Chapter 18 did — see `gradebook.cpp` for the full loop. Because `roster_`, `scale_`, `courseName_`, and `nextId_` are all private, `save` and `load` have to be `Gradebook` member functions; there is no way to write them as free functions anymore.
-
-##### Step 6 — Carry Chapter 17's sort/search onto `Gradebook`
-
-The selection sort algorithm is unchanged; it now compares `roster_` elements through `Student`'s accessors and lives inside `Gradebook`:
+At the top of `main.cpp`, find the header comment:
 
 ```cpp
-void Gradebook::sortRoster(SortKey key) {
-    for (std::size_t i = 0; i + 1 < roster_.size(); ++i) {
-        std::size_t best = i;
-        for (std::size_t j = i + 1; j < roster_.size(); ++j) {
-            bool jComesFirst = false;
-            switch (key) {
-                case SortKey::Name:       jComesFirst = roster_[j].name() < roster_[best].name(); break;
-                case SortKey::Percentage: jComesFirst = roster_[j].percentage() > roster_[best].percentage(); break;
-                case SortKey::Id:         jComesFirst = roster_[j].id() < roster_[best].id(); break;
-            }
-            if (jComesFirst) { best = j; }
-        }
-        if (best != i) { std::swap(roster_[i], roster_[best]); }
-    }
-}
-
-int Gradebook::linearFindById(int id, int& comparisons) const {
-    comparisons = 0;
-    for (std::size_t i = 0; i < roster_.size(); ++i) {
-        ++comparisons;
-        if (roster_[i].id() == id) { return static_cast<int>(i); }
-    }
-    return -1;
-}
-
-/** Binary search needs sorted data, so it sorts a copy first, never roster_. */
-int Gradebook::binaryFindById(int id, int& comparisons) const {
-    comparisons = 0;
-    std::vector<Student> sorted = roster_;
-    for (std::size_t i = 0; i + 1 < sorted.size(); ++i) {
-        std::size_t best = i;
-        for (std::size_t j = i + 1; j < sorted.size(); ++j) {
-            if (sorted[j].id() < sorted[best].id()) { best = j; }
-        }
-        if (best != i) { std::swap(sorted[i], sorted[best]); }
-    }
-    int low = 0;
-    int high = static_cast<int>(sorted.size()) - 1;
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-        ++comparisons;
-        if (sorted[mid].id() == id)      { return mid; }
-        else if (sorted[mid].id() < id)  { low = mid + 1; }
-        else                             { high = mid - 1; }
-    }
-    return -1;
-}
+// =============================================================================
+//  Grade Calculator  v2.5                                          Chapter 18
+// -----------------------------------------------------------------------------
+//  Change  : Structs become classes with private data and behavior.
+//            GradeScale validates its own tiers in the constructor, so an
+//            invalid scale can no longer be constructed at all. The loose
+//            validation functions of Chapter 11 are gone.
+//            Each Student now owns its own Assignment records.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+// =============================================================================
 ```
 
-##### Step 7 — Rebuild `main`
+Replace it with:
 
-`main` now holds one `Gradebook`, loads it on startup, and saves it on exit:
+```cpp
+// =============================================================================
+//  Grade Calculator  v2.6                                          Chapter 19
+// -----------------------------------------------------------------------------
+//  Change  : One header/implementation pair per class. Reports print through
+//            operator<<, so a whole Gradebook is written with a single <<.
+//  Build   : g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp
+//            student.cpp gradebook.cpp -o gradecalc
+// =============================================================================
+```
+
+The new `Build` line lists all five `.cpp` files — every one must be compiled
+and linked together.
+
+##### Step 6 — Remove the classes from `main.cpp`
+
+The classes now live in their own files, so `main.cpp` must stop defining
+them. It includes `gradebook.h` instead, which in turn includes the other
+headers.
+
+Just below the header comment, find the first `#include` line:
+
+```cpp
+#include <algorithm>
+```
+
+Delete that line and everything below it (the remaining `#include` lines, `CAP_AT_100`, all three classes, and the *Input helpers* banner), stopping just **above** this line, which you keep:
+
+```cpp
+double readNonNegative(const std::string& prompt) {
+```
+
+In the space where that code was, enter:
+
+```cpp
+#include "gradebook.h"
+
+#include <iostream>
+#include <limits>
+#include <string>
+```
+
+Afterward, `main.cpp` should begin with the header comment, then these four
+`#include` lines, then `readNonNegative`.
+
+*Why:* a class must be defined exactly once in the whole program. If
+`main.cpp` kept its own copy, the program would have two definitions of each
+class. Quoted includes (`"gradebook.h"`) name your own files; angle-bracket
+includes (`<iostream>`) name the standard library.
+
+##### Step 7 — Rewrite `main` to use a `Gradebook`
+
+Find the start of `main`:
 
 ```cpp
 int main() {
-    std::cout << "=== GRADE CALCULATOR v2.6 (one class per file) ===\n\n";
+```
+
+Delete that line and everything below it, all the way to the final closing `}` at the very end of the file.
+
+In its place, enter the new `main`:
+
+```cpp
+int main() {
+    std::cout << "=== GRADE CALCULATOR v2.6 (one class per file) ===\n";
 
     Gradebook book("Programming Fundamentals");
-    std::string message;
-    if (book.load(DEFAULT_FILE, message)) {
-        std::cout << message << "\n";
-    } else {
-        std::cout << message << " Starting a new gradebook.\n";
+    bool running = true;
+
+    while (running) {
+        std::cout << "\n1) Add student  2) Report  3) Sort by grade  "
+                     "4) Custom scale  5) Quit\nChoice: ";
+        std::string line;
+        if (!std::getline(std::cin, line)) { break; }
+        char choice = line.empty() ? '?' : line[0];
+
+        if (choice == '1') {
+            std::string name = readLine("  Student name: ");
+            if (name.empty()) { continue; }
+            Student s(name, book.claimNextId());
+            while (true) {
+                std::string an = readLine("    Assignment name (or 'done'): ");
+                if (an == "done" || an.empty()) { break; }
+                double earned   = readNonNegative("      Points earned  : ");
+                double possible = readNonNegative("      Points possible: ");
+                double bonus    = readNonNegative("      Bonus points   : ");
+                s.addAssignment(Assignment(an, earned, possible, bonus));
+            }
+            book.addStudent(s);
+            std::cout << "  Added " << s.name() << " as ID " << s.id() << ".\n";
+
+        } else if (choice == '2') {
+            std::cout << book << "\n";       // one operator<< prints everything
+
+        } else if (choice == '3') {
+            book.sortByPercentage();
+            std::cout << "  Sorted, highest first.\n";
+
+        } else if (choice == '4') {
+            std::vector<GradeScale::Tier> requested;
+            std::cout << "  Enter tiers highest first, 'done' to finish.\n";
+            while (true) {
+                std::string letterText = readLine("    Letter (or 'done'): ");
+                if (letterText == "done" || letterText.empty()) { break; }
+                double cutoff = readNonNegative("      Minimum percentage: ");
+                requested.push_back({cutoff, letterText[0]});
+            }
+            book.setScale(GradeScale(requested));
+            std::cout << "  " << book.scale() << "\n";
+
+        } else if (choice == '5') {
+            running = false;
+        } else {
+            std::cout << "  Please enter 1-5.\n";
+        }
     }
-    std::cout << "  " << book.scale() << "\n";
-```
-
-The menu carries every Chapter 18 option forward and adds nothing new to the list itself — **Sort by grade** and **Custom scale** were already in Chapter 18's own menu — but restores **Save**, **Run tests**, **Sort roster**, and **Find by ID**, which the unrestored starting code was missing entirely:
-
-```cpp
-    std::cout << "\n1) Add student  2) Report  3) Sort by grade  4) Custom scale  5) Save\n"
-                 "6) Run tests  7) Sort roster  8) Find by ID  9) Quit\nChoice: ";
-```
-
-**Find by ID** now goes through the checked `at()` from Step 3 to retrieve the found student, giving that new member function an actual caller instead of leaving it unused:
-
-```cpp
-if (found >= 0) {
-    const Student& s = book.at(static_cast<std::size_t>(found));
-    std::cout << "  Found: " << s.name() << " (" << s.percentage() << "%)\n";
-} else {
-    std::cout << "  No student with ID " << id << ".\n";
+    std::cout << "\nGoodbye.\n";
+    return 0;
 }
 ```
 
-The regression suite gains its ninth check, exercising `at` directly against an empty `Gradebook`:
+What changed:
 
-```cpp
-Gradebook emptyBook;
-bool threw = false;
-try {
-    emptyBook.at(0);
-} catch (const std::out_of_range&) {
-    threw = true;
-}
-check(threw, "Chapter 19 at(0) on an empty Gradebook throws out_of_range");
-```
+- `Gradebook book("Programming Fundamentals");` replaces the three loose
+  variables from Chapter 18.
+- **Add student** gets its ID from `book.claimNextId()` and stores the student
+  with `book.addStudent(s)`.
+- **Report** is now one line: `std::cout << book << "\n";`.
+- **Sort by grade** (new, option 3) calls `book.sortByPercentage()`.
+- **Custom scale** (now option 4) builds the scale exactly as before and hands
+  it to `book.setScale(...)`, then prints it with `<<`.
+- **Quit** moves to option 5.
 
-#### Verification
+> **▶ Run checkpoint:** Make sure all nine files are open in the editor, then click **Run**. The program should compile with no errors and no warnings and show the v2.6 banner and the five-option menu. An `undefined reference` error means a `.cpp` file is not open or a function name is misspelled; a `redefinition` error means a class is still defined in `main.cpp`.
 
-- Every source file (`main.cpp`, `assignment.cpp`, `gradescale.cpp`, `student.cpp`, `gradebook.cpp`) builds together as one program.
-- Writing a `Gradebook` to the Terminal and writing one to a file both go through the same `operator<<` — there is only one printing routine to get right.
-- `book.at(book.size())` (or any out-of-range index) throws `std::out_of_range` instead of returning garbage; `Run tests` confirms this automatically and should report **9 of 9 checks passed**.
-- Saving, quitting, and relaunching reloads the course name, roster, and scale unchanged.
-- `Sort by grade` (via `operator<`) and `Sort roster` (via the Chapter 17 selection sort) both still work, as does `Find by ID` with its linear-vs-binary comparison counts.
-- All accessors that do not change an object are `const`.
+#### Check your work
+
+Run the program and type the inputs below in the Terminal.
+
+1. Choose `1`. Add `Zoe` with one assignment: `HW1`, earned `5`, possible
+   `10`, bonus `0`. Type `done`.
+2. Choose `1`. Add `Ada` with one assignment: `HW1`, earned `9`, possible
+   `10`, bonus `1`. Type `done`.
+3. Choose `2` (Report). You should see:
+
+   ```text
+   =====================================
+     Programming Fundamentals
+     Scale: A >= 90   B >= 80   C >= 70   D >= 60   F >= 0
+   =====================================
+   1001  Zoe                     50.0%   F
+   1002  Ada                    100.0%   A
+   -------------------------------------
+   CLASS AVERAGE                 75.0%
+   ```
+
+4. Choose `3` (Sort by grade). The program prints `Sorted, highest first.`
+5. Choose `2` again. Ada (1002) is now listed first, Zoe second, and the class
+   average is still 75.0%.
+6. Choose `5` (Quit). The program prints `Goodbye.`
+
+Then confirm:
+
+- [ ] All nine files are in the project, and the program compiles with no
+      errors and no warnings.
+- [ ] Every header starts with an include guard (`#ifndef` / `#define`) and
+      ends with `#endif`.
+- [ ] `main.cpp` no longer contains `class Assignment`, `class GradeScale`,
+      `class Student`, or `CAP_AT_100`.
+- [ ] The report is printed by `std::cout << book`, and no `operator<<` uses
+      `friend`.
 
 #### StudySite workflow
 
@@ -837,16 +1150,13 @@ check(threw, "Chapter 19 at(0) on an empty Gradebook throws out_of_range");
    avoids creating files with names such as `_imported` when the same path
    is already open.
 3. Click **Load from GitHub**, select
-   **COSC1437xxx-Grade-Calculator-YourLastName**, and click each source,
-   header, or documentation file needed for this chapter. Confirm the editor
-   shows the expected file paths before editing.
-4. Continue the existing project in StudySite's internal editor. For a
-   multi-file program, keep every source and header file needed by the build
-   open in the editor.
-5. Click **Run**. Read compiler messages and program output in the embedded
-   Terminal, and type program input there when prompted.
-6. Fix every compiler error and warning, then complete the verification
-   list.
+   **COSC1437xxx-Grade-Calculator-YourLastName**, and click `main.cpp` to open it. You will create the eight new files in the editor during the lab.
+   Confirm the editor shows the expected file paths before editing.
+4. Work through Steps 1–7 above in StudySite's internal editor, in order. Keep every file open, and click **Run** at the ▶ Run checkpoint at the end of Step 7.
+5. Read compiler messages and program output in the embedded Terminal, and
+   type program input there when prompted. Fix every compiler error and
+   warning before moving past a Run checkpoint.
+6. Complete the **Check your work** list.
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
@@ -858,8 +1168,8 @@ check(threw, "Chapter 19 at(0) on an empty Gradebook throws out_of_range");
 > finishes a successful **Commit**.
 
 1. Keep every project file that belongs in this checkpoint open in the
-   editor. **Save to GitHub includes every open editor file**, so close
-   scratch files and accidental `_imported` duplicates first.
+   editor — all nine files: `main.cpp` plus the four `.h` and four `.cpp` files you created. **Save to GitHub includes every open editor file**,
+   so close scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
 3. Select **COSC1437xxx-Grade-Calculator-YourLastName** and the existing
    **main** branch.
@@ -870,11 +1180,12 @@ check(threw, "Chapter 19 at(0) on an empty Gradebook throws out_of_range");
 
 #### Complete when
 
-- The verification list passes.
+- Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 19
   checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.
+
 
 ---
 

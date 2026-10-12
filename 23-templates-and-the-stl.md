@@ -503,39 +503,79 @@ Check the standard deviation by hand: deviations from the mean are +20, 0, −20
 
 - **Course:** COSC 1437 — Object-Oriented Programming
 - **Project checkpoint:** v3.3
-- **Starting point:** The working Chapter 22 v3.2 program.
+- **Starting point:** Your committed Chapter 22 v3.2 program (eleven files).
 
 > **One-repository rule:** Continue in the same COSC 1437 Grade Calculator
 > repository from Chapter 13 through Chapter 24. Do not create a chapter folder
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-#### Required work
+#### What you will build
 
-1. Create header-only `Statistics<T>` with `mean`, `median`, `lowest`, `highest`, and population `standardDeviation`, all computed over any numeric type `T`.
-2. Add a `std::map<int, std::size_t>` index from student ID to roster position, and maintain it whenever the roster changes order.
-3. Add `findById` using the index, in O(log n) instead of Chapter 17's O(n) linear or O(log n)-after-an-O(n)-sort binary search.
-4. Replace the implicit `Student` ordering with a lambda at the sort call, so the ordering is stated where it is used rather than relied on from `operator<` everywhere.
-5. Add class statistics, letter-grade distribution, and assignment count by category to the report, all using the `std::map` counting idiom (`++counts[key]`).
-6. Carry the Chapter 15–22 features that this chapter's own architecture does not replace forward onto the templated, indexed `Gradebook`: saving/loading and the regression-test suite.
+In this lab you put the Standard Template Library to work and write a class
+template of your own. By the end you will have:
 
-Item 6 is the one most worth double-checking, exactly as in every chapter since 18 — but read "What changes from Chapter 22" below first, because this chapter deliberately retires two carried-forward pieces rather than silently dropping them.
+1. **`Statistics<T>`**, a header-only class template that computes count,
+   mean, median, lowest, highest, and standard deviation for any numeric type.
+2. An **ID index** — a `std::map<int, std::size_t>` from student ID to roster
+   position — that `Gradebook` keeps up to date, and a `findById` member that
+   uses it.
+3. A **letter-grade distribution** counted with a `std::map<char, int>`.
+4. `sortByPercentage` rewritten with a **lambda** that states the ordering
+   right where the sort happens.
+5. Two new menu options: **Statistics** and **Find by ID**. Quit moves to
+   option 8.
 
-#### What changes from Chapter 22
+#### Files in this checkpoint
 
-- **The Chapter 17 selection sort and its comparison-count exercise are retired, not dropped.** `sortRoster(SortKey)`, `linearFindById`, and `binaryFindById` do not appear in v3.3. This is the chapter's own point, stated directly: "Compare with Chapter 17. The binary search needed the roster sorted by ID, so searching meant sorting a copy first — and any change to the roster invalidated the assumption. **The map maintains itself.**" `findById` using `std::map` replaces both linear and binary search outright; there is no longer a hand-written algorithm to compare against.
-- **Chapter 19's checked access (`at()`) is retired too, deliberately.** `findById` returns `nullptr` for "not found" — the same convention, and the same weakness, Chapter 17's search functions had. The chapter says so directly: "Returning `nullptr` for 'not found' is the same convention Chapter 17 used, with the same weakness: a caller who forgets to check will dereference it. **Chapter 24 replaces it.**" Index-based bounds checking is not this chapter's concern; exception-based error handling is Chapter 24's, on purpose.
-- **An index is derived data, and it must be rebuilt everywhere the roster's order or positions change.** `addStudent` updates `idIndex_` incrementally; `sortByPercentage` — and `load`, since Chapter 15 — must rebuild it from scratch afterward, because sorting moves *every* student and reloading replaces the roster outright. Forgetting either rebuild is a silent logic error: the program keeps running, and `findById` starts returning the wrong student, or the right student's stale data.
-- **Sorting now takes a lambda instead of relying on `Student::operator<`.** `sortByPercentage()`'s ordering — "by `percentageFor`, descending" — is stated once, at the one call site that needs it, rather than baked into `Student` as a general-purpose comparison that every caller has to trust means the same thing.
-- **Persistence's design is unaffected by any of this.** `typeTag()`/`weightsForSave()`/`SchemeFactory` still let `Gradebook::save()`/`load()` handle any concrete `GradingScheme` without naming one; `idIndex_` itself is never written to or read from the file, because it is derived data — `load()` rebuilds it from the loaded roster the same way `sortByPercentage()` rebuilds it after a sort.
-- **The regression suite grows by four checks**, all new to this chapter: `Statistics<double>` and `Statistics<int>` each exercised and checked against a hand calculation, the category-count tally, and — the one the lab's own verification list calls out by name — a check that `findById` is still correct for every ID after a sort. That last check is written so that deleting the `idIndex_` rebuild inside `sortByPercentage()` makes it fail; it is not a general assertion, it is a trap for that specific bug.
+| File | What you do to it |
+|---|---|
+| `statistics.h` | Create (Step 1) — a header only; there is no `statistics.cpp` |
+| `gradebook.h`, `gradebook.cpp` | Edit (Steps 2–5) |
+| `main.cpp` | Edit (Step 6) |
+| All other files | **No change** — keep them open |
+
+When you are finished your project has **twelve files**.
+
+#### How to use these steps
+
+This lab is a guided exercise, not a test. Each step tells you **which file**
+to open, shows the **exact code to find**, and shows the **exact code to put in
+its place**. Work through the steps in order and copy the code from the boxes
+rather than retyping it where you can.
+
+- A **find** box shows code exactly as it appears in your program at the end
+  of the previous chapter. Use the editor's search to locate it. If you cannot
+  find it, your program differs from the previous checkpoint — compare it with
+  your last commit on GitHub, or ask the Tutor to help you line it up, before
+  going further.
+- A **▶ Run checkpoint** marks a point where the program should build and run
+  again. Between checkpoints the program may not compile; that is expected.
+- Each step ends with a short explanation of *why*. Read it — it is the
+  chapter's concept, applied to your own program.
 
 #### Build it: step by step
 
-##### Step 1 — Write `Statistics<T>` as a header-only class template
+##### Step 1 — Write the `Statistics<T>` class template
+
+Create a new file named `statistics.h` and enter this code:
 
 ```cpp
-// statistics.h
+// statistics.h - Grade Calculator v3.3 - Chapter 23
+#ifndef STATISTICS_H
+#define STATISTICS_H
+
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+/**
+ * Descriptive statistics over any numeric type.
+ *
+ * Written as a template because the computation does not depend on whether the
+ * values are double percentages, int point totals, or float weights. One
+ * definition serves them all; the compiler generates a version per type used.
+ */
 template <typename T>
 class Statistics {
 public:
@@ -583,36 +623,145 @@ public:
 private:
     std::vector<T> values_;
 };
+
+#endif
 ```
 
-Because it is a template, `Statistics` lives entirely in its header — a template's definition has to be visible everywhere it is instantiated, so there is no `statistics.cpp`. The Grade Calculator only ever instantiates `Statistics<double>`, but the class itself does not know that; `Statistics<int>` works identically, which is exactly what the regression suite exercises.
+- `template <typename T>` makes `Statistics` a **blueprint**. When you write
+  `Statistics<double>`, the compiler generates a version of the class with
+  every `T` replaced by `double`.
+- The entire template is in the header. The compiler needs the full
+  definition at the point where `Statistics<double>` is used, so a class
+  template normally has **no `.cpp` file**.
+- `T{}` is a value-initialized `T` — `0.0` for a `double` — and is returned
+  when there is no data.
+- `median()` **copies** the values before sorting, so asking for the median
+  does not rearrange the caller's data.
+- `std::min_element` and `std::max_element` from `<algorithm>` return
+  iterators; the `*` in front reads the value they point to.
 
-##### Step 2 — Add the ID index and keep it current in `addStudent`
+##### Step 2 — Declare the new `Gradebook` members (`gradebook.h`)
+
+In `gradebook.h`, find the first line:
 
 ```cpp
-// gradebook.h
+// gradebook.h - Grade Calculator v3.2 - Chapter 22
+```
+
+Replace it with:
+
+```cpp
+// gradebook.h - Grade Calculator v3.3 - Chapter 23
+```
+
+Find the standard-library include:
+
+```cpp
+#include <iosfwd>
+```
+
+Directly below it, add:
+
+```cpp
 #include <map>
-// ...
-private:
+```
+
+Find the declaration of `sortByPercentage`:
+
+```cpp
+    void sortByPercentage();
+```
+
+Directly below it, add:
+
+```cpp
+
+    /** Finds a student by ID in O(log n) using the id index. Null if absent. */
+    const Student* findById(int id) const;
+
+    /** How many students earned each letter grade, in scale order. */
+    std::map<char, int> letterDistribution() const;
+
+    /** Prints mean, median, range, and standard deviation for the class. */
+    void printStatistics(std::ostream& out) const;
+```
+
+In the `private:` section, find:
+
+```cpp
+    std::vector<Student> roster_;
+```
+
+Directly below it, add:
+
+```cpp
+
     // An index from student ID to roster position. std::map keeps its keys
     // sorted and looks up in logarithmic time, replacing the hand-written
-    // binary search of Chapter 17 - and it stays correct as students are
-    // added, as long as every operation that moves a student rebuilds it.
+    // binary search of Chapter 17 - and it stays correct as students are added.
     std::map<int, std::size_t> idIndex_;
 ```
+
+- `findById` returns a **pointer** to the student, or `nullptr` if there is no
+  such ID. A pointer can say "nothing found"; a reference cannot.
+- `letterDistribution` returns a `std::map<char, int>`: each letter grade
+  mapped to how many students earned it.
+- `printStatistics` writes to whatever `std::ostream` it is given — the
+  Terminal today, a file tomorrow.
+- `idIndex_` maps an ID (the **key**) to the student's position in `roster_`
+  (the **value**). A `std::map` keeps its keys sorted and finds a key in
+  logarithmic time — the job Chapter 17's binary search did, without needing
+  a sorted copy of the roster.
+
+##### Step 3 — Keep the index current, and look students up (`gradebook.cpp`)
+
+In `gradebook.cpp`, find the first line:
+
+```cpp
+// gradebook.cpp - Grade Calculator v3.2 - Chapter 22
+```
+
+Replace it with:
+
+```cpp
+// gradebook.cpp - Grade Calculator v3.3 - Chapter 23
+```
+
+Find the first includes:
+
+```cpp
+#include "gradebook.h"
+
+#include <algorithm>
+```
+
+Replace it with:
+
+```cpp
+#include "gradebook.h"
+
+#include "statistics.h"
+
+#include <algorithm>
+#include <map>
+```
+
+Find `addStudent`:
+
+```cpp
+void Gradebook::addStudent(const Student& s) {
+    roster_.push_back(s);
+}
+```
+
+Replace it with:
 
 ```cpp
 void Gradebook::addStudent(const Student& s) {
     roster_.push_back(s);
     idIndex_[s.id()] = roster_.size() - 1;
 }
-```
 
-A new student is always appended, so its position is always `roster_.size() - 1` at the moment it is added — no existing entry moves, so no rebuild is needed here.
-
-##### Step 3 — Add `findById`, and a private `rebuildIndex()` helper for everywhere else
-
-```cpp
 const Student* Gradebook::findById(int id) const {
     auto it = idIndex_.find(id);
     if (it == idIndex_.end()) { return nullptr; }
@@ -620,40 +769,28 @@ const Student* Gradebook::findById(int id) const {
 }
 ```
 
+- In `addStudent`, the new student was just pushed onto the end of the
+  roster, so its position is `roster_.size() - 1`. That position is stored in
+  the index under the student's ID.
+- `idIndex_.find(id)` returns an **iterator**. If it equals `idIndex_.end()`,
+  the ID is not in the map. Otherwise `it->second` is the stored position.
+  `auto` lets the compiler spell out the long iterator type for you.
+
+> **▶ Run checkpoint:** Open `statistics.h` along with the other files and click **Run**. The program should compile cleanly and behave exactly like v3.2. `letterDistribution` and `printStatistics` are declared but not yet defined; that is allowed as long as nothing calls them, and nothing does yet.
+
+##### Step 4 — Count letter grades and compute statistics (`gradebook.cpp`)
+
+Directly below the `findById` function you just added — after this code:
+
 ```cpp
-void Gradebook::rebuildIndex() {
-    idIndex_.clear();
-    for (std::size_t i = 0; i < roster_.size(); ++i) {
-        idIndex_[roster_[i].id()] = i;
-    }
+    return &roster_[it->second];
 }
 ```
 
-`rebuildIndex()` is `private` — it is an internal consistency mechanism, not something a caller should ever need to invoke directly. Every public operation that could move a student calls it itself.
-
-##### Step 4 — Sort with a lambda, and rebuild the index afterward
+Directly below it, add:
 
 ```cpp
-void Gradebook::sortByPercentage() {
-    // A lambda states the ordering right where it is used, instead of relying
-    // on operator< to mean "by percentage, descending" everywhere.
-    const Gradebook* self = this;
-    std::sort(roster_.begin(), roster_.end(),
-              [self](const Student& a, const Student& b) {
-                  return self->percentageFor(a) > self->percentageFor(b);
-              });
-    // Sorting moved every student, so the ID index must be rebuilt. An index
-    // is derived data, and derived data goes stale: skip this line and
-    // findById() starts returning the wrong student after any sort.
-    rebuildIndex();
-}
-```
 
-The lambda captures `self` — a `const Gradebook*` pointing at `this` — because the comparison needs `percentageFor`, a member function, and there is no other way for the lambda to reach it. Capturing the pointer explicitly, rather than the terser `[this]`, makes that dependency visible at the call site.
-
-##### Step 5 — Add letter distribution and assignment count by category, with the same counting idiom
-
-```cpp
 std::map<char, int> Gradebook::letterDistribution() const {
     std::map<char, int> counts;
     for (const Student& s : roster_) {
@@ -662,22 +799,6 @@ std::map<char, int> Gradebook::letterDistribution() const {
     return counts;
 }
 
-std::map<std::string, int> Gradebook::assignmentCountByCategory() const {
-    std::map<std::string, int> counts;
-    for (const Student& s : roster_) {
-        for (const Assignment& a : s.assignments()) {
-            ++counts[a.category()];   // missing keys start at 0, same pattern
-        }
-    }
-    return counts;
-}
-```
-
-`operator[]` on a `std::map` inserts a default-constructed value (`0` for `int`) the first time a key is seen, so `++counts[key]` is a complete, correctly-initialized tally in one line — no separate check for "have I seen this key before."
-
-##### Step 6 — Add class statistics to the report
-
-```cpp
 void Gradebook::printStatistics(std::ostream& out) const {
     if (roster_.empty()) {
         out << "No students, so there are no statistics.\n";
@@ -698,92 +819,192 @@ void Gradebook::printStatistics(std::ostream& out) const {
         out << entry.first << "=" << entry.second << "  ";
     }
     out << "\n";
+}
+```
 
-    out << "  Categories: ";
-    for (const auto& entry : assignmentCountByCategory()) {
-        out << entry.first << "=" << entry.second << "  ";
+(The first line in the box is blank on purpose: leave one blank line between
+`findById` and the new code.)
+
+- `++counts[letter]` is the standard **counting idiom** for a map. If `letter`
+  is not in the map yet, `operator[]` inserts it with the value `0`, and `++`
+  makes it `1`. Because a `std::map` is sorted by key, the counts come back in
+  letter order.
+- `printStatistics` fills a `Statistics<double>` with every student's course
+  percentage, then prints the results. It uses `percentageFor`, so the
+  statistics follow the chosen grading scheme.
+- `for (const auto& entry : letterDistribution())` walks the map;
+  `entry.first` is the letter and `entry.second` is the count.
+
+##### Step 5 — Sort with a lambda, and rebuild the index (`gradebook.cpp`)
+
+In `sortByPercentage`, find:
+
+```cpp
+    std::sort(roster_.begin(), roster_.end());   // uses Student::operator<
+```
+
+Replace it with:
+
+```cpp
+    // A lambda states the ordering right where it is used, instead of relying
+    // on operator< to mean "by percentage, descending" everywhere.
+    const Gradebook* self = this;
+    std::sort(roster_.begin(), roster_.end(),
+              [self](const Student& a, const Student& b) {
+                  return self->percentageFor(a) > self->percentageFor(b);
+              });
+    // Sorting moved every student, so the ID index must be rebuilt.
+    idIndex_.clear();
+    for (std::size_t i = 0; i < roster_.size(); ++i) {
+        idIndex_[roster_[i].id()] = i;
     }
-    out << "\n";
-}
 ```
 
-`std::map` iterates in sorted key order for free, so both the grade distribution and the category tally print alphabetically (or, for letters, gradewise) with no separate sort step.
+- The **lambda** `[self](const Student& a, const Student& b) { ... }` is the
+  comparison, written right where it is used. You no longer have to go read
+  `Student::operator<` to find out what order the sort produces.
+- The lambda needs `percentageFor`, a `Gradebook` member, so it **captures** a
+  pointer to the gradebook, `self`, by listing it in the square brackets.
+- **An index is derived data, and derived data goes stale.** Sorting moves
+  every student to a new position, so every position stored in `idIndex_` is
+  now wrong. The loop clears the index and rebuilds it from the sorted roster.
+  Forget this, and *Find by ID* silently returns the wrong student.
 
-##### Step 7 — Carry persistence forward; `idIndex_` is rebuilt, never saved
+##### Step 6 — Add *Statistics* and *Find by ID* to the menu (`main.cpp`)
 
-`save()` is untouched line for line from Chapter 22 — it never mentions `idIndex_`, because the index is derived data, not part of the gradebook's real state. `load()` gains exactly one new line, at the very end:
+At the top of `main.cpp`, find these lines of the header comment:
 
 ```cpp
-bool Gradebook::load(const std::string& filename, std::string& message, SchemeFactory makeScheme) {
-    // ... parses COURSE, SCHEME, NEXTID, TIER, WEIGHT, STUDENT exactly as Chapter 22 did ...
-
-    courseName_ = loadedCourse;
-    scale_ = loadedTiers.empty() ? GradeScale() : GradeScale(loadedTiers);
-    setScheme(makeScheme(loadedTag, loadedWeights));
-    roster_ = loadedRoster;
-    nextId_ = loadedNextId;
-    rebuildIndex();   // idIndex_ is derived data; the file never stores it directly.
-    if (message.empty()) { message = "Loaded " + filename + "."; }
-    return true;
-}
+//  Grade Calculator  v3.2                                          Chapter 22
+// -----------------------------------------------------------------------------
+//  Change  : Ownership. The raw GradingScheme* becomes std::unique_ptr.
+//            Gradebook loses its destructor, its manual delete, and its
+//            deleted copy operations - 8 lines of bookkeeping for 0.
+//            Behavior is identical to v3.1; both builds are leak-free.
+//  Point   : v3.1 is correct because its author remembered three separate
+//            things. v3.2 is correct because there is nothing to remember.
+//  Verify  : build both with -fsanitize=address, switch schemes, exit.
+//            Neither leaks. Then delete Gradebook::~Gradebook from v3.1 and
+//            rerun: v3.1 now leaks, v3.2 cannot be broken the same way.
 ```
 
-`roster_ = loadedRoster;` replaces every student's position at once, exactly like a sort does, so it needs exactly the same rebuild.
-
-##### Step 8 — Update the menu and regression suite
-
-The menu drops "Sort roster" and "Find by ID"'s old comparison-count output, gains "Statistics", and keeps "Save" and "Run tests" — ten options again, so choices are still compared as whole strings:
+Replace it with:
 
 ```cpp
-std::cout << "\n1) Add student  2) Report  3) Sort  4) Custom scale  5) Change scheme\n"
-             "6) Statistics  7) Find by ID  8) Save  9) Run tests  10) Quit\nChoice: ";
+//  Grade Calculator  v3.3                                          Chapter 23
+// -----------------------------------------------------------------------------
+//  Change  : Templates and the STL. Statistics<T> computes mean, median,
+//            range, and standard deviation for any numeric type. std::map
+//            indexes students by ID and counts the letter distribution.
+//            Sorting is expressed with a lambda instead of operator<.
 ```
 
-The regression suite's four new checks:
+At the start of `main`, find the banner line:
 
 ```cpp
-// Chapter 23: Statistics<double>, matching the chapter's own worked
-// example by hand: 95, 75, 55 -> mean 75.0, median 75.0, range 55-95,
-// population standard deviation sqrt(800/3) ~= 16.3.
-Statistics<double> pctStats;
-pctStats.add(95.0);
-pctStats.add(75.0);
-pctStats.add(55.0);
-check(pctStats.mean() == 75.0, "D7 Statistics<double> mean of 95,75,55 is 75.0");
-// ... median, range, and standard deviation checked the same way ...
-
-// Chapter 23: the same template at a different type - Statistics<int>.
-Statistics<int> pointStats;
-pointStats.add(80);
-pointStats.add(90);
-pointStats.add(100);
-check(pointStats.mean() == 90, "D8 Statistics<int> mean of 80,90,100 is 90");
-// ...
-
-// Chapter 23: assignment count by category, the counting-with-a-map idiom.
-// ... build a Gradebook with two Exam assignments and one Homework assignment ...
-check(categoryCounts["Exam"] == 2 && categoryCounts["Homework"] == 1,
-      "D9 assignment count by category tallies Exam=2, Homework=1");
-
-// Chapter 23: ID lookup must survive a sort. Delete the rebuildIndex() call
-// inside sortByPercentage() and this check starts failing.
-// ... build a Gradebook with three students, sort it, then look each ID up ...
-check(foundAlice != nullptr && foundAlice->name() == "Alice"
-          && foundBob != nullptr && foundBob->name() == "Bob"
-          && foundCarol != nullptr && foundCarol->name() == "Carol",
-      "D10 findById is still correct for every ID after sortByPercentage");
+    std::cout << "=== GRADE CALCULATOR v3.2 (leak-free) ===\n\n";
 ```
 
-#### Verification
+Replace it with:
 
-- `Statistics<double>` and `Statistics<int>` are both exercised — `Run tests` checks each one against a hand calculation.
-- Three students at 95%, 75%, and 55% report **Mean 75.0%, Median 75.0%, Range 55.0% to 95.0%, Std dev 16.3** — check this by hand: deviations from the mean are +20, 0, −20; squares 400, 0, 400; mean square 800/3 ≈ 266.67; square root ≈ 16.33.
-- ID lookup (**Find by ID**) works both before and after **Sort**.
-- Deleting the `rebuildIndex()` call inside `sortByPercentage()` makes `Run tests` fail — specifically the D10 check — confirming the test actually catches the bug it claims to.
-- The letter-grade distribution and the assignment count by category both print in sorted key order with no separate sort step.
-- Saving, quitting, and relaunching still restores the exact concrete scheme that was active, and `findById` still works correctly afterward even though `idIndex_` itself was never written to the file.
-- `Run tests` should report **21 of 21 checks passed**.
-- Chapter 17's `sortRoster`/`linearFindById`/`binaryFindById` and Chapter 19's `at()` are gone on purpose — `findById` and the lambda-driven `sortByPercentage` are what replaced them, not an oversight.
+```cpp
+    std::cout << "=== GRADE CALCULATOR v3.3 (statistics) ===\n\n";
+```
+
+Find the menu prompt:
+
+```cpp
+        std::cout << "\n1) Add student  2) Report  3) Sort  "
+                     "4) Custom scale  5) Change scheme  6) Quit\nChoice: ";
+```
+
+Replace it with:
+
+```cpp
+        std::cout << "\n1) Add student  2) Report  3) Sort  "
+                     "4) Custom scale  5) Change scheme\n"
+                     "6) Statistics  7) Find by ID  8) Quit\nChoice: ";
+```
+
+Near the end of the menu loop, find:
+
+```cpp
+        } else if (c == '6') {
+            running = false;
+        } else {
+            std::cout << "  Please enter 1-6.\n";
+```
+
+Replace it with:
+
+```cpp
+        } else if (c == '6') {
+            std::cout << "\n--- Class statistics ---\n";
+            book.printStatistics(std::cout);
+        } else if (c == '7') {
+            std::string s = readLine("  Student ID: ");
+            int id = 0;
+            try { id = std::stoi(s); }
+            catch (...) { std::cout << "  Not a valid ID.\n"; continue; }
+            const Student* found = book.findById(id);
+            if (found != nullptr) {
+                std::cout << "  " << found->name() << ": "
+                          << book.percentageFor(*found) << "%\n";
+            } else {
+                std::cout << "  No student with ID " << id << ".\n";
+            }
+        } else if (c == '8') {
+            running = false;
+        } else {
+            std::cout << "  Please enter 1-8.\n";
+```
+
+- **Statistics** (option 6) passes `std::cout` to `printStatistics`.
+- **Find by ID** (option 7) converts the typed ID with `std::stoi`, catching
+  bad input, then asks `book.findById(id)`. Always compare the result with
+  `nullptr` before using it — dereferencing a null pointer crashes the
+  program.
+- **Quit** moves to option 8.
+
+> **▶ Run checkpoint:** Make sure all twelve files are open and click **Run**. The program should compile with no errors and no warnings and show the eight-option menu.
+
+#### Check your work
+
+Choose `1` (Points-based). Add three students, each with one assignment
+(category: press Enter):
+
+| Student | Assignment | Earned | Possible | Bonus |
+|---|---|---|---|---|
+| `Ana` | `Test` | 95 | 100 | 0 |
+| `Ben` | `Test` | 75 | 100 | 0 |
+| `Cy` | `Test` | 55 | 100 | 0 |
+
+1. Choose `6` (Statistics). You should see:
+
+   ```text
+   --- Class statistics ---
+     Students : 3
+     Mean     : 75.0%
+     Median   : 75.0%
+     Range    : 55.0% to 95.0%
+     Std dev  : 16.3
+     Grades   : A=1  C=1  F=1
+   ```
+
+   Check the standard deviation by hand: the deviations from the mean are
+   +20, 0, −20; their squares average 800 ÷ 3 ≈ 266.67; √266.67 ≈ 16.3.
+2. Choose `7` and enter `1002`. You should see `Ben: 75.0%`.
+3. Choose `7` and enter `99`. You should see `No student with ID 99.`
+4. Choose `3` (Sort), then `7` with `1002` again. It must still find `Ben` —
+   proof that the index was rebuilt after sorting.
+5. Choose `8` (Quit).
+
+Then confirm:
+
+- [ ] The program compiles with no errors and no warnings.
+- [ ] `statistics.h` has an include guard and there is no `statistics.cpp`.
+- [ ] `addStudent` updates `idIndex_`, and `sortByPercentage` rebuilds it.
+- [ ] Every use of `findById` checks for `nullptr`.
 
 #### StudySite workflow
 
@@ -793,16 +1014,13 @@ check(foundAlice != nullptr && foundAlice->name() == "Alice"
    avoids creating files with names such as `_imported` when the same path
    is already open.
 3. Click **Load from GitHub**, select
-   **COSC1437xxx-Grade-Calculator-YourLastName**, and click each source,
-   header, or documentation file needed for this chapter. Confirm the editor
-   shows the expected file paths before editing.
-4. Continue the existing project in StudySite's internal editor. For a
-   multi-file program, keep every source and header file needed by the build
-   open in the editor.
-5. Click **Run**. Read compiler messages and program output in the embedded
-   Terminal, and type program input there when prompted.
-6. Fix every compiler error and warning, then complete the verification
-   list.
+   **COSC1437xxx-Grade-Calculator-YourLastName**, and click all eleven project files to open them. You will create `statistics.h` during the lab.
+   Confirm the editor shows the expected file paths before editing.
+4. Work through Steps 1–6 above in StudySite's internal editor, in order, clicking **Run** at each ▶ Run checkpoint.
+5. Read compiler messages and program output in the embedded Terminal, and
+   type program input there when prompted. Fix every compiler error and
+   warning before moving past a Run checkpoint.
+6. Complete the **Check your work** list.
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
@@ -814,8 +1032,8 @@ check(foundAlice != nullptr && foundAlice->name() == "Alice"
 > finishes a successful **Commit**.
 
 1. Keep every project file that belongs in this checkpoint open in the
-   editor. **Save to GitHub includes every open editor file**, so close
-   scratch files and accidental `_imported` duplicates first.
+   editor — all twelve files, including the new `statistics.h`. **Save to GitHub includes every open editor file**,
+   so close scratch files and accidental `_imported` duplicates first.
 2. Click **Save to GitHub**.
 3. Select **COSC1437xxx-Grade-Calculator-YourLastName** and the existing
    **main** branch.
@@ -826,11 +1044,12 @@ check(foundAlice != nullptr && foundAlice->name() == "Alice"
 
 #### Complete when
 
-- The verification list passes.
+- Every item in **Check your work** passes.
 - **COSC1437xxx-Grade-Calculator-YourLastName** contains the Chapter 23
   checkpoint.
 - The GitHub commit is visible; StudySite's local autosave alone is not
   completion.
+
 
 ---
 
