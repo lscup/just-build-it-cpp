@@ -8,7 +8,7 @@
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-## Required work
+## What you will build
 
 1. Use `done` as the sentinel for assignment entry.
 2. Maintain total earned, total possible, assignment count, and bonus-assignment count.

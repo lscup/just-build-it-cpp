@@ -473,7 +473,7 @@ Course: Programming Fundamentals
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-#### Required work
+#### What you will build
 
 1. Create `main.cpp` with the required C++ program structure: include `<iostream>`, define `int main()`, and return `0`.
 2. Print a Grade Calculator banner, `COSC 1436`, and your name.

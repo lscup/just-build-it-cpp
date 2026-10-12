@@ -442,7 +442,7 @@ This chapter has no code, because you have not yet met any C++. What it has is t
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-#### Required work
+#### What you will build
 
 1. Use the private `COSC1436xxx-Grade-Calculator-YourLastName` repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.
 2. Create `README.md` from the supplied template. Replace only `[Your name]`.

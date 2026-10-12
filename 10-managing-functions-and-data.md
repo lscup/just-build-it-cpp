@@ -644,7 +644,7 @@ The `abc` was rejected, the prompt repeated, and the program carried on. **No ty
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-#### Required work
+#### What you will build
 
 1. Move reusable declarations to `gradelib.h` and definitions to `gradelib.cpp`; keep application flow in `main.cpp`.
 2. Add an include guard to `gradelib.h`.

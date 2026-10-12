@@ -373,7 +373,7 @@ Seed a defect, click **Run**, and try these in the Terminal:
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-#### Required work
+#### What you will build
 
 1. Seed the same three defects described below into a copy of your own
    working v2.2 code, so you observe each failure before you fix it.

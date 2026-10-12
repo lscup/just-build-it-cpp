@@ -581,7 +581,7 @@ That is not a failure of your code. It is a limit of the tool, and Chapter 11 pr
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-#### Required work
+#### What you will build
 
 1. Add named cutoffs: A `90`, B `80`, C `70`, and D `60`.
 2. Use an `if / else if` chain from highest to lowest to assign a `char` letter grade; F is the default.

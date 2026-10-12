@@ -611,7 +611,7 @@ Goodbye.
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-#### Required work
+#### What you will build
 
 1. Refactor into focused functions for reading an assignment, computing a percentage, assigning a letter, and printing a report.
 2. Add a menu loop with options to add an assignment, view the report, and quit.

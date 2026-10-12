@@ -8,7 +8,7 @@
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-## Required work
+## What you will build
 
 1. Use `std::min` to cap the raw percentage at 100 when the named policy constant is enabled.
 2. Use `std::round` to round once to one decimal place.

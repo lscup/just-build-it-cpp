@@ -341,7 +341,7 @@ If they differ, you introduced a defect while "only" reformatting. Find it. That
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-#### Required work
+#### What you will build
 
 1. Create `main.cpp` with the complete supplied Chapter 12 starter code before making Chapter 13 changes.
 2. Run the starter unchanged and confirm the complete points-based Grade Calculator works.

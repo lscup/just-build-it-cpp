@@ -488,7 +488,7 @@ Percentage      not available
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-#### Required work
+#### What you will build
 
 1. Create `design.md` containing the program purpose, inputs, processing, outputs, pseudocode, and a test table.
 2. Keep the weighted-grading scope statement from `requirements.md` unchanged.

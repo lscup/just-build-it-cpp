@@ -9,7 +9,7 @@
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-## Required work
+## What you will build
 
 1. Add a `Gradebook` struct that bundles the scale, assignments, and roster
    together, and give it up to `saveGradebook`/`loadGradebook`.

@@ -8,7 +8,7 @@
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-## Required work
+## What you will build
 
 1. Replace fixed student, assignment, score, and grade-scale arrays with `std::vector`.
 2. Allow any number of assignments and students.

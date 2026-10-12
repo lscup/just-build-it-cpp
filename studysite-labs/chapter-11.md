@@ -8,7 +8,7 @@
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-## Required work
+## What you will build
 
 1. Store up to 40 students and their scores in arrays.
 2. Store grade letters and cutoffs as parallel arrays entered by the user.

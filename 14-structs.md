@@ -395,7 +395,7 @@ CLASS AVERAGE                 82.7%
 > or a new repository. The supplied Chapter 12 solution is the foundation;
 > your COSC 1437 work is what you add in Chapters 13–24.
 
-#### Required work
+#### What you will build
 
 1. Add `Assignment`, `Score`, `Student`, and `GradeTier` structs.
 2. Replace the parallel `gradeCutoffs`/`gradeLetters` vectors with

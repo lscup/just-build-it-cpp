@@ -8,7 +8,7 @@
 > repository through Chapter 12. Do not create a chapter folder or a new
 > repository. Each chapter replaces or extends the current working program.
 
-## Required work
+## What you will build
 
 1. Calculate `(points earned + bonus points) / points possible * 100.0` using floating-point arithmetic.
 2. Guard against points possible being zero before dividing.
