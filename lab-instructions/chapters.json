@@ -22,16 +22,18 @@
     "chapter": 2,
     "title": "Hello, Gradebook",
     "version": "v0.1",
-    "start": "The Chapter 1 repository containing @@BT@@README.md@@BT@@ and @@BT@@requirements.md@@BT@@.",
+    "start": "Your Chapter 1 repository, containing @@BT@@README.md@@BT@@ and @@BT@@requirements.md@@BT@@ and no C++ code yet.",
     "requirements": [
-      "Create @@BT@@main.cpp@@BT@@ with the required C++ program structure: include @@BT@@<iostream>@@BT@@, define @@BT@@int main()@@BT@@, and return @@BT@@0@@BT@@.",
-      "Print a Grade Calculator banner, @@BT@@COSC 1436@@BT@@, and your name.",
-      "Keep the output plain text and make the program exit normally."
+      "A new file @@BT@@main.cpp@@BT@@ containing a complete, minimal C++ program: a comment header, @@BT@@#include <iostream>@@BT@@, an @@BT@@int main()@@BT@@ function, and @@BT@@return 0;@@BT@@.",
+      "A five-line banner printed with @@BT@@std::cout@@BT@@, naming the application, its version, and the course.",
+      "A program that compiles with no errors and no warnings, and exits normally."
     ],
     "verify": [
-      "The program builds without warnings.",
-      "The banner, course, and student name appear exactly once.",
-      "The program reaches a normal exit."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "The program prints exactly five banner lines and one course line.",
+      "The two rule lines are the same length as each other.",
+      "The program exits normally, with no input required.",
+      "@@BT@@README.md@@BT@@ and @@BT@@requirements.md@@BT@@ are still in the repository, unchanged."
     ],
     "commit": "Complete Chapter 2 Grade Calculator v0.1"
   },
@@ -39,35 +41,39 @@
     "chapter": 3,
     "title": "Store an Assignment",
     "version": "v0.2",
-    "start": "The working Chapter 2 @@BT@@main.cpp@@BT@@.",
+    "start": "Your committed Chapter 2 v0.1 program (one file, prints a banner).",
     "requirements": [
-      "Prompt for a student name and assignment name using @@BT@@std::string@@BT@@ and @@BT@@std::getline@@BT@@.",
-      "Prompt for points earned and points possible using @@BT@@double@@BT@@ variables.",
-      "Add a @@BT@@double@@BT@@ bonus-points variable and a @@BT@@const double@@BT@@ A cutoff of @@BT@@90.0@@BT@@.",
-      "Print a labeled summary containing every value. Do not calculate the percentage yet."
+      "A shorter one-line banner, so the program's output is dominated by its work rather than its decoration.",
+      "Two @@BT@@std::string@@BT@@ variables read with @@BT@@std::getline@@BT@@, because names contain spaces.",
+      "Two @@BT@@double@@BT@@ variables read with @@BT@@std::cin >>@@BT@@, because scores need partial credit.",
+      "A @@BT@@--- Summary ---@@BT@@ block that echoes all four values with aligned labels."
     ],
     "verify": [
-      "Names containing spaces are read completely.",
-      "Decimal point values are accepted.",
-      "The summary echoes all entered data and the A cutoff."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "A two-word student name is stored and echoed in full, not truncated at the space.",
+      "A score of @@BT@@8.5@@BT@@ is accepted and echoed as @@BT@@8.5@@BT@@.",
+      "The four labels in the summary line up in a column.",
+      "The program exits normally after printing the summary."
     ],
     "commit": "Complete Chapter 3 Grade Calculator v0.2"
   },
   {
     "chapter": 4,
-    "title": "Calculate Percentage and Bonus",
+    "title": "Calculate Percentages",
     "version": "v0.3",
-    "start": "The working Chapter 3 program.",
+    "start": "Your committed Chapter 3 v0.2 program (one file, reads and echoes one assignment).",
     "requirements": [
-      "Calculate @@BT@@(points earned + bonus points) / points possible * 100.0@@BT@@ using floating-point arithmetic.",
-      "Guard against points possible being zero before dividing.",
-      "Display the percentage to one decimal place.",
-      "Keep the percentage uncapped in this checkpoint and document that policy in a comment."
+      "A third numeric prompt for bonus points.",
+      "A @@BT@@totalEarned@@BT@@ value combining the score and the bonus.",
+      "A percentage computed with real (floating-point) division, guarded so it is never computed when @@BT@@pointsPossible@@BT@@ is zero.",
+      "Output formatted with @@BT@@std::fixed@@BT@@ and @@BT@@std::setprecision(1)@@BT@@, so a percentage always shows exactly one decimal."
     ],
     "verify": [
-      "@@BT@@84 / 100@@BT@@ with @@BT@@5@@BT@@ bonus reports @@BT@@89.0%@@BT@@.",
-      "@@BT@@10 / 10@@BT@@ with @@BT@@5@@BT@@ bonus reports @@BT@@150.0%@@BT@@.",
-      "Zero points possible produces an explanation instead of a division error."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "A percentage always shows exactly one digit after the decimal point.",
+      "Entering @@BT@@0@@BT@@ for points possible prints @@BT@@0.0%@@BT@@ and never @@BT@@inf@@BT@@ or @@BT@@nan@@BT@@.",
+      "The @@BT@@Earned:@@BT@@ line shows the total, the original score, and the bonus.",
+      "A bonus large enough to exceed the points possible produces a percentage above 100, and the program still exits normally."
     ],
     "commit": "Complete Chapter 4 Grade Calculator v0.3"
   },
@@ -75,18 +81,20 @@
     "chapter": 5,
     "title": "Design the Interface",
     "version": "v0.4",
-    "start": "The working Chapter 4 program.",
+    "start": "Your committed Chapter 4 v0.3 program (one file, computes a percentage).",
     "requirements": [
-      "Create @@BT@@design.md@@BT@@ containing the program purpose, inputs, processing, outputs, pseudocode, and a test table.",
-      "Keep the weighted-grading scope statement from @@BT@@requirements.md@@BT@@ unchanged.",
-      "Redesign prompts so each states the expected value or constraint.",
-      "Print a labeled, aligned report and explain the zero-points-possible case.",
-      "Print a note that bonus points are added to earned points, not possible points."
+      "A four-line banner naming the application, its version, and its grading model.",
+      "Five prompts that state their units, an example, or their valid range, with the colons aligned in a column.",
+      "A @@BT@@GRADE REPORT@@BT@@ block using @@BT@@std::left@@BT@@ and @@BT@@std::setw@@BT@@ so labels and values align regardless of length.",
+      "An @@BT@@else@@BT@@ branch that explains *why* there is no percentage when an assignment is worth zero points."
     ],
     "verify": [
-      "The calculation still matches Chapter 4.",
-      "Labels are readable and aligned.",
-      "@@BT@@design.md@@BT@@ matches the program that will be built through Chapter 12."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "Every prompt states a unit, an example, or a valid range.",
+      "The prompt colons line up in a single column.",
+      "All report values start in the same column, for both short and long labels.",
+      "Entering @@BT@@0@@BT@@ for points possible prints the @@BT@@not available@@BT@@ explanation and no percentage.",
+      "The computed percentage is identical to what Chapter 4 produced for the same inputs — the interface changed, the arithmetic did not."
     ],
     "commit": "Complete Chapter 5 Grade Calculator v0.4"
   },
@@ -94,17 +102,21 @@
     "chapter": 6,
     "title": "Assign Letter Grades",
     "version": "v0.5",
-    "start": "The working Chapter 5 program.",
+    "start": "Your committed Chapter 5 v0.4 program (one file, aligned report).",
     "requirements": [
-      "Add named cutoffs: A @@BT@@90@@BT@@, B @@BT@@80@@BT@@, C @@BT@@70@@BT@@, and D @@BT@@60@@BT@@.",
-      "Use an @@BT@@if / else if@@BT@@ chain from highest to lowest to assign a @@BT@@char@@BT@@ letter grade; F is the default.",
-      "Display the percentage and letter grade together.",
-      "Keep the raw percentage policy from Chapter 4 for now."
+      "Four named constants at file scope holding the grade cutoffs.",
+      "A @@BT@@char letter@@BT@@ variable set by an @@BT@@if@@BT@@/@@BT@@else if@@BT@@ chain testing the cutoffs from highest to lowest.",
+      "@@BT@@Percentage@@BT@@ and @@BT@@Grade@@BT@@ lines in the report, plus a note when bonus points push the score above 100%.",
+      "A simplified report layout, so the two new rows fit without the block growing unwieldy."
     ],
     "verify": [
-      "Test @@BT@@95@@BT@@, @@BT@@85@@BT@@, @@BT@@75@@BT@@, @@BT@@65@@BT@@, and @@BT@@55@@BT@@ percent.",
-      "Test exactly @@BT@@90.0@@BT@@ and just below @@BT@@90.0@@BT@@.",
-      "A score above 100 still receives A and is not hidden."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "Every row of the table above produces the expected grade.",
+      "A score of exactly 90 is an @@BT@@A@@BT@@, not a @@BT@@B@@BT@@.",
+      "A score below 60 is an @@BT@@F@@BT@@ with no final @@BT@@else@@BT@@ in your chain.",
+      "The cutoffs appear only in the four @@BT@@const double@@BT@@ declarations, not as numbers inside the @@BT@@if@@BT@@ chain.",
+      "A bonus above 100% prints the note and still reports a grade.",
+      "Zero points possible reports both values as @@BT@@not available@@BT@@."
     ],
     "commit": "Complete Chapter 6 Grade Calculator v0.5"
   },
@@ -112,18 +124,22 @@
     "chapter": 7,
     "title": "Process Multiple Assignments",
     "version": "v0.6",
-    "start": "The working Chapter 6 program.",
+    "start": "Your committed Chapter 6 v0.5 program (one file, one assignment, letter grade).",
     "requirements": [
-      "Use @@BT@@done@@BT@@ as the sentinel for assignment entry.",
-      "Maintain total earned, total possible, assignment count, and bonus-assignment count.",
-      "Display a running percentage after each assignment.",
-      "After the sentinel, display the final course percentage and letter grade.",
-      "Handle no assignments and all-zero-point assignments without dividing by zero."
+      "A @@BT@@SENTINEL@@BT@@ constant holding the word @@BT@@done@@BT@@, used both in the prompts and in the loop condition.",
+      "Three accumulators declared before the loop: @@BT@@totalEarned@@BT@@, @@BT@@totalPossible@@BT@@, and @@BT@@assignmentCount@@BT@@.",
+      "A @@BT@@while@@BT@@ loop that reads one assignment per iteration and reports a running total after each.",
+      "A @@BT@@std::cin.ignore(...)@@BT@@ call that fixes the classic bug where a @@BT@@getline@@BT@@ after a numeric read returns an empty string.",
+      "A @@BT@@COURSE REPORT@@BT@@ that grades the accumulated totals, and says so plainly when no assignments were entered at all."
     ],
     "verify": [
-      "Three assignments produce correct running totals.",
-      "Entering @@BT@@done@@BT@@ immediately reports no assignments.",
-      "Names still work after numeric input; no @@BT@@getline@@BT@@ is skipped."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "Typing @@BT@@done@@BT@@ at the first prompt gives @@BT@@Assignments: 0@@BT@@ and no grade.",
+      "A multi-word assignment name entered after the first iteration is stored in full.",
+      "The loop exits on @@BT@@done@@BT@@ every time, not only the first.",
+      "The running total after each assignment matches the final total.",
+      "The word @@BT@@done@@BT@@ appears in the program only as @@BT@@SENTINEL@@BT@@, never as a literal.",
+      "The three accumulators are declared before the loop, not inside it."
     ],
     "commit": "Complete Chapter 7 Grade Calculator v0.6"
   },
@@ -131,17 +147,22 @@
     "chapter": 8,
     "title": "Round and Cap the Grade",
     "version": "v0.7",
-    "start": "The working Chapter 7 program.",
+    "start": "Your committed Chapter 7 v0.6 program (one file, sentinel loop, accumulators).",
     "requirements": [
-      "Use @@BT@@std::min@@BT@@ to cap the raw percentage at 100 when the named policy constant is enabled.",
-      "Use @@BT@@std::round@@BT@@ to round once to one decimal place.",
-      "Use the same rounded value for both display and letter-grade selection.",
-      "Print a note when a raw percentage above 100 was capped."
+      "A @@BT@@CAP_AT_100@@BT@@ constant, and a header comment recording the policy it implements and how to reverse it.",
+      "@@BT@@std::min@@BT@@ applied to the raw percentage, expressing the cap in one line.",
+      "@@BT@@std::round@@BT@@ used to round to one decimal place, so the number displayed and the number graded are the same number.",
+      "An early @@BT@@return 0;@@BT@@ for the no-grade cases, which flattens the nested decision that was starting to get hard to follow.",
+      "A note reporting the uncapped score when the cap actually applies."
     ],
     "verify": [
-      "@@BT@@10 / 10@@BT@@ with @@BT@@5@@BT@@ bonus reports @@BT@@100.0%@@BT@@ and the cap note.",
-      "@@BT@@89.95 / 100@@BT@@ displays and grades from the same rounded value.",
-      "Disabling the named cap policy reports the uncapped value."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "A raw percentage of 89.96 reports @@BT@@90.0%@@BT@@ **and** grade @@BT@@A@@BT@@.",
+      "A raw percentage of 89.94 reports @@BT@@89.9%@@BT@@ and grade @@BT@@B@@BT@@.",
+      "A score above 100% is reported as @@BT@@100.0%@@BT@@ with the note naming the raw figure.",
+      "Setting @@BT@@CAP_AT_100@@BT@@ to @@BT@@false@@BT@@, rebuilding, and re-running the 110% case reports @@BT@@110.0%@@BT@@ with no note — then set it back to @@BT@@true@@BT@@.",
+      "The percentage is rounded once, before the grade comparison, not only in the output.",
+      "Both no-grade cases exit through the single guard clause."
     ],
     "commit": "Complete Chapter 8 Grade Calculator v0.7"
   },
@@ -149,17 +170,23 @@
     "chapter": 9,
     "title": "Rebuild with Functions",
     "version": "v1.0",
-    "start": "The working Chapter 8 program.",
+    "start": "Your committed Chapter 8 v0.7 program (one file, one long @@BT@@main@@BT@@).",
     "requirements": [
-      "Refactor into focused functions for reading an assignment, computing a percentage, assigning a letter, and printing a report.",
-      "Add a menu loop with options to add an assignment, view the report, and quit.",
-      "Use parameters and return values instead of duplicating calculations.",
-      "Preserve Chapter 8 behavior while changing the program structure."
+      "@@BT@@applyBonus@@BT@@, @@BT@@computePercentage@@BT@@, and @@BT@@assignLetterGrade@@BT@@ — three pure calculations that take values and return values.",
+      "@@BT@@readAssignment@@BT@@ — reads one assignment and updates the running totals through **reference parameters**.",
+      "@@BT@@printReport@@BT@@ and @@BT@@readMenuChoice@@BT@@ — one prints, one asks.",
+      "A @@BT@@main@@BT@@ of about thirty lines: set up, loop on a menu with a @@BT@@switch@@BT@@, print a final report, exit."
     ],
     "verify": [
-      "Every menu option works, including an invalid choice.",
-      "The same inputs produce the same grade as Chapter 8.",
-      "Boundary tests for @@BT@@90.0@@BT@@, @@BT@@89.9@@BT@@, @@BT@@80.0@@BT@@, @@BT@@60.0@@BT@@, @@BT@@59.9@@BT@@, and @@BT@@0.0@@BT@@ pass."
+      "@@BT@@main.cpp@@BT@@ compiles with no errors and **no warnings**.",
+      "@@BT@@main@@BT@@ is about thirty lines and contains no arithmetic.",
+      "Each of the six functions has a documentation comment.",
+      "The three accumulator parameters of @@BT@@readAssignment@@BT@@ are references (@@BT@@double&@@BT@@, @@BT@@int&@@BT@@), and the totals in @@BT@@main@@BT@@ actually change.",
+      "@@BT@@printReport@@BT@@ takes the student name as a @@BT@@const std::string&@@BT@@.",
+      "Every @@BT@@case@@BT@@ in the @@BT@@switch@@BT@@ ends with @@BT@@break@@BT@@.",
+      "Choosing @@BT@@3@@BT@@ prints the report and then @@BT@@Goodbye.@@BT@@",
+      "@@BT@@SENTINEL@@BT@@ no longer appears anywhere in the file.",
+      "The same inputs produce the same grade as your Chapter 8 program."
     ],
     "commit": "Complete Chapter 9 Grade Calculator v1.0"
   },
@@ -167,18 +194,25 @@
     "chapter": 10,
     "title": "Organize Reusable Functions",
     "version": "v1.1",
-    "start": "The working Chapter 9 program.",
+    "start": "Your committed Chapter 9 v1.0 program (one file, six functions, menu loop).",
     "requirements": [
-      "Move reusable declarations to @@BT@@gradelib.h@@BT@@ and definitions to @@BT@@gradelib.cpp@@BT@@; keep application flow in @@BT@@main.cpp@@BT@@.",
-      "Add an include guard to @@BT@@gradelib.h@@BT@@.",
-      "Add validated numeric input that recovers after invalid text.",
-      "Pass output values by reference where a function must update the caller.",
-      "Add @@BT@@readInRange@@BT@@ and use it to keep points possible between @@BT@@0@@BT@@ and @@BT@@1000@@BT@@."
+      "@@BT@@gradelib.h@@BT@@ — the constants, seven function declarations, and an include guard.",
+      "@@BT@@gradelib.cpp@@BT@@ — the definitions, including two new validating readers that re-prompt until the input is usable.",
+      "Two functions both named @@BT@@formatGrade@@BT@@, distinguished only by their parameter type — an **overload**.",
+      "A default argument on @@BT@@applyBonus@@BT@@, so a call that omits the bonus means \"no bonus\".",
+      "A @@BT@@main.cpp@@BT@@ of about seventy lines that includes @@BT@@\"gradelib.h\"@@BT@@ and contains only the program's flow."
     ],
     "verify": [
-      "All source files build together.",
-      "Typing @@BT@@abc@@BT@@ for a number does not trap the program in a loop or crash it.",
-      "The existing menu and grade calculations still work."
+      "All three files compile together with no errors and **no warnings**.",
+      "@@BT@@gradelib.h@@BT@@ has an include guard.",
+      "The default argument on @@BT@@applyBonus@@BT@@ appears in @@BT@@gradelib.h@@BT@@ only, not in @@BT@@gradelib.cpp@@BT@@.",
+      "Both @@BT@@formatGrade@@BT@@ functions exist and the program calls both.",
+      "Typing a letter where a number is expected re-prompts and then works.",
+      "Typing a negative number re-prompts.",
+      "A blank student name or assignment name re-prompts.",
+      "@@BT@@main.cpp@@BT@@ contains no cutoffs and no arithmetic on percentages.",
+      "@@BT@@readMenuChoice@@BT@@ no longer exists anywhere.",
+      "The same inputs produce the same grade as your Chapter 9 program."
     ],
     "commit": "Complete Chapter 10 Grade Calculator v1.1"
   },
