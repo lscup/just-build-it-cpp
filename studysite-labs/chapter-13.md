@@ -11,7 +11,7 @@
 
 ## What you will build
 
-1. Create `main.cpp` with the complete supplied Chapter 12 starter code before making Chapter 13 changes.
+1. Create `main.cpp` with the complete supplied Chapter 12 starter code before making Chapter 13 changes. This is your Course I program consolidated into one file — see the note in Step 1.
 2. Run the starter unchanged and confirm the complete points-based Grade Calculator works.
 3. Create `maintenance-plan.md` identifying the coding-standard cleanup, behavior-preservation plan, test evidence, and weighted-grading requirement deferred to Chapters 20–21.
 4. Bring the file's top header comment into conformance with the Appendix D file-header standard, without changing any grade calculation.
@@ -32,11 +32,26 @@ added is the new `showAbout()` function that replaces it.
 Each step below shows the actual code for that piece. Type it in as you go —
 don't wait until the end to test.
 
-### Step 1 — Create `main.cpp` with the complete Chapter 12 starter code
+### Step 1 — Create `main.cpp` with your consolidated Chapter 12 program
 
 Create `main.cpp` in the StudySite coding panel with the complete code below.
 Run this starter unchanged before beginning the Chapter 13 changes — this is
 the baseline you will diff your Chapter 13 output against.
+
+> **Why one file, when Chapter 12 ended with three?** Your Course I program
+> finished as `main.cpp`, `gradelib.h` and `gradelib.cpp` — Chapter 10 split it
+> that way and Chapters 11 and 12 built on it. The code below is that same
+> program consolidated back into a single file, and it behaves identically:
+> run it against your Chapter 12 program with the same input and the output
+> matches line for line.
+>
+> Course II starts consolidated on purpose. Chapters 13 to 18 change *what the
+> program is made of* — a coding standard, a debugger, tests, then classes and
+> objects — and following those changes is easier in one file. Chapter 19 then
+> splits the program into files again, this time around the classes you will
+> have built by then, which is a more durable division than a general-purpose
+> `gradelib`. You are not losing the Chapter 10 lesson; you are about to apply
+> it to a better set of boundaries.
 
 ```cpp
 // Grade Calculator v1.3 - Chapter 12 - COURSE I FINAL
