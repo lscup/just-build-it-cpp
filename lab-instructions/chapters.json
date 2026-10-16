@@ -218,42 +218,48 @@
   },
   {
     "chapter": 11,
-    "title": "Build a Class Roster and Custom Scale",
+    "title": "Build a Class Roster",
     "version": "v1.2",
-    "start": "The working Chapter 10 program.",
+    "start": "Your committed Chapter 10 v1.1 program (three files, validated input).",
     "requirements": [
-      "Store up to 40 students and their scores in arrays.",
-      "Store grade letters and cutoffs as parallel arrays entered by the user.",
-      "Reject a cutoff that is not lower than the previous cutoff and ensure the scale reaches @@BT@@0@@BT@@.",
-      "Replace the fixed letter-grade chain with a loop over the scale data.",
-      "Display every student's grade, the class average, and highest and lowest course percentage."
+      "@@BT@@MAX_TIERS@@BT@@ in the library, and three new library functions: @@BT@@useDefaultScale@@BT@@, @@BT@@readGradeScale@@BT@@, and @@BT@@letterFor@@BT@@.",
+      "A grade scale held in **parallel arrays** — @@BT@@cutoffs[i]@@BT@@ and @@BT@@letters[i]@@BT@@ describe the same tier — that the user can define at run time, with validation that the cutoffs descend.",
+      "@@BT@@assignLetterGrade@@BT@@ and the four @@BT@@*_CUTOFF@@BT@@ constants **gone**, replaced by the table.",
+      "A roster in @@BT@@main.cpp@@BT@@: a 2D array of earned points, parallel arrays of student and assignment names, and a class report with per-student grades, a class average, and per-assignment averages."
     ],
     "verify": [
-      "Default and custom scales can give different letters for the same score.",
-      "A pass/fail scale works without code changes.",
-      "An out-of-order cutoff is rejected.",
-      "The 40-student limit is handled explicitly."
+      "All three files compile together with no errors and **no warnings**.",
+      "@@BT@@A_CUTOFF@@BT@@ through @@BT@@D_CUTOFF@@BT@@ and @@BT@@assignLetterGrade@@BT@@ no longer appear anywhere in the project.",
+      "A custom scale changes the letters awarded without any code change.",
+      "A tier whose cutoff is not below the previous one is refused.",
+      "A scale that does not reach 0 gets an @@BT@@F@@BT@@ at 0 appended, with a message.",
+      "Per-student percentages match a hand calculation of their row.",
+      "Per-assignment averages match a hand calculation of their column.",
+      "Entering no students prints @@BT@@No students entered.@@BT@@ and exits cleanly.",
+      "Every loop runs to a count, never to @@BT@@MAX_STUDENTS@@BT@@ or @@BT@@MAX_ASSIGNMENTS@@BT@@."
     ],
     "commit": "Complete Chapter 11 Grade Calculator v1.2"
   },
   {
     "chapter": 12,
-    "title": "Complete the Dynamic Roster",
+    "title": "Complete the Dynamic Gradebook",
     "version": "v1.3",
-    "start": "The working Chapter 11 program and the Chapter 5 design document.",
+    "start": "Your committed Chapter 11 v1.2 program (three files, fixed-size roster).",
     "requirements": [
-      "Replace fixed student, assignment, score, and grade-scale arrays with @@BT@@std::vector@@BT@@.",
-      "Allow any number of assignments and students.",
-      "Add the drop-lowest option. Remove both earned and possible points for the selected assignment.",
-      "Preserve validated input, custom grade scales, rounding, capping, and class reporting from the earlier checkpoints.",
-      "Keep the weighted-grading scope statement unchanged. Weighted grading belongs to COSC 1437.",
-      "Complete only the Chapter 12 code checkpoint here. Final-project documentation, finishing touches, and submission instructions will be provided separately."
+      "The grade scale as @@BT@@std::vector<double>@@BT@@ and @@BT@@std::vector<char>@@BT@@, with no tier limit and no @@BT@@count@@BT@@ parameter.",
+      "@@BT@@readYesNo@@BT@@ in the library, replacing the hand-rolled y/n checks.",
+      "A roster of @@BT@@std::vector<std::string>@@BT@@ and @@BT@@std::vector<std::vector<double>>@@BT@@ — a vector of rows — with no student or assignment limit.",
+      "An optional drop-lowest pass, offered only when there is more than one assignment to drop."
     ],
     "verify": [
-      "The program handles more than 40 students.",
-      "Drop-lowest arithmetic matches a hand calculation.",
-      "No-student, no-assignment, zero-possible-points, invalid-scale, cutoff-boundary, bonus, and invalid-numeric-input cases behave correctly.",
-      "The repository contains the complete working v1.3 code checkpoint and the project documents created in earlier chapters."
+      "All three files compile together with no errors and **no warnings**.",
+      "@@BT@@MAX_TIERS@@BT@@, @@BT@@MAX_STUDENTS@@BT@@ and @@BT@@MAX_ASSIGNMENTS@@BT@@ appear nowhere in the project.",
+      "No @@BT@@count@@BT@@ variable tracks the length of anything; every bound comes from @@BT@@.size()@@BT@@.",
+      "A scale with more than twelve tiers is accepted.",
+      "The same inputs give the same percentages and letters as your Chapter 11 program.",
+      "Drop-lowest removes the assignment with the worst **ratio**, and removes its points possible as well as its points earned.",
+      "With one assignment, the drop-lowest question is not asked.",
+      "Entering no students prints @@BT@@No students entered.@@BT@@ and exits cleanly."
     ],
     "commit": "Complete Chapter 12 Grade Calculator v1.3"
   },
