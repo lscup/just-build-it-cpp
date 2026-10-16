@@ -10,7 +10,7 @@
 
 ## What you will build
 
-1. Use the private `COSC1436F26-Grade-Calculator-YourLastName` repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.
+1. Use the private `COSC1436xxx-Grade-Calculator-YourLastName` repository your instructor created for you and invited you to. Do not create your own repository. Use this one repository for every chapter through Chapter 12.
 2. Create `README.md` from the supplied template. Replace only `[Your name]`.
 3. Create `requirements.md` by copying the supplied requirements exactly. These are the approved project requirements; do not invent or rewrite them.
 4. Commit both documents as the first checkpoint. C++ coding begins in Chapter 2.
@@ -129,22 +129,22 @@ Estimated size for 30 students with 12 assignments each:
 
 ## Verification
 
-- StudySite can load from and save to the connected `COSC1436F26-Grade-Calculator-YourLastName` repository.
+- StudySite can load from and save to the connected `COSC1436xxx-Grade-Calculator-YourLastName` repository.
 - `README.md` and `requirements.md` are both present.
 - There is no `main.cpp` yet.
 
 ## Optional local workflow
 
 1. Accept the GitHub invitation your instructor emailed you. It gives you
-   access to **COSC1436F26-Grade-Calculator-YourLastName**, the private
+   access to **COSC1436xxx-Grade-Calculator-YourLastName**, the private
    repository already created for you in the **lscup** organization, where
    *YourLastName* is your own last name. Do not create your own repository.
 2. Copy the repository URL from GitHub and clone it in your own development
    environment:
 
    ```bash
-   git clone <your-repository-url> COSC1436F26-Grade-Calculator-YourLastName
-   cd COSC1436F26-Grade-Calculator-YourLastName
+   git clone <your-repository-url> COSC1436xxx-Grade-Calculator-YourLastName
+   cd COSC1436xxx-Grade-Calculator-YourLastName
    ```
 
 3. Create the two supplied documents in your local editor. Chapter 1 has no
