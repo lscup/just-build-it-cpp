@@ -15,6 +15,13 @@ finish-github.sh
 update-repos.sh
 update-repos-output.txt
 
+# The book build toolchain (pandoc/xelatex scripts, order.txt, meta.yaml,
+# header.tex, style.css, a11y.theme). Instructor-only: students never
+# rebuild the book. The generated editions it produces,
+# Just-Build-It-Cpp.html and Just-Build-It-Cpp.pdf, are committed here and
+# are what readers use. The toolchain lives in the private course-ops repo.
+build/
+
 # Course production material and working notes. Not part of the published
 # textbook: order.txt does not reference any of it.
 lecture-decks/
