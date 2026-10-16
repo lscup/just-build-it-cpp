@@ -1168,14 +1168,14 @@ int main() {
         double pct = computePercentage(totalEarned, totalPossible);
         classTotal += pct;
         std::cout << std::left << std::setw(20) << studentNames[s]
-                  << std::right << std::setw(8) << formatGrade(pct) << "   "
+                  << std::right << std::setw(9) << formatGrade(pct) << "   "
                   << formatGrade(letterFor(pct, cutoffs, letters)) << "\n";
     }
 
     if (!studentNames.empty()) {
         std::cout << "-------------------------------------\n";
         std::cout << std::left << std::setw(20) << "CLASS AVERAGE"
-                  << std::right << std::setw(8)
+                  << std::right << std::setw(9)
                   << formatGrade(classTotal / studentNames.size()) << "\n";
     } else {
         std::cout << "No students entered.\n";
