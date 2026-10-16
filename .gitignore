@@ -7,7 +7,13 @@ textbook-examples/
 # Local source/reference and generated packaging files.
 2018_Cpp_Halterman_032325.pdf
 JustBuildIt_cpp_ch01.zip
+
+# Instructor tooling and cross-repo automation. These reference private
+# repositories and local working directories, so they must never land in
+# this public repo. They live in the private course-ops repo instead.
 finish-github.sh
+update-repos.sh
+update-repos-output.txt
 
 # Course production material and working notes. Not part of the published
 # textbook: order.txt does not reference any of it.
@@ -16,6 +22,9 @@ portfolio-exercises/
 studysite-metadata/
 incremental-grading-feasibility-brief.md
 appendix-a_to_g.md
-update-repos-output.txt
-lab-instructions/labsrc/out/
-lab-instructions/labsrc/__pycache__/
+
+# The Chapter 18-24 lab generator. It reads the reference solutions, so it
+# lives in the private grade-calculator repo next to them. The labs it
+# generates (studysite-labs/, local-labs/, and the embedded chapter
+# sections) are the student-facing output and stay here.
+lab-instructions/labsrc/
