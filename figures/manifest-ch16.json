@@ -1,0 +1,21 @@
+{
+  "chapter": 16,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch16-fig1-callstack.svg",
+      "png": "ch16-fig1-callstack.png",
+      "title": "The call stack when a defect is reached",
+      "description": "A stack of four frames drawn bottom to top. At the bottom is main, above it printReport, above that percentageOf, and at the top letterFor, which is where execution is paused. Each frame lists the local values it holds. An arrow labelled current location points at the top frame. A note explains that the debugger shows this stack when execution stops, that the top frame is where the program is now, and that reading downward shows how it got there.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

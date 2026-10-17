@@ -1,17 +1,36 @@
 {
   "chapter": 2,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
   "figures": [
     {
       "svg": "ch02-fig1-pipeline.svg",
       "png": "ch02-fig1-pipeline.png",
       "title": "The four stages that turn C++ source code into a running program",
-      "a11y_ok": true
+      "description": "A vertical pipeline of four stages. Source code enters the preprocessor, which produces an expanded translation unit. That goes to the compiler, which produces assembly code. That goes to the assembler, which produces an object file. Object files and library code go to the linker, which produces the executable. The loader then copies the executable into memory to run it. A note explains that the single g++ command performs all four stages in order.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
     },
     {
       "svg": "ch02-fig2-anatomy.svg",
       "png": "ch02-fig2-anatomy.png",
       "title": "The parts of a simple C++ program, labelled",
-      "a11y_ok": true
+      "description": "A four-line C++ program with each part labelled by a line pointing to it. The first line, hash include iostream, is labelled a preprocessor directive that brings in the input and output library. The line int main open paren close paren open brace is labelled the function where execution begins. The line beginning std colon colon cout is labelled the statement that prints text, and its backslash n is labelled a newline character. The line return 0 semicolon is labelled reporting success to the operating system. The closing brace is labelled the end of main.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
     }
   ]
 }

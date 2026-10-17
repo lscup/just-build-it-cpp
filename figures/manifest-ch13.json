@@ -1,0 +1,21 @@
+{
+  "chapter": 13,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch13-fig1-lifecycle.svg",
+      "png": "ch13-fig1-lifecycle.png",
+      "title": "The five phases of the software development lifecycle",
+      "description": "Five boxes arranged in a ring, connected by arrows in order: Planning, Analysis, Design, Development, and Maintenance. A long arrow returns from Maintenance to Planning, showing that maintenance generates new requirements and the cycle repeats. Each box lists its main output: planning produces a feasibility assessment and requirements, analysis produces a model of the problem, design produces an architecture and interfaces, development produces working tested code, and maintenance produces fixes and enhancements.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

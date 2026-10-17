@@ -1,0 +1,21 @@
+{
+  "chapter": 10,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch10-fig1-pointer-reference.svg",
+      "png": "ch10-fig1-pointer-reference.png",
+      "title": "A variable, a pointer to it, and a reference to it",
+      "description": "Three panels. The first shows a variable named score at address 4000 holding 84.0. The second shows a pointer named ptr at address 5000 holding the value 4000, with an arrow from ptr to score, and notes that ptr is a separate variable that stores an address. The third shows a reference named alias with no box of its own, drawn as a second label attached to the same box at address 4000, and notes that a reference is another name for an existing variable and occupies no storage of its own.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

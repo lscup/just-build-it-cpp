@@ -1,0 +1,21 @@
+{
+  "chapter": 21,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch21-fig1-dispatch.svg",
+      "png": "ch21-fig1-dispatch.png",
+      "title": "How a call through a base pointer reaches the right function",
+      "description": "A Gradebook box holds a pointer labelled scheme_ of type GradingScheme pointer. An arrow from it points to one of two objects shown below: a PointsBased object and a Weighted object. A call written as scheme underscore arrow computePercentage leaves the Gradebook and follows the pointer. Two labelled paths show that when the pointer refers to the PointsBased object the points-based rule runs, and when it refers to the Weighted object the weighted rule runs. A note records that Gradebook contains no branch and never asks which kind it holds.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "chapter": 20,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch20-fig1-hierarchy.svg",
+      "png": "ch20-fig1-hierarchy.png",
+      "title": "Two designs for supporting more than one grading scheme",
+      "description": "Two panels. The left shows the flag design: a single Gradebook box containing a scheme flag, with three separate operations each containing an if-else branch on that flag, and a note that adding a third scheme means editing every branch. The right shows the hierarchy design: an abstract GradingScheme box at the top with two boxes below it, PointsBased and Weighted, connected by lines, and a note that adding a third scheme means adding one box and editing nothing.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "chapter": 18,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch18-fig1-class.svg",
+      "png": "ch18-fig1-class.png",
+      "title": "A struct compared with a class holding the same data",
+      "description": "Two panels side by side. The left shows a struct named Student with three public members, name, id, and scores, and separate free functions total and percentage drawn outside it, with arrows showing any code can reach the members. The right shows a class named Student with the same three members marked private and enclosed, and member functions addAssignment, totalEarned and percentage inside the boundary, with a note that outside code can only call the functions.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

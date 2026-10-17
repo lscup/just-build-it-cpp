@@ -1,0 +1,21 @@
+{
+  "chapter": 3,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch03-fig1-variable.svg",
+      "png": "ch03-fig1-variable.png",
+      "title": "A variable declaration and what it reserves in memory",
+      "description": "The declaration double pointsEarned equals 84.5 is shown above a diagram of memory. An arrow labelled name points from the identifier to a block of eight shaded memory cells at addresses 4000 through 4007. A label reads: the type double decides that eight bytes are reserved and how the bits in them are interpreted. A second label notes that the name is how your program refers to that location, and the value 84.5 is what is stored there.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

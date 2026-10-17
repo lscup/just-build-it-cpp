@@ -1,0 +1,21 @@
+{
+  "chapter": 11,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch11-fig1-2d-array.svg",
+      "png": "ch11-fig1-2d-array.png",
+      "title": "A two-dimensional array of points earned, students by assignments",
+      "description": "A grid with three rows and four columns. Rows are students with indices 0, 1 and 2; columns are assignments with indices 0 through 3. The value at row 1, column 2 is highlighted and labelled as pointsEarned bracket 1 bracket 2. A note explains that the first index selects the row and the second selects the column, and that both start at zero.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

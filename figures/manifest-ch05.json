@@ -1,0 +1,51 @@
+{
+  "chapter": 5,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch05-fig1-flowchart-symbols.svg",
+      "png": "ch05-fig1-flowchart-symbols.png",
+      "title": "The five flowchart symbols used in this book",
+      "description": "Five symbols with their names and meanings. A rounded rectangle is a terminator, marking start or end. A parallelogram is input or output. A rectangle is a process, meaning a computation or assignment. A diamond is a decision, with one entry and two exits labelled yes and no. An arrow is flow, showing the order of steps.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    },
+    {
+      "svg": "ch05-fig2-structure-chart.svg",
+      "png": "ch05-fig2-structure-chart.png",
+      "title": "Structure chart for the Grade Calculator",
+      "description": "A tree with three levels. At the top is Grade Calculator. It has four children: Read Assignment, Compute Percentage, Assign Letter Grade, and Print Report. Read Assignment has two children of its own: Read Text and Read Number. The chart shows what the program is made of and which part calls which, but says nothing about the order in which they run.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    },
+    {
+      "svg": "ch05-fig3-flowchart.svg",
+      "png": "ch05-fig3-flowchart.png",
+      "title": "Flowchart for computing one assignment grade",
+      "description": "A flowchart with nine steps. It begins at Start, then reads the assignment name, points earned, points possible, and bonus points. A decision asks whether points possible is greater than zero. If no, it displays the message that no percentage is available and goes to End. If yes, it adds bonus points to points earned, divides by points possible and multiplies by one hundred to get the percentage, displays the percentage, and goes to End.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

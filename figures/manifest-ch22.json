@@ -1,0 +1,21 @@
+{
+  "chapter": 22,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
+  "figures": [
+    {
+      "svg": "ch22-fig1-stack-heap.svg",
+      "png": "ch22-fig1-stack-heap.png",
+      "title": "Where a program's data lives: stack and heap",
+      "description": "Two columns. The left column is the stack, containing three frames for main, printReport, and percentageOf, with a note that frames appear and vanish automatically as functions are entered and left. The right column is the heap, containing two blocks obtained with new, with a note that heap blocks stay until something releases them. An arrow runs from a pointer variable inside the main frame to one of the heap blocks, labelled scheme underscore. A caption records that the stack is managed for you and the heap is not, which is the entire subject of the chapter.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
+    }
+  ]
+}

@@ -1,23 +1,51 @@
 {
   "chapter": 1,
+  "checks": "a11y_ok is true only when every flag in a11y is true; see build/make-figure-manifests.py for what each means",
   "figures": [
     {
       "svg": "ch01-fig1-hardware.svg",
       "png": "ch01-fig1-hardware.png",
       "title": "The four parts of a computer and how data moves between them",
-      "a11y_ok": true
+      "description": "A block diagram. At the centre is the processor. Above it is main memory, connected by a two-way arrow. To the left is input, with a one-way arrow pointing into the processor. To the right is output, with a one-way arrow pointing away from the processor. Below is storage, connected to main memory by a two-way arrow. A caption notes that main memory is erased when power is lost, while storage is not.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
     },
     {
       "svg": "ch01-fig2-byte.svg",
       "png": "ch01-fig2-byte.png",
       "title": "One byte holding the value 77, shown as eight bits with place values",
-      "a11y_ok": true
+      "description": "Eight boxes in a row represent one byte. Reading left to right the bits are 0, 1, 0, 0, 1, 1, 0, 1. Above each box is its place value: 128, 64, 32, 16, 8, 4, 2, 1. The bits set to 1 sit under the place values 64, 8, 4, and 1. Adding those four place values gives 64 plus 8 plus 4 plus 1, which equals 77.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
     },
     {
       "svg": "ch01-fig3-memory.svg",
       "png": "ch01-fig3-memory.png",
       "title": "Main memory as a numbered sequence of byte-sized cells",
-      "a11y_ok": true
+      "description": "A row of eight cells drawn side by side, each holding one byte. Below each cell is its address, running from 4000 through 4007. The cells at addresses 4000 and 4001 are shaded together and labelled as one value that occupies two bytes. A note explains that every cell has an address, that addresses are consecutive whole numbers, and that a single value may occupy several adjacent cells.",
+      "a11y_ok": true,
+      "a11y": {
+        "role_img": true,
+        "title": true,
+        "desc": true,
+        "labelledby_resolves": true,
+        "png_render": true,
+        "png_2x": true
+      }
     }
   ]
 }
