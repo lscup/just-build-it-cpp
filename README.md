@@ -82,41 +82,26 @@ Inspired by *Programming Fundamentals* (Richard Halterman), restructured for the
 
 ## Generated editions
 
-Three editions are generated from the same markdown sources and committed here.
-All three are built from identical content; pick by how you intend to read it.
+Two editions are generated from the same markdown sources and committed here.
+Both are built from identical content and both are independently audited; pick
+by how you intend to read the book, not by what your software needs.
 
 | File | What it is | Accessibility |
 |---|---|---|
 | `Just-Build-It-Cpp.html` | Accessible web edition. One self-contained file, no external resources. | **WCAG 2.1 AA — audited clean.** axe-core reports 29 rules passed, 0 violations. 17 inline SVG figures each with `role="img"` and a resolved accessible name from `<title>`/`<desc>`; `<figcaption>` captions; 1,360 headings with no level jumps; `lang`; a skip link; keyboard-focusable code blocks and tables. |
-| `Just-Build-It-Cpp.pdf` | Typeset edition, 579 pages. Linux Libertine O and DejaVu Sans Mono. | **PDF/UA-2 — validates clean.** veraPDF 1.28.2 reports PASS against the PDF/UA-2 profile: 5.4 million checks, zero failures. Structure tree, reading order, alt text on all 17 figures, WCAG AA code contrast. |
-| `Just-Build-It-Cpp-accessible.pdf` | Accessible PDF edition, 953 pages. The web layout paginated. | **Tagged, but does not validate.** 53 failed checks against PDF/UA-1 out of 5.0 million. See below. |
+| `Just-Build-It-Cpp.pdf` | Typeset edition, 579 pages. Linux Libertine O and DejaVu Sans Mono. | **PDF/UA-2 — validates clean.** veraPDF 1.28.2 reports PASS: 5.4 million checks, zero failures. Structure tree, reading order, alt text on all 17 figures, WCAG AA code contrast on all 26 syntax colours. |
 
-**Use `Just-Build-It-Cpp.pdf` if you need a conformant PDF.** It is the one
-that passes validation, and it is also the one to print. The HTML edition is
-WCAG 2.1 AA and is the best experience of the three.
+The HTML is the best experience of the two. The PDF is the one to print, and
+it is conformant, so it can be posted or distributed without reservation.
 
-**Why there are two PDFs, and the honest state of the second one.** They are
-tagged by completely different routes. The typeset edition is built by LuaLaTeX
-with LaTeX's own tagging engine. The accessible edition is the HTML paginated
-by WeasyPrint, so its tags come from HTML semantics instead.
-
-That second route was the only tagged PDF available until October 2026, when
-the typeset edition was fixed. It is kept for now because it is still a useful
-independent view of the book's structure, but running veraPDF against it shows
-it does not meet PDF/UA-1, despite declaring PDF/UA-1 in its metadata:
-
-- **52 × ISO 14289-1 7.2-20** — `LI` may contain only `Lbl` and `LBody`.
-  WeasyPrint emits `Lbl` + `P` for a list item whose content is a paragraph
-  rather than bare text. Reproduced on a four-line test page, so it is a
-  WeasyPrint bug, not something in this book's markup.
-- **1 × ISO 14289-1 7.21.8-1** — one reference to the `.notdef` glyph, in a
-  subset of TeX Gyre Pagella Bold Italic. A font-subsetting artifact of the
-  same tool.
-
-A third failure, 177 × 7.2-3 (`Table` containing a `Table`), was this book's
-own fault and is fixed: the web stylesheet makes tables `display: block` so a
-wide table can be scrolled on a phone, and that extra box became a second
-`Table` element. The PDF build now overrides it.
+Until October 2026 there was a third file here, `Just-Build-It-Cpp-accessible.pdf`
+— the HTML laid out on pages by WeasyPrint. It existed only because the typeset
+PDF could not be tagged at the time. Now that the typeset PDF passes PDF/UA-2,
+that file has been removed: validation showed it did not actually meet the
+PDF/UA-1 its own metadata declared, failing on two WeasyPrint bugs — list items
+tagged `Lbl` + `P` instead of `Lbl` + `LBody`, and one `.notdef` glyph
+reference. It is kept privately as an instructor reference and is no longer
+published.
 
 Build scripts live in the private course-ops repository, not here.
 
