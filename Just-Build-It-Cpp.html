@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -265,54 +265,52 @@ that will otherwise seem arbitrary — why numbers overflow, why files
 must be opened, why a variable forgets its value when the program ends —
 follow directly from it.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" 
-     role="img" aria-labelledby="f1title f1desc">
-  <title id="f1title">The four parts of a computer and how data moves between them</title>
-  <desc id="f1desc">A block diagram. At the centre is the processor. Above it is main
+<svg id="svg_a8b7d3d060ef326f7c36" viewBox="0 0 620 300" role="img" aria-labelledby="f1title f1desc">
+  <title id="svg_a8b7d3d060ef326f7c36_f1title">The four parts of a computer and how data moves between them</title>
+  <desc id="svg_a8b7d3d060ef326f7c36_f1desc">A block diagram. At the centre is the processor. Above it is main
   memory, connected by a two-way arrow. To the left is input, with a one-way arrow
   pointing into the processor. To the right is output, with a one-way arrow pointing
   away from the processor. Below is storage, connected to main memory by a two-way
   arrow. A caption notes that main memory is erased when power is lost, while storage
   is not.</desc>
   <defs>
-    <marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_a8b7d3d060ef326f7c36_a1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#1a1a1a">
-    <rect x="235" y="120" width="150" height="60" rx="6" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+  <g font-family="Georgia, &#39;Times New Roman&#39;, serif" font-size="15" fill="#1a1a1a">
+    <rect x="235" y="120" width="150" height="60" rx="6" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="310" y="145" text-anchor="middle" font-weight="bold">Processor</text>
     <text x="310" y="165" text-anchor="middle" font-size="12">(CPU)</text>
 
-    <rect x="235" y="20" width="150" height="55" rx="6" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="235" y="20" width="150" height="55" rx="6" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="310" y="42" text-anchor="middle" font-weight="bold">Main memory</text>
     <text x="310" y="61" text-anchor="middle" font-size="12">(RAM)</text>
 
-    <rect x="235" y="225" width="150" height="55" rx="6" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="235" y="225" width="150" height="55" rx="6" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="310" y="247" text-anchor="middle" font-weight="bold">Storage</text>
     <text x="310" y="266" text-anchor="middle" font-size="12">(disk, SSD)</text>
 
-    <rect x="30" y="122" width="120" height="55" rx="6" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="30" y="122" width="120" height="55" rx="6" fill="#f7eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="90" y="144" text-anchor="middle" font-weight="bold">Input</text>
     <text x="90" y="163" text-anchor="middle" font-size="12">keyboard</text>
 
-    <rect x="470" y="122" width="120" height="55" rx="6" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="470" y="122" width="120" height="55" rx="6" fill="#f7eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="530" y="144" text-anchor="middle" font-weight="bold">Output</text>
     <text x="530" y="163" text-anchor="middle" font-size="12">screen</text>
 
-    <path d="M300,120 L300,80" stroke="#444" stroke-width="1.6" marker-end="url(#a1)"/>
-    <path d="M320,80 L320,120" stroke="#444" stroke-width="1.6" marker-end="url(#a1)"/>
-    <path d="M300,225 L300,183" stroke="#444" stroke-width="1.6" marker-end="url(#a1)"/>
-    <path d="M320,183 L320,225" stroke="#444" stroke-width="1.6" marker-end="url(#a1)"/>
-    <path d="M152,150 L231,150" stroke="#444" stroke-width="1.6" marker-end="url(#a1)"/>
-    <path d="M389,150 L468,150" stroke="#444" stroke-width="1.6" marker-end="url(#a1)"/>
+    <path d="M300,120 L300,80" stroke="#444" stroke-width="1.6" marker-end="url(#a1)" />
+    <path d="M320,80 L320,120" stroke="#444" stroke-width="1.6" marker-end="url(#a1)" />
+    <path d="M300,225 L300,183" stroke="#444" stroke-width="1.6" marker-end="url(#a1)" />
+    <path d="M320,183 L320,225" stroke="#444" stroke-width="1.6" marker-end="url(#a1)" />
+    <path d="M152,150 L231,150" stroke="#444" stroke-width="1.6" marker-end="url(#a1)" />
+    <path d="M389,150 L468,150" stroke="#444" stroke-width="1.6" marker-end="url(#a1)" />
 
     <text x="310" y="298" text-anchor="middle" font-size="12" fill="#555">
       Memory is erased when power is lost. Storage is not.
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A block diagram showing the processor at
 the centre, main memory above it connected by a two-way arrow, input on
 the left with an arrow pointing in, output on the right with an arrow
@@ -437,33 +435,32 @@ The byte is the standard unit of storage — memory sizes, file sizes, and
 network speeds are all quoted in bytes or multiples of them. One byte
 holds 2⁸ = 256 distinct patterns.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 210" 
-     role="img" aria-labelledby="f2title f2desc">
-  <title id="f2title">One byte holding the value 77, shown as eight bits with place values</title>
-  <desc id="f2desc">Eight boxes in a row represent one byte. Reading left to right the
+<svg id="svg_24feb20a1380ee4faa1a" viewBox="0 0 620 210" role="img" aria-labelledby="f2title f2desc">
+  <title id="svg_24feb20a1380ee4faa1a_f2title">One byte holding the value 77, shown as eight bits with place values</title>
+  <desc id="svg_24feb20a1380ee4faa1a_f2desc">Eight boxes in a row represent one byte. Reading left to right the
   bits are 0, 1, 0, 0, 1, 1, 0, 1. Above each box is its place value: 128, 64, 32, 16,
   8, 4, 2, 1. The bits set to 1 sit under the place values 64, 8, 4, and 1. Adding
   those four place values gives 64 plus 8 plus 4 plus 1, which equals 77.</desc>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
+  <g font-family="Georgia, &#39;Times New Roman&#39;, serif" fill="#1a1a1a">
     <text x="310" y="22" text-anchor="middle" font-size="14" fill="#555">place value</text>
     <g font-size="13" fill="#555" text-anchor="middle">
-      <text x="60"  y="44">128</text><text x="130" y="44">64</text>
+      <text x="60" y="44">128</text><text x="130" y="44">64</text>
       <text x="200" y="44">32</text><text x="270" y="44">16</text>
       <text x="340" y="44">8</text><text x="410" y="44">4</text>
       <text x="480" y="44">2</text><text x="550" y="44">1</text>
     </g>
     <g stroke="#2c3e50" stroke-width="2">
-      <rect x="27"  y="56" width="66" height="60" fill="#ffffff"/>
-      <rect x="97"  y="56" width="66" height="60" fill="#d6e4f5"/>
-      <rect x="167" y="56" width="66" height="60" fill="#ffffff"/>
-      <rect x="237" y="56" width="66" height="60" fill="#ffffff"/>
-      <rect x="307" y="56" width="66" height="60" fill="#d6e4f5"/>
-      <rect x="377" y="56" width="66" height="60" fill="#d6e4f5"/>
-      <rect x="447" y="56" width="66" height="60" fill="#ffffff"/>
-      <rect x="517" y="56" width="66" height="60" fill="#d6e4f5"/>
+      <rect x="27" y="56" width="66" height="60" fill="#ffffff" />
+      <rect x="97" y="56" width="66" height="60" fill="#d6e4f5" />
+      <rect x="167" y="56" width="66" height="60" fill="#ffffff" />
+      <rect x="237" y="56" width="66" height="60" fill="#ffffff" />
+      <rect x="307" y="56" width="66" height="60" fill="#d6e4f5" />
+      <rect x="377" y="56" width="66" height="60" fill="#d6e4f5" />
+      <rect x="447" y="56" width="66" height="60" fill="#ffffff" />
+      <rect x="517" y="56" width="66" height="60" fill="#d6e4f5" />
     </g>
     <g font-size="26" text-anchor="middle" font-weight="bold">
-      <text x="60"  y="97">0</text><text x="130" y="97">1</text>
+      <text x="60" y="97">0</text><text x="130" y="97">1</text>
       <text x="200" y="97">0</text><text x="270" y="97">0</text>
       <text x="340" y="97">1</text><text x="410" y="97">1</text>
       <text x="480" y="97">0</text><text x="550" y="97">1</text>
@@ -479,7 +476,6 @@ holds 2⁸ = 256 distinct patterns.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Eight boxes in a row representing one
 byte. Reading left to right the bits are 0, 1, 0, 0, 1, 1, 0, 1. Above
 each box is its place value: 128, 64, 32, 16, 8, 4, 2, 1. The bits set
@@ -535,45 +531,44 @@ using different definitions of the same word.</p>
 number called its <strong>address</strong>. Addresses are consecutive
 whole numbers starting at zero.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 250" 
-     role="img" aria-labelledby="f3title f3desc">
-  <title id="f3title">Main memory as a numbered sequence of byte-sized cells</title>
-  <desc id="f3desc">A row of eight cells drawn side by side, each holding one byte.
+<svg id="svg_7b8468b81117d00ecdb3" viewBox="0 0 620 250" role="img" aria-labelledby="f3title f3desc">
+  <title id="svg_7b8468b81117d00ecdb3_f3title">Main memory as a numbered sequence of byte-sized cells</title>
+  <desc id="svg_7b8468b81117d00ecdb3_f3desc">A row of eight cells drawn side by side, each holding one byte.
   Below each cell is its address, running from 4000 through 4007. The cells at
   addresses 4000 and 4001 are shaded together and labelled as one value that occupies
   two bytes. A note explains that every cell has an address, that addresses are
   consecutive whole numbers, and that a single value may occupy several adjacent
   cells.</desc>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
+  <g font-family="Georgia, &#39;Times New Roman&#39;, serif" fill="#1a1a1a">
     <text x="310" y="24" text-anchor="middle" font-size="14" fill="#555">
       one cell = one byte
     </text>
     <g stroke="#2c3e50" stroke-width="2">
-      <rect x="30"  y="40" width="70" height="70" fill="#d6e4f5"/>
-      <rect x="100" y="40" width="70" height="70" fill="#d6e4f5"/>
-      <rect x="170" y="40" width="70" height="70" fill="#ffffff"/>
-      <rect x="240" y="40" width="70" height="70" fill="#ffffff"/>
-      <rect x="310" y="40" width="70" height="70" fill="#ffffff"/>
-      <rect x="380" y="40" width="70" height="70" fill="#ffffff"/>
-      <rect x="450" y="40" width="70" height="70" fill="#ffffff"/>
-      <rect x="520" y="40" width="70" height="70" fill="#ffffff"/>
+      <rect x="30" y="40" width="70" height="70" fill="#d6e4f5" />
+      <rect x="100" y="40" width="70" height="70" fill="#d6e4f5" />
+      <rect x="170" y="40" width="70" height="70" fill="#ffffff" />
+      <rect x="240" y="40" width="70" height="70" fill="#ffffff" />
+      <rect x="310" y="40" width="70" height="70" fill="#ffffff" />
+      <rect x="380" y="40" width="70" height="70" fill="#ffffff" />
+      <rect x="450" y="40" width="70" height="70" fill="#ffffff" />
+      <rect x="520" y="40" width="70" height="70" fill="#ffffff" />
     </g>
     <g font-size="12" text-anchor="middle" font-family="monospace">
-      <text x="65"  y="80">00000000</text><text x="135" y="80">01001101</text>
+      <text x="65" y="80">00000000</text><text x="135" y="80">01001101</text>
       <text x="205" y="80">?</text><text x="275" y="80">?</text>
       <text x="345" y="80">?</text><text x="415" y="80">?</text>
       <text x="485" y="80">?</text><text x="555" y="80">?</text>
     </g>
     <g font-size="13" text-anchor="middle" fill="#555" font-family="monospace">
-      <text x="65"  y="130">4000</text><text x="135" y="130">4001</text>
+      <text x="65" y="130">4000</text><text x="135" y="130">4001</text>
       <text x="205" y="130">4002</text><text x="275" y="130">4003</text>
       <text x="345" y="130">4004</text><text x="415" y="130">4005</text>
       <text x="485" y="130">4006</text><text x="555" y="130">4007</text>
     </g>
     <text x="310" y="152" text-anchor="middle" font-size="12" fill="#555">address</text>
-    <path d="M30,168 L170,168" stroke="#2c3e50" stroke-width="2"/>
-    <path d="M30,163 L30,173"  stroke="#2c3e50" stroke-width="2"/>
-    <path d="M170,163 L170,173" stroke="#2c3e50" stroke-width="2"/>
+    <path d="M30,168 L170,168" stroke="#2c3e50" stroke-width="2" />
+    <path d="M30,163 L30,173" stroke="#2c3e50" stroke-width="2" />
+    <path d="M170,163 L170,173" stroke="#2c3e50" stroke-width="2" />
     <text x="100" y="190" text-anchor="middle" font-size="13">
       one 2-byte value: 77
     </text>
@@ -585,7 +580,6 @@ whole numbers starting at zero.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A row of eight cells side by side, each
 holding one byte, with addresses running from 4000 through 4007 beneath
 them. The first two cells are shaded together and bracketed as a single
@@ -1792,32 +1786,31 @@ visible.</p>
 program in this book — including the thousand-line version you will
 finish in Chapter 24 — has this same skeleton underneath it.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" 
-     role="img" aria-labelledby="a1title a1desc">
-  <title id="a1title">The parts of a simple C++ program, labelled</title>
-  <desc id="a1desc">A four-line C++ program with each part labelled by a line pointing
+<svg id="svg_1f773d2524e0f9d12c4a" viewBox="0 0 660 300" role="img" aria-labelledby="a1title a1desc">
+  <title id="svg_1f773d2524e0f9d12c4a_a1title">The parts of a simple C++ program, labelled</title>
+  <desc id="svg_1f773d2524e0f9d12c4a_a1desc">A four-line C++ program with each part labelled by a line pointing
   to it. The first line, hash include iostream, is labelled a preprocessor directive
   that brings in the input and output library. The line int main open paren close paren
   open brace is labelled the function where execution begins. The line beginning std
   colon colon cout is labelled the statement that prints text, and its backslash n is
   labelled a newline character. The line return 0 semicolon is labelled reporting
   success to the operating system. The closing brace is labelled the end of main.</desc>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
-    <rect x="20" y="30" width="330" height="180" rx="5" fill="#fbfbfb" stroke="#2c3e50" stroke-width="2"/>
-    <g font-family="'Courier New', monospace" font-size="15">
+  <g font-family="Georgia, &#39;Times New Roman&#39;, serif" fill="#1a1a1a">
+    <rect x="20" y="30" width="330" height="180" rx="5" fill="#fbfbfb" stroke="#2c3e50" stroke-width="2" />
+    <g font-family="&#39;Courier New&#39;, monospace" font-size="15">
       <text x="36" y="60">#include &lt;iostream&gt;</text>
       <text x="36" y="105">int main() {</text>
-      <text x="36" y="135">    std::cout &lt;&lt; "Hi\n";</text>
+      <text x="36" y="135">    std::cout &lt;&lt; &quot;Hi\n&quot;;</text>
       <text x="36" y="165">    return 0;</text>
       <text x="36" y="195">}</text>
     </g>
     <g stroke="#6b4e16" stroke-width="1.4" fill="none">
-      <path d="M215,55 L400,48"/>
-      <path d="M150,100 L400,90"/>
-      <path d="M250,131 L400,132"/>
-      <path d="M228,138 L400,174"/>
-      <path d="M140,161 L400,216"/>
-      <path d="M48,192 L400,258"/>
+      <path d="M215,55 L400,48" />
+      <path d="M150,100 L400,90" />
+      <path d="M250,131 L400,132" />
+      <path d="M228,138 L400,174" />
+      <path d="M140,161 L400,216" />
+      <path d="M48,192 L400,258" />
     </g>
     <g font-size="13" fill="#6b4e16">
       <text x="406" y="52">preprocessor directive: brings in</text>
@@ -1834,7 +1827,6 @@ finish in Chapter 24 — has this same skeleton underneath it.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A four-line C++ program with labels
 pointing to each part, identifying the include directive, the main
 function, the output statement, the newline character, the return
@@ -1921,62 +1913,61 @@ messages that are otherwise baffling — particularly the difference
 between an error the compiler reports and an error the linker
 reports.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 470" 
-     role="img" aria-labelledby="p1title p1desc">
-  <title id="p1title">The four stages that turn C++ source code into a running program</title>
-  <desc id="p1desc">A vertical pipeline of four stages. Source code enters the
+<svg id="svg_f6a74d27c3e062ee38ed" viewBox="0 0 660 470" role="img" aria-labelledby="p1title p1desc">
+  <title id="svg_f6a74d27c3e062ee38ed_p1title">The four stages that turn C++ source code into a running program</title>
+  <desc id="svg_f6a74d27c3e062ee38ed_p1desc">A vertical pipeline of four stages. Source code enters the
   preprocessor, which produces an expanded translation unit. That goes to the compiler,
   which produces assembly code. That goes to the assembler, which produces an object
   file. Object files and library code go to the linker, which produces the executable.
   The loader then copies the executable into memory to run it. A note explains that the
   single g++ command performs all four stages in order.</desc>
   <defs>
-    <marker id="pa" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_f6a74d27c3e062ee38ed_pa" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#1a1a1a">
+  <g font-family="Georgia, &#39;Times New Roman&#39;, serif" fill="#1a1a1a">
 
-    <rect x="215" y="12" width="200" height="40" rx="5" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="215" y="12" width="200" height="40" rx="5" fill="#f7eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="30" text-anchor="middle" font-size="14" font-weight="bold">main.cpp</text>
     <text x="315" y="45" text-anchor="middle" font-size="11">source code you wrote</text>
-    <path d="M315,52 L315,74" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M315,52 L315,74" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
 
-    <rect x="195" y="76" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="195" y="76" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="94" text-anchor="middle" font-size="14" font-weight="bold">1. Preprocessor</text>
     <text x="315" y="110" text-anchor="middle" font-size="11">carries out #include and #define</text>
-    <path d="M315,118 L315,140" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M315,118 L315,140" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
     <text x="447" y="136" font-size="11" fill="#555">translation unit</text>
 
-    <rect x="195" y="142" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="195" y="142" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="160" text-anchor="middle" font-size="14" font-weight="bold">2. Compiler</text>
     <text x="315" y="176" text-anchor="middle" font-size="11">checks syntax and types</text>
-    <path d="M315,184 L315,206" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M315,184 L315,206" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
     <text x="447" y="202" font-size="11" fill="#555">assembly code</text>
 
-    <rect x="195" y="208" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="195" y="208" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="226" text-anchor="middle" font-size="14" font-weight="bold">3. Assembler</text>
     <text x="315" y="242" text-anchor="middle" font-size="11">produces machine code</text>
-    <path d="M315,250 L315,272" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M315,250 L315,272" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
     <text x="447" y="268" font-size="11" fill="#555">main.o (object file)</text>
 
-    <rect x="20" y="208" width="150" height="42" rx="5" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="20" y="208" width="150" height="42" rx="5" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="95" y="226" text-anchor="middle" font-size="13" font-weight="bold">Library code</text>
     <text x="95" y="242" text-anchor="middle" font-size="11">iostream, already built</text>
-    <path d="M95,250 L95,290 L160,290" stroke="#444" stroke-width="1.6" fill="none"/>
-    <path d="M160,290 L191,290" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M95,250 L95,290 L160,290" stroke="#444" stroke-width="1.6" fill="none" />
+    <path d="M160,290 L191,290" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
 
-    <rect x="195" y="274" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="195" y="274" width="240" height="42" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="292" text-anchor="middle" font-size="14" font-weight="bold">4. Linker</text>
     <text x="315" y="308" text-anchor="middle" font-size="11">joins object files and libraries</text>
-    <path d="M315,316 L315,338" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M315,316 L315,338" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
 
-    <rect x="215" y="340" width="200" height="40" rx="5" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="215" y="340" width="200" height="40" rx="5" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="358" text-anchor="middle" font-size="14" font-weight="bold">gradecalc</text>
     <text x="315" y="373" text-anchor="middle" font-size="11">executable file on disk</text>
-    <path d="M315,380 L315,402" stroke="#444" stroke-width="1.6" marker-end="url(#pa)"/>
+    <path d="M315,380 L315,402" stroke="#444" stroke-width="1.6" marker-end="url(#pa)" />
 
-    <rect x="215" y="404" width="200" height="40" rx="5" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="215" y="404" width="200" height="40" rx="5" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="315" y="422" text-anchor="middle" font-size="14" font-weight="bold">Loader</text>
     <text x="315" y="437" text-anchor="middle" font-size="11">copies it into memory and runs it</text>
 
@@ -1985,7 +1976,6 @@ reports.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A vertical pipeline: source code enters
 the preprocessor, producing a translation unit; that enters the
 compiler, producing assembly code; that enters the assembler, producing
@@ -2967,36 +2957,35 @@ a value of a particular type.</p>
 <p>You bring one into existence with a <strong>declaration</strong>:</p>
 <div class="sourceCode" id="cb47"><pre tabindex="0" class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> pointsEarned <span class="op">=</span> <span class="fl">84.5</span><span class="op">;</span></span></code></pre></div>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" 
-     role="img" aria-labelledby="v1t v1d">
-  <title id="v1t">A variable declaration and what it reserves in memory</title>
-  <desc id="v1d">The declaration double pointsEarned equals 84.5 is shown above a
+<svg id="svg_ff81b5e0a6c47bcafd43" viewBox="0 0 640 260" role="img" aria-labelledby="v1t v1d">
+  <title id="svg_ff81b5e0a6c47bcafd43_v1t">A variable declaration and what it reserves in memory</title>
+  <desc id="svg_ff81b5e0a6c47bcafd43_v1d">The declaration double pointsEarned equals 84.5 is shown above a
   diagram of memory. An arrow labelled name points from the identifier to a block of
   eight shaded memory cells at addresses 4000 through 4007. A label reads: the type
   double decides that eight bytes are reserved and how the bits in them are
   interpreted. A second label notes that the name is how your program refers to that
   location, and the value 84.5 is what is stored there.</desc>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a">
-    <text x="30" y="34" font-family="'Courier New',monospace" font-size="17">double pointsEarned = 84.5;</text>
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a">
+    <text x="30" y="34" font-family="&#39;Courier New&#39;,monospace" font-size="17">double pointsEarned = 84.5;</text>
     <text x="34" y="54" font-size="11" fill="#6b4e16">type</text>
     <text x="105" y="54" font-size="11" fill="#6b4e16">name</text>
     <text x="255" y="54" font-size="11" fill="#6b4e16">initial value</text>
-    <path d="M45,40 L45,48" stroke="#6b4e16" stroke-width="1.2"/>
-    <path d="M125,40 L125,48" stroke="#6b4e16" stroke-width="1.2"/>
-    <path d="M280,40 L280,48" stroke="#6b4e16" stroke-width="1.2"/>
+    <path d="M45,40 L45,48" stroke="#6b4e16" stroke-width="1.2" />
+    <path d="M125,40 L125,48" stroke="#6b4e16" stroke-width="1.2" />
+    <path d="M280,40 L280,48" stroke="#6b4e16" stroke-width="1.2" />
 
     <g stroke="#2c3e50" stroke-width="2">
-      <rect x="60"  y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="120" y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="180" y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="240" y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="300" y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="360" y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="420" y="90" width="60" height="52" fill="#d6e4f5"/>
-      <rect x="480" y="90" width="60" height="52" fill="#d6e4f5"/>
+      <rect x="60" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="120" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="180" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="240" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="300" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="360" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="420" y="90" width="60" height="52" fill="#d6e4f5" />
+      <rect x="480" y="90" width="60" height="52" fill="#d6e4f5" />
     </g>
     <text x="300" y="122" text-anchor="middle" font-size="17">84.5 stored across all eight bytes</text>
-    <g font-size="11" fill="#555" text-anchor="middle" font-family="'Courier New',monospace">
+    <g font-size="11" fill="#555" text-anchor="middle" font-family="&#39;Courier New&#39;,monospace">
       <text x="90" y="158">4000</text><text x="150" y="158">4001</text>
       <text x="210" y="158">4002</text><text x="270" y="158">4003</text>
       <text x="330" y="158">4004</text><text x="390" y="158">4005</text>
@@ -3013,7 +3002,6 @@ a value of a particular type.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">The declaration double pointsEarned
 equals 84.5 shown above eight shaded memory cells at addresses 4000
 through 4007, with labels identifying the type, the name, and the
@@ -5493,48 +5481,45 @@ branches and loops become visible shapes rather than indentation you
 have to track.</p>
 <h4 id="the-symbols">The symbols</h4>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" 
-     role="img" aria-labelledby="s1t s1d">
-  <title id="s1t">The five flowchart symbols used in this book</title>
-  <desc id="s1d">Five symbols with their names and meanings. A rounded rectangle is a
+<svg id="svg_20d530372fd481d50e95" viewBox="0 0 640 320" role="img" aria-labelledby="s1t s1d">
+  <title id="svg_20d530372fd481d50e95_s1t">The five flowchart symbols used in this book</title>
+  <desc id="svg_20d530372fd481d50e95_s1d">Five symbols with their names and meanings. A rounded rectangle is a
   terminator, marking start or end. A parallelogram is input or output. A rectangle is
   a process, meaning a computation or assignment. A diamond is a decision, with one
   entry and two exits labelled yes and no. An arrow is flow, showing the order of
   steps.</desc>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="13">
-    <rect x="40" y="30" width="140" height="44" rx="22" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="13">
+    <rect x="40" y="30" width="140" height="44" rx="22" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="110" y="57" text-anchor="middle" font-size="14">Start / End</text>
     <text x="200" y="49" font-weight="bold">Terminator</text>
     <text x="200" y="67" font-size="12">rounded rectangle — where a process begins or ends</text>
 
-    <polygon points="55,96 195,96 180,140 40,140" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="55,96 195,96 180,140 40,140" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="115" y="123" text-anchor="middle" font-size="14">Read score</text>
     <text x="200" y="112" font-weight="bold">Input / Output</text>
     <text x="200" y="130" font-size="12">parallelogram — data comes in or goes out</text>
 
-    <rect x="40" y="158" width="140" height="44" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="40" y="158" width="140" height="44" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="110" y="185" text-anchor="middle" font-size="14">total = a + b</text>
     <text x="200" y="174" font-weight="bold">Process</text>
     <text x="200" y="192" font-size="12">rectangle — a computation or an assignment</text>
 
-    <polygon points="110,218 190,252 110,286 30,252" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="110,218 190,252 110,286 30,252" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="110" y="257" text-anchor="middle" font-size="13">score &gt;= 90?</text>
     <text x="200" y="240" font-weight="bold">Decision</text>
     <text x="200" y="258" font-size="12">diamond — one way in, two ways out, labelled yes and no</text>
     <text x="200" y="276" font-size="12">the only symbol with more than one exit</text>
 
-    <path d="M420,300 L560,300" stroke="#2c3e50" stroke-width="2"
-          marker-end="url(#fa)"/>
+    <path d="M420,300 L560,300" stroke="#2c3e50" stroke-width="2" marker-end="url(#fa)" />
     <defs>
-      <marker id="fa" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-        <path d="M0,0 L9,4.5 L0,9 z" fill="#2c3e50"/>
+      <marker id="svg_20d530372fd481d50e95_fa" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+        <path d="M0,0 L9,4.5 L0,9 z" fill="#2c3e50" />
       </marker>
     </defs>
     <text x="40" y="306" font-weight="bold">Flow</text>
     <text x="100" y="306" font-size="12">arrow — the order in which steps happen</text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Five flowchart symbols with their names
 and meanings: a rounded rectangle for terminator, a parallelogram for
 input or output, a rectangle for process, a diamond for decision, and an
@@ -5566,76 +5551,74 @@ are labelled.</li>
 is a program that hangs or crashes in practice.</p>
 <h4 id="a-complete-flowchart">A complete flowchart</h4>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 620" 
-     role="img" aria-labelledby="fc3t fc3d">
-  <title id="fc3t">Flowchart for computing one assignment grade</title>
-  <desc id="fc3d">A flowchart with nine steps. It begins at Start, then reads the
+<svg id="svg_1758708fd9b5ca2c97c8" viewBox="0 0 620 620" role="img" aria-labelledby="fc3t fc3d">
+  <title id="svg_1758708fd9b5ca2c97c8_fc3t">Flowchart for computing one assignment grade</title>
+  <desc id="svg_1758708fd9b5ca2c97c8_fc3d">A flowchart with nine steps. It begins at Start, then reads the
   assignment name, points earned, points possible, and bonus points. A decision asks
   whether points possible is greater than zero. If no, it displays the message that no
   percentage is available and goes to End. If yes, it adds bonus points to points
   earned, divides by points possible and multiplies by one hundred to get the
   percentage, displays the percentage, and goes to End.</desc>
   <defs>
-    <marker id="fm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_1758708fd9b5ca2c97c8_fm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia,'Times New Roman',serif" font-size="13" fill="#1a1a1a">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" font-size="13" fill="#1a1a1a">
 
-    <rect x="185" y="14" width="130" height="36" rx="18" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="185" y="14" width="130" height="36" rx="18" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="250" y="37" text-anchor="middle">Start</text>
-    <path d="M250,50 L250,68" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,50 L250,68" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <polygon points="140,70 360,70 345,108 125,108" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="140,70 360,70 345,108 125,108" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="243" y="94" text-anchor="middle">Read assignment name</text>
-    <path d="M250,108 L250,126" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,108 L250,126" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <polygon points="140,128 360,128 345,166 125,166" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="140,128 360,128 345,166 125,166" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="243" y="152" text-anchor="middle">Read points earned</text>
-    <path d="M250,166 L250,184" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,166 L250,184" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <polygon points="140,186 360,186 345,224 125,224" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="140,186 360,186 345,224 125,224" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="243" y="210" text-anchor="middle">Read points possible</text>
-    <path d="M250,224 L250,242" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,224 L250,242" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <polygon points="140,244 360,244 345,282 125,282" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="140,244 360,244 345,282 125,282" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="243" y="268" text-anchor="middle">Read bonus points</text>
-    <path d="M250,282 L250,300" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,282 L250,300" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <polygon points="250,302 400,349 250,396 100,349" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="250,302 400,349 250,396 100,349" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="250" y="345" text-anchor="middle">points possible</text>
     <text x="250" y="361" text-anchor="middle">&gt; 0 ?</text>
 
-    <path d="M400,349 L480,349 L480,470" stroke="#444" stroke-width="1.5" fill="none"/>
-    <path d="M480,470 L480,496" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M400,349 L480,349 L480,470" stroke="#444" stroke-width="1.5" fill="none" />
+    <path d="M480,470 L480,496" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
     <text x="416" y="341" font-size="12" fill="#555">no</text>
 
-    <path d="M250,396 L250,414" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,396 L250,414" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
     <text x="262" y="410" font-size="12" fill="#555">yes</text>
 
-    <rect x="120" y="416" width="260" height="34" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="120" y="416" width="260" height="34" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="250" y="438" text-anchor="middle">total = earned + bonus</text>
-    <path d="M250,450 L250,468" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,450 L250,468" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <rect x="120" y="470" width="260" height="34" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="120" y="470" width="260" height="34" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="250" y="492" text-anchor="middle">pct = total / possible × 100</text>
-    <path d="M250,504 L250,522" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,504 L250,522" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <polygon points="140,524 360,524 345,562 125,562" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <polygon points="140,524 360,524 345,562 125,562" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
     <text x="243" y="548" text-anchor="middle">Display percentage</text>
 
-    <polygon points="405,498 585,498 570,536 390,536" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
-    <text x="488" y="522" text-anchor="middle" font-size="12">Display "not available"</text>
+    <polygon points="405,498 585,498 570,536 390,536" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"></polygon>
+    <text x="488" y="522" text-anchor="middle" font-size="12">Display &quot;not available&quot;</text>
 
-    <path d="M250,562 L250,580" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
-    <path d="M488,536 L488,570 L315,570 L315,580" stroke="#444" stroke-width="1.5" fill="none"/>
-    <path d="M315,570 L315,580" stroke="#444" stroke-width="1.5" marker-end="url(#fm)"/>
+    <path d="M250,562 L250,580" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
+    <path d="M488,536 L488,570 L315,570 L315,580" stroke="#444" stroke-width="1.5" fill="none" />
+    <path d="M315,570 L315,580" stroke="#444" stroke-width="1.5" marker-end="url(#fm)" />
 
-    <rect x="185" y="582" width="130" height="34" rx="17" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="185" y="582" width="130" height="34" rx="17" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="250" y="604" text-anchor="middle">End</text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A flowchart with nine steps: Start, read
 assignment name, read points earned, read points possible, read bonus
 points, a decision on whether points possible is greater than zero, and
@@ -5665,53 +5648,50 @@ Charts and Top-Down Decomposition</h3>
 shows <em>composition</em> — what a program is made of, and which part
 uses which.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" 
-     role="img" aria-labelledby="sc1t sc1d">
-  <title id="sc1t">Structure chart for the Grade Calculator</title>
-  <desc id="sc1d">A tree with three levels. At the top is Grade Calculator. It has four
+<svg id="svg_357761cb1d3a7b353215" viewBox="0 0 660 300" role="img" aria-labelledby="sc1t sc1d">
+  <title id="svg_357761cb1d3a7b353215_sc1t">Structure chart for the Grade Calculator</title>
+  <desc id="svg_357761cb1d3a7b353215_sc1d">A tree with three levels. At the top is Grade Calculator. It has four
   children: Read Assignment, Compute Percentage, Assign Letter Grade, and Print Report.
   Read Assignment has two children of its own: Read Text and Read Number. The chart
   shows what the program is made of and which part calls which, but says nothing about
   the order in which they run.</desc>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
-    <rect x="250" y="20" width="160" height="40" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
+    <rect x="250" y="20" width="160" height="40" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="330" y="45" text-anchor="middle" font-size="14" font-weight="bold">Grade Calculator</text>
 
-    <path d="M330,60 L330,84 M60,84 L600,84" stroke="#444" stroke-width="1.5" fill="none"/>
-    <path d="M75,84 L75,110 M245,84 L245,110 M415,84 L415,110 M585,84 L585,110"
-          stroke="#444" stroke-width="1.5"/>
+    <path d="M330,60 L330,84 M60,84 L600,84" stroke="#444" stroke-width="1.5" fill="none" />
+    <path d="M75,84 L75,110 M245,84 L245,110 M415,84 L415,110 M585,84 L585,110" stroke="#444" stroke-width="1.5" />
 
-    <rect x="10"  y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="10" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="75" y="130" text-anchor="middle">Read</text>
     <text x="75" y="145" text-anchor="middle">Assignment</text>
 
-    <rect x="180" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="180" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="245" y="130" text-anchor="middle">Compute</text>
     <text x="245" y="145" text-anchor="middle">Percentage</text>
 
-    <rect x="350" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="350" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="415" y="130" text-anchor="middle">Assign</text>
     <text x="415" y="145" text-anchor="middle">Letter Grade</text>
 
-    <rect x="520" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="520" y="112" width="130" height="42" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="585" y="137" text-anchor="middle">Print Report</text>
 
-    <path d="M75,154 L75,178 M20,178 L130,178" stroke="#444" stroke-width="1.5" fill="none"/>
-    <path d="M20,178 L20,200 M130,178 L130,200" stroke="#444" stroke-width="1.5"/>
-    <rect x="-25" y="202" width="92" height="40" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <path d="M75,154 L75,178 M20,178 L130,178" stroke="#444" stroke-width="1.5" fill="none" />
+    <path d="M20,178 L20,200 M130,178 L130,200" stroke="#444" stroke-width="1.5" />
+    <rect x="-25" y="202" width="92" height="40" fill="#f7eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="21" y="226" text-anchor="middle">Read Text</text>
-    <rect x="85" y="202" width="92" height="40" fill="#f7eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="85" y="202" width="92" height="40" fill="#f7eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="131" y="226" text-anchor="middle">Read Number</text>
 
     <text x="330" y="272" text-anchor="middle" font-size="13">
       A structure chart shows what the program is made of and which part calls which.
     </text>
     <text x="330" y="292" text-anchor="middle" font-size="13" fill="#555">
-      It says nothing about the order in which they run — that is the flowchart's job.
+      It says nothing about the order in which they run — that is the flowchart&#39;s job.
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A tree with Grade Calculator at the top,
 four children below it, and two grandchildren under the leftmost
 child.</figcaption>
@@ -11877,10 +11857,9 @@ variable:</p>
 alias  = 84
 after alias = 91.0, score = 91</code></pre>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 330" 
-     role="img" aria-labelledby="p10t p10d">
-  <title id="p10t">A variable, a pointer to it, and a reference to it</title>
-  <desc id="p10d">Three panels. The first shows a variable named score at address 4000
+<svg id="svg_6dc9cc5a321dff7e7d0a" viewBox="0 0 660 330" role="img" aria-labelledby="p10t p10d">
+  <title id="svg_6dc9cc5a321dff7e7d0a_p10t">A variable, a pointer to it, and a reference to it</title>
+  <desc id="svg_6dc9cc5a321dff7e7d0a_p10d">Three panels. The first shows a variable named score at address 4000
   holding 84.0. The second shows a pointer named ptr at address 5000 holding the value
   4000, with an arrow from ptr to score, and notes that ptr is a separate variable that
   stores an address. The third shows a reference named alias with no box of its own,
@@ -11888,42 +11867,42 @@ after alias = 91.0, score = 91</code></pre>
   reference is another name for an existing variable and occupies no storage of its
   own.</desc>
   <defs>
-    <marker id="pm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_6dc9cc5a321dff7e7d0a_pm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="13">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="13">
 
     <text x="20" y="26" font-weight="bold" font-size="14">1. A variable</text>
-    <text x="20" y="46" font-family="'Courier New',monospace" font-size="12">double score = 84.0;</text>
-    <rect x="20" y="58" width="120" height="48" fill="#d6e4f5" stroke="#2c3e50" stroke-width="2"/>
+    <text x="20" y="46" font-family="&#39;Courier New&#39;,monospace" font-size="12">double score = 84.0;</text>
+    <rect x="20" y="58" width="120" height="48" fill="#d6e4f5" stroke="#2c3e50" stroke-width="2" />
     <text x="80" y="88" text-anchor="middle" font-size="16">84.0</text>
-    <text x="80" y="122" text-anchor="middle" font-size="11" fill="#555" font-family="'Courier New',monospace">4000</text>
+    <text x="80" y="122" text-anchor="middle" font-size="11" fill="#555" font-family="&#39;Courier New&#39;,monospace">4000</text>
     <text x="80" y="140" text-anchor="middle" font-size="12">score</text>
 
     <text x="230" y="26" font-weight="bold" font-size="14">2. A pointer to it</text>
-    <text x="230" y="46" font-family="'Courier New',monospace" font-size="12">double* ptr = &amp;score;</text>
-    <rect x="230" y="58" width="120" height="48" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <text x="230" y="46" font-family="&#39;Courier New&#39;,monospace" font-size="12">double* ptr = &amp;score;</text>
+    <rect x="230" y="58" width="120" height="48" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="290" y="88" text-anchor="middle" font-size="16">4000</text>
-    <text x="290" y="122" text-anchor="middle" font-size="11" fill="#555" font-family="'Courier New',monospace">5000</text>
+    <text x="290" y="122" text-anchor="middle" font-size="11" fill="#555" font-family="&#39;Courier New&#39;,monospace">5000</text>
     <text x="290" y="140" text-anchor="middle" font-size="12">ptr</text>
-    <path d="M230,82 L150,82" stroke="#444" stroke-width="1.6" marker-end="url(#pm)"/>
+    <path d="M230,82 L150,82" stroke="#444" stroke-width="1.6" marker-end="url(#pm)" />
     <text x="230" y="172" text-anchor="middle" font-size="12" fill="#555">a separate variable,</text>
     <text x="230" y="188" text-anchor="middle" font-size="12" fill="#555">holding an address</text>
 
     <text x="440" y="26" font-weight="bold" font-size="14">3. A reference to it</text>
-    <text x="440" y="46" font-family="'Courier New',monospace" font-size="12">double&amp; alias = score;</text>
-    <rect x="440" y="58" width="120" height="48" fill="#d6e4f5" stroke="#2c3e50" stroke-width="2"/>
+    <text x="440" y="46" font-family="&#39;Courier New&#39;,monospace" font-size="12">double&amp; alias = score;</text>
+    <rect x="440" y="58" width="120" height="48" fill="#d6e4f5" stroke="#2c3e50" stroke-width="2" />
     <text x="500" y="88" text-anchor="middle" font-size="16">84.0</text>
-    <text x="500" y="122" text-anchor="middle" font-size="11" fill="#555" font-family="'Courier New',monospace">4000</text>
+    <text x="500" y="122" text-anchor="middle" font-size="11" fill="#555" font-family="&#39;Courier New&#39;,monospace">4000</text>
     <text x="500" y="140" text-anchor="middle" font-size="12">score</text>
     <text x="500" y="158" text-anchor="middle" font-size="12" font-style="italic">alias</text>
-    <path d="M470,146 L490,146" stroke="#6b4e16" stroke-width="1.2"/>
+    <path d="M470,146 L490,146" stroke="#6b4e16" stroke-width="1.2" />
     <text x="500" y="190" text-anchor="middle" font-size="12" fill="#555">no box of its own —</text>
     <text x="500" y="206" text-anchor="middle" font-size="12" fill="#555">a second name for score</text>
 
-    <line x1="200" y1="14" x2="200" y2="230" stroke="#ccc" stroke-width="1"/>
-    <line x1="410" y1="14" x2="410" y2="230" stroke="#ccc" stroke-width="1"/>
+    <line x1="200" y1="14" x2="200" y2="230" stroke="#ccc" stroke-width="1"></line>
+    <line x1="410" y1="14" x2="410" y2="230" stroke="#ccc" stroke-width="1"></line>
 
     <text x="330" y="262" text-anchor="middle" font-size="13">
       A pointer stores an address and can be redirected or left empty.
@@ -11932,11 +11911,10 @@ after alias = 91.0, score = 91</code></pre>
       A reference is bound to one variable when created and can never be moved.
     </text>
     <text x="330" y="312" text-anchor="middle" font-size="13" fill="#555">
-      Both let a function reach the caller's variable. References are simpler, so prefer them.
+      Both let a function reach the caller&#39;s variable. References are simpler, so prefer them.
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Three panels showing a variable score at
 address 4000 holding 84.0, a pointer ptr at address 5000 holding the
 value 4000 with an arrow to score, and a reference alias drawn as a
@@ -13419,15 +13397,14 @@ is what makes Chapter 14 land.</p>
 <span id="cb475-5"><a href="#cb475-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb475-6"><a href="#cb475-6" aria-hidden="true" tabindex="-1"></a>pointsEarned<span class="op">[</span><span class="dv">1</span><span class="op">][</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="fl">20.0</span><span class="op">;</span>     <span class="co">// student 1, assignment 2</span></span></code></pre></div>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" 
-     role="img" aria-labelledby="a11t a11d">
-  <title id="a11t">A two-dimensional array of points earned, students by assignments</title>
-  <desc id="a11d">A grid with three rows and four columns. Rows are students with
+<svg id="svg_da8ef06855b2fcd238cf" viewBox="0 0 660 300" role="img" aria-labelledby="a11t a11d">
+  <title id="svg_da8ef06855b2fcd238cf_a11t">A two-dimensional array of points earned, students by assignments</title>
+  <desc id="svg_da8ef06855b2fcd238cf_a11d">A grid with three rows and four columns. Rows are students with
   indices 0, 1 and 2; columns are assignments with indices 0 through 3. The value at
   row 1, column 2 is highlighted and labelled as pointsEarned bracket 1 bracket 2. A
   note explains that the first index selects the row and the second selects the column,
   and that both start at zero.</desc>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="13">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="13">
     <text x="330" y="24" text-anchor="middle" font-size="14">
       pointsEarned[student][assignment]
     </text>
@@ -13437,18 +13414,18 @@ is what makes Chapter 14 land.</p>
       <text x="330" y="42" font-size="12">assignment index</text>
     </g>
     <g stroke="#2c3e50" stroke-width="2">
-      <rect x="155" y="70"  width="90" height="46" fill="#ffffff"/>
-      <rect x="245" y="70"  width="90" height="46" fill="#ffffff"/>
-      <rect x="335" y="70"  width="90" height="46" fill="#ffffff"/>
-      <rect x="425" y="70"  width="90" height="46" fill="#ffffff"/>
-      <rect x="155" y="116" width="90" height="46" fill="#ffffff"/>
-      <rect x="245" y="116" width="90" height="46" fill="#ffffff"/>
-      <rect x="335" y="116" width="90" height="46" fill="#d6e4f5"/>
-      <rect x="425" y="116" width="90" height="46" fill="#ffffff"/>
-      <rect x="155" y="162" width="90" height="46" fill="#ffffff"/>
-      <rect x="245" y="162" width="90" height="46" fill="#ffffff"/>
-      <rect x="335" y="162" width="90" height="46" fill="#ffffff"/>
-      <rect x="425" y="162" width="90" height="46" fill="#ffffff"/>
+      <rect x="155" y="70" width="90" height="46" fill="#ffffff" />
+      <rect x="245" y="70" width="90" height="46" fill="#ffffff" />
+      <rect x="335" y="70" width="90" height="46" fill="#ffffff" />
+      <rect x="425" y="70" width="90" height="46" fill="#ffffff" />
+      <rect x="155" y="116" width="90" height="46" fill="#ffffff" />
+      <rect x="245" y="116" width="90" height="46" fill="#ffffff" />
+      <rect x="335" y="116" width="90" height="46" fill="#d6e4f5" />
+      <rect x="425" y="116" width="90" height="46" fill="#ffffff" />
+      <rect x="155" y="162" width="90" height="46" fill="#ffffff" />
+      <rect x="245" y="162" width="90" height="46" fill="#ffffff" />
+      <rect x="335" y="162" width="90" height="46" fill="#ffffff" />
+      <rect x="425" y="162" width="90" height="46" fill="#ffffff" />
     </g>
     <g text-anchor="middle" font-size="15">
       <text x="200" y="99">9.0</text><text x="290" y="99">84.0</text>
@@ -13472,11 +13449,10 @@ is what makes Chapter 14 land.</p>
       First index selects the row; second selects the column. Both start at 0.
     </text>
     <text x="330" y="286" text-anchor="middle" font-size="13" fill="#555">
-      A separate array of names runs alongside: studentNames[1] is "Grace".
+      A separate array of names runs alongside: studentNames[1] is &quot;Grace&quot;.
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A grid of three rows and four columns
 holding points earned, with rows labelled as students Ada, Grace and
 Alan, columns labelled as assignment indices 0 to 3, and the cell at row
@@ -16418,10 +16394,9 @@ they did not write. This chapter is about doing that deliberately.</p>
 <hr />
 <h3 id="the-five-phases">13.2 The Five Phases</h3>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" 
-     role="img" aria-labelledby="l13t l13d">
-  <title id="l13t">The five phases of the software development lifecycle</title>
-  <desc id="l13d">Five boxes arranged in a ring, connected by arrows in order:
+<svg id="svg_2e7019eda66be9745b6c" viewBox="0 0 660 340" role="img" aria-labelledby="l13t l13d">
+  <title id="svg_2e7019eda66be9745b6c_l13t">The five phases of the software development lifecycle</title>
+  <desc id="svg_2e7019eda66be9745b6c_l13d">Five boxes arranged in a ring, connected by arrows in order:
   Planning, Analysis, Design, Development, and Maintenance. A long arrow returns from
   Maintenance to Planning, showing that maintenance generates new requirements and the
   cycle repeats. Each box lists its main output: planning produces a feasibility
@@ -16429,49 +16404,49 @@ they did not write. This chapter is about doing that deliberately.</p>
   produces an architecture and interfaces, development produces working tested code,
   and maintenance produces fixes and enhancements.</desc>
   <defs>
-    <marker id="lm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_2e7019eda66be9745b6c_lm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
-    <rect x="20"  y="60" width="112" height="60" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
+    <rect x="20" y="60" width="112" height="60" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="76" y="82" text-anchor="middle" font-size="13" font-weight="bold">1. Planning</text>
     <text x="76" y="99" text-anchor="middle" font-size="11">feasibility,</text>
     <text x="76" y="113" text-anchor="middle" font-size="11">requirements</text>
 
-    <rect x="152" y="60" width="112" height="60" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="152" y="60" width="112" height="60" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="208" y="82" text-anchor="middle" font-size="13" font-weight="bold">2. Analysis</text>
     <text x="208" y="99" text-anchor="middle" font-size="11">model of the</text>
     <text x="208" y="113" text-anchor="middle" font-size="11">problem</text>
 
-    <rect x="284" y="60" width="112" height="60" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="284" y="60" width="112" height="60" rx="5" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="340" y="82" text-anchor="middle" font-size="13" font-weight="bold">3. Design</text>
     <text x="340" y="99" text-anchor="middle" font-size="11">architecture,</text>
     <text x="340" y="113" text-anchor="middle" font-size="11">interfaces</text>
 
-    <rect x="416" y="60" width="112" height="60" rx="5" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="416" y="60" width="112" height="60" rx="5" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="472" y="82" text-anchor="middle" font-size="13" font-weight="bold">4. Development</text>
     <text x="472" y="99" text-anchor="middle" font-size="11">working,</text>
     <text x="472" y="113" text-anchor="middle" font-size="11">tested code</text>
 
-    <rect x="548" y="60" width="100" height="60" rx="5" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="548" y="60" width="100" height="60" rx="5" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
     <text x="598" y="82" text-anchor="middle" font-size="13" font-weight="bold">5. Mainten-</text>
     <text x="598" y="97" text-anchor="middle" font-size="13" font-weight="bold">ance</text>
     <text x="598" y="113" text-anchor="middle" font-size="11">fixes, changes</text>
 
-    <path d="M134,90 L150,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)"/>
-    <path d="M266,90 L282,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)"/>
-    <path d="M398,90 L414,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)"/>
-    <path d="M530,90 L546,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)"/>
+    <path d="M134,90 L150,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)" />
+    <path d="M266,90 L282,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)" />
+    <path d="M398,90 L414,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)" />
+    <path d="M530,90 L546,90" stroke="#444" stroke-width="1.6" marker-end="url(#lm)" />
 
-    <path d="M598,122 L598,175 L76,175 L76,124" stroke="#444" stroke-width="1.6" fill="none"/>
-    <path d="M76,140 L76,124" stroke="#444" stroke-width="1.6" marker-end="url(#lm)"/>
+    <path d="M598,122 L598,175 L76,175 L76,124" stroke="#444" stroke-width="1.6" fill="none" />
+    <path d="M76,140 L76,124" stroke="#444" stroke-width="1.6" marker-end="url(#lm)" />
     <text x="337" y="195" text-anchor="middle" font-size="12" fill="#555">
       maintenance raises new requirements, and the cycle repeats
     </text>
 
     <text x="330" y="240" text-anchor="middle" font-size="13">
-      Most of a program's life is spent in phase 5.
+      Most of a program&#39;s life is spent in phase 5.
     </text>
     <text x="330" y="262" text-anchor="middle" font-size="13">
       The Grade Calculator you inherit in this chapter is already there.
@@ -16484,7 +16459,6 @@ they did not write. This chapter is about doing that deliberately.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Five boxes in a ring connected by arrows
 in order: Planning, Analysis, Design, Development, and Maintenance, with
 a long return arrow from Maintenance back to Planning.</figcaption>
@@ -19833,45 +19807,44 @@ it.</strong></p>
 <p>The <strong>call stack</strong> shows how execution reached the
 current line: which function called which.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" 
-     role="img" aria-labelledby="cs16t cs16d">
-  <title id="cs16t">The call stack when a defect is reached</title>
-  <desc id="cs16d">A stack of four frames drawn bottom to top. At the bottom is main,
+<svg id="svg_d93dd7e5a4347885406d" viewBox="0 0 660 340" role="img" aria-labelledby="cs16t cs16d">
+  <title id="svg_d93dd7e5a4347885406d_cs16t">The call stack when a defect is reached</title>
+  <desc id="svg_d93dd7e5a4347885406d_cs16d">A stack of four frames drawn bottom to top. At the bottom is main,
   above it printReport, above that percentageOf, and at the top letterFor, which is
   where execution is paused. Each frame lists the local values it holds. An arrow
   labelled current location points at the top frame. A note explains that the debugger
   shows this stack when execution stops, that the top frame is where the program is
   now, and that reading downward shows how it got there.</desc>
   <defs>
-    <marker id="cm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#b03030"/>
+    <marker id="svg_d93dd7e5a4347885406d_cm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#b03030" />
     </marker>
   </defs>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
     <text x="330" y="22" text-anchor="middle" font-size="14" font-weight="bold">Call stack</text>
 
-    <rect x="150" y="36" width="330" height="52" fill="#fdeaea" stroke="#b03030" stroke-width="2"/>
-    <text x="165" y="56" font-family="'Courier New',monospace" font-size="13">letterFor(pct, scale)</text>
+    <rect x="150" y="36" width="330" height="52" fill="#fdeaea" stroke="#b03030" stroke-width="2" />
+    <text x="165" y="56" font-family="&#39;Courier New&#39;,monospace" font-size="13">letterFor(pct, scale)</text>
     <text x="165" y="76" font-size="11" fill="#555">pct = 90.0   i = 5   scale.size() = 5</text>
-    <path d="M560,62 L486,62" stroke="#b03030" stroke-width="1.6" marker-end="url(#cm)"/>
+    <path d="M560,62 L486,62" stroke="#b03030" stroke-width="1.6" marker-end="url(#cm)" />
     <text x="566" y="58" font-size="11" fill="#b03030">paused</text>
     <text x="566" y="72" font-size="11" fill="#b03030">here</text>
 
-    <rect x="150" y="96" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2"/>
-    <text x="165" y="116" font-family="'Courier New',monospace" font-size="13">percentageOf(student, work)</text>
+    <rect x="150" y="96" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2" />
+    <text x="165" y="116" font-family="&#39;Courier New&#39;,monospace" font-size="13">percentageOf(student, work)</text>
     <text x="165" y="136" font-size="11" fill="#555">earned = 9.0   possible = 10.0</text>
 
-    <rect x="150" y="156" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2"/>
-    <text x="165" y="176" font-family="'Courier New',monospace" font-size="13">printReport(book)</text>
+    <rect x="150" y="156" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2" />
+    <text x="165" y="176" font-family="&#39;Courier New&#39;,monospace" font-size="13">printReport(book)</text>
     <text x="165" y="196" font-size="11" fill="#555">index = 0   book.size() = 3</text>
 
-    <rect x="150" y="216" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2"/>
-    <text x="165" y="236" font-family="'Courier New',monospace" font-size="13">main()</text>
-    <text x="165" y="256" font-size="11" fill="#555">choice = '3'</text>
+    <rect x="150" y="216" width="330" height="52" fill="#eef2f8" stroke="#2c3e50" stroke-width="2" />
+    <text x="165" y="236" font-family="&#39;Courier New&#39;,monospace" font-size="13">main()</text>
+    <text x="165" y="256" font-size="11" fill="#555">choice = &#39;3&#39;</text>
 
-    <text x="90" y="62"  text-anchor="middle" font-size="11" fill="#555">top</text>
+    <text x="90" y="62" text-anchor="middle" font-size="11" fill="#555">top</text>
     <text x="90" y="242" text-anchor="middle" font-size="11" fill="#555">bottom</text>
-    <path d="M120,50 L120,254" stroke="#999" stroke-width="1"/>
+    <path d="M120,50 L120,254" stroke="#999" stroke-width="1" />
 
     <text x="330" y="296" text-anchor="middle" font-size="13">
       The top frame is where the program is now.
@@ -19881,7 +19854,6 @@ current line: which function called which.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A stack of four frames drawn bottom to
 top: main at the bottom, then printReport, then percentageOf, and
 letterFor at the top where execution is paused.</figcaption>
@@ -22017,45 +21989,44 @@ other function in the file.</li>
 13 backlog — <em>preventive</em> maintenance, making future change
 cheaper.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 330" 
-     role="img" aria-labelledby="c18t c18d">
-  <title id="c18t">A struct compared with a class holding the same data</title>
-  <desc id="c18d">Two panels side by side. The left shows a struct named Student with
+<svg id="svg_b9509c05caad0b4ff9db" viewBox="0 0 660 330" role="img" aria-labelledby="c18t c18d">
+  <title id="svg_b9509c05caad0b4ff9db_c18t">A struct compared with a class holding the same data</title>
+  <desc id="svg_b9509c05caad0b4ff9db_c18d">Two panels side by side. The left shows a struct named Student with
   three public members, name, id, and scores, and separate free functions total and
   percentage drawn outside it, with arrows showing any code can reach the members. The
   right shows a class named Student with the same three members marked private and
   enclosed, and member functions addAssignment, totalEarned and percentage inside the
   boundary, with a note that outside code can only call the functions.</desc>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
     <text x="160" y="24" text-anchor="middle" font-size="14" font-weight="bold">struct — data only</text>
-    <rect x="30" y="38" width="260" height="106" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
-    <text x="45" y="58" font-family="'Courier New',monospace" font-size="12">struct Student {</text>
-    <text x="60" y="76" font-family="'Courier New',monospace" font-size="12">string name;</text>
-    <text x="60" y="94" font-family="'Courier New',monospace" font-size="12">int id;</text>
-    <text x="60" y="112" font-family="'Courier New',monospace" font-size="12">vector&lt;Score&gt; scores;</text>
-    <text x="45" y="132" font-family="'Courier New',monospace" font-size="12">};</text>
+    <rect x="30" y="38" width="260" height="106" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
+    <text x="45" y="58" font-family="&#39;Courier New&#39;,monospace" font-size="12">struct Student {</text>
+    <text x="60" y="76" font-family="&#39;Courier New&#39;,monospace" font-size="12">string name;</text>
+    <text x="60" y="94" font-family="&#39;Courier New&#39;,monospace" font-size="12">int id;</text>
+    <text x="60" y="112" font-family="&#39;Courier New&#39;,monospace" font-size="12">vector&lt;Score&gt; scores;</text>
+    <text x="45" y="132" font-family="&#39;Courier New&#39;,monospace" font-size="12">};</text>
     <text x="160" y="164" text-anchor="middle" font-size="11" fill="#6b4e16">all members public</text>
 
-    <rect x="30" y="176" width="260" height="60" fill="#ffffff" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="45" y="196" font-family="'Courier New',monospace" font-size="12">double total(const Student&amp;);</text>
-    <text x="45" y="214" font-family="'Courier New',monospace" font-size="12">double percentage(const Student&amp;);</text>
+    <rect x="30" y="176" width="260" height="60" fill="#ffffff" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3" />
+    <text x="45" y="196" font-family="&#39;Courier New&#39;,monospace" font-size="12">double total(const Student&amp;);</text>
+    <text x="45" y="214" font-family="&#39;Courier New&#39;,monospace" font-size="12">double percentage(const Student&amp;);</text>
     <text x="160" y="230" text-anchor="middle" font-size="11" fill="#555">free functions, outside</text>
     <text x="160" y="262" text-anchor="middle" font-size="12" fill="#b03030">any code can write s.id = -5;</text>
 
-    <line x1="330" y1="14" x2="330" y2="290" stroke="#ccc" stroke-width="1"/>
+    <line x1="330" y1="14" x2="330" y2="290" stroke="#ccc" stroke-width="1"></line>
 
     <text x="495" y="24" text-anchor="middle" font-size="14" font-weight="bold">class — data with behavior</text>
-    <rect x="365" y="38" width="270" height="198" fill="#e8eef7" stroke="#2c3e50" stroke-width="2.5"/>
-    <text x="380" y="58" font-family="'Courier New',monospace" font-size="12">class Student {</text>
-    <text x="380" y="78" font-family="'Courier New',monospace" font-size="12" fill="#2c6e2c">public:</text>
-    <text x="395" y="96" font-family="'Courier New',monospace" font-size="12">addAssignment(...)</text>
-    <text x="395" y="114" font-family="'Courier New',monospace" font-size="12">totalEarned() const</text>
-    <text x="395" y="132" font-family="'Courier New',monospace" font-size="12">percentage() const</text>
-    <text x="380" y="154" font-family="'Courier New',monospace" font-size="12" fill="#b03030">private:</text>
-    <text x="395" y="172" font-family="'Courier New',monospace" font-size="12">string name_;</text>
-    <text x="395" y="190" font-family="'Courier New',monospace" font-size="12">int id_;</text>
-    <text x="395" y="208" font-family="'Courier New',monospace" font-size="12">vector&lt;Assignment&gt; work_;</text>
-    <text x="380" y="228" font-family="'Courier New',monospace" font-size="12">};</text>
+    <rect x="365" y="38" width="270" height="198" fill="#e8eef7" stroke="#2c3e50" stroke-width="2.5" />
+    <text x="380" y="58" font-family="&#39;Courier New&#39;,monospace" font-size="12">class Student {</text>
+    <text x="380" y="78" font-family="&#39;Courier New&#39;,monospace" font-size="12" fill="#2c6e2c">public:</text>
+    <text x="395" y="96" font-family="&#39;Courier New&#39;,monospace" font-size="12">addAssignment(...)</text>
+    <text x="395" y="114" font-family="&#39;Courier New&#39;,monospace" font-size="12">totalEarned() const</text>
+    <text x="395" y="132" font-family="&#39;Courier New&#39;,monospace" font-size="12">percentage() const</text>
+    <text x="380" y="154" font-family="&#39;Courier New&#39;,monospace" font-size="12" fill="#b03030">private:</text>
+    <text x="395" y="172" font-family="&#39;Courier New&#39;,monospace" font-size="12">string name_;</text>
+    <text x="395" y="190" font-family="&#39;Courier New&#39;,monospace" font-size="12">int id_;</text>
+    <text x="395" y="208" font-family="&#39;Courier New&#39;,monospace" font-size="12">vector&lt;Assignment&gt; work_;</text>
+    <text x="380" y="228" font-family="&#39;Courier New&#39;,monospace" font-size="12">};</text>
     <text x="495" y="262" text-anchor="middle" font-size="12" fill="#2c6e2c">outside code can only call the functions</text>
 
     <text x="330" y="300" text-anchor="middle" font-size="13">
@@ -22066,7 +22037,6 @@ cheaper.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Two panels: on the left a struct Student
 with three public members and separate free functions outside it; on the
 right a class Student with the same members marked private and the
@@ -25060,46 +25030,45 @@ is a feature Course I’s approach could not express.</p>
 need two. There are two ways to do it, and the choice matters more than
 it first appears.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 320" 
-     role="img" aria-labelledby="h20t h20d">
-  <title id="h20t">Two designs for supporting more than one grading scheme</title>
-  <desc id="h20d">Two panels. The left shows the flag design: a single Gradebook box
+<svg id="svg_f64efd31661f05549503" viewBox="0 0 660 320" role="img" aria-labelledby="h20t h20d">
+  <title id="svg_f64efd31661f05549503_h20t">Two designs for supporting more than one grading scheme</title>
+  <desc id="svg_f64efd31661f05549503_h20d">Two panels. The left shows the flag design: a single Gradebook box
   containing a scheme flag, with three separate operations each containing an if-else
   branch on that flag, and a note that adding a third scheme means editing every
   branch. The right shows the hierarchy design: an abstract GradingScheme box at the
   top with two boxes below it, PointsBased and Weighted, connected by lines, and a note
   that adding a third scheme means adding one box and editing nothing.</desc>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
     <text x="160" y="22" text-anchor="middle" font-size="14" font-weight="bold">Flags and branches</text>
-    <rect x="25" y="36" width="270" height="150" fill="#fdeaea" stroke="#b03030" stroke-width="2"/>
-    <text x="40" y="56" font-family="'Courier New',monospace" font-size="12">class Gradebook {</text>
-    <text x="55" y="76" font-family="'Courier New',monospace" font-size="12" fill="#b03030">Scheme scheme_;</text>
+    <rect x="25" y="36" width="270" height="150" fill="#fdeaea" stroke="#b03030" stroke-width="2" />
+    <text x="40" y="56" font-family="&#39;Courier New&#39;,monospace" font-size="12">class Gradebook {</text>
+    <text x="55" y="76" font-family="&#39;Courier New&#39;,monospace" font-size="12" fill="#b03030">Scheme scheme_;</text>
     <text x="40" y="100" font-size="12">percentageFor()  <tspan fill="#b03030">if (weighted) …</tspan></text>
     <text x="40" y="122" font-size="12">classAverage()   <tspan fill="#b03030">if (weighted) …</tspan></text>
     <text x="40" y="144" font-size="12">printReport()    <tspan fill="#b03030">if (weighted) …</tspan></text>
-    <text x="40" y="172" font-family="'Courier New',monospace" font-size="12">};</text>
+    <text x="40" y="172" font-family="&#39;Courier New&#39;,monospace" font-size="12">};</text>
     <text x="160" y="212" text-anchor="middle" font-size="12" fill="#b03030">a third scheme means</text>
     <text x="160" y="228" text-anchor="middle" font-size="12" fill="#b03030">editing every branch</text>
 
-    <line x1="330" y1="14" x2="330" y2="270" stroke="#ccc" stroke-width="1"/>
+    <line x1="330" y1="14" x2="330" y2="270" stroke="#ccc" stroke-width="1"></line>
 
     <text x="495" y="22" text-anchor="middle" font-size="14" font-weight="bold">A class hierarchy</text>
-    <rect x="400" y="40" width="190" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="400" y="40" width="190" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="495" y="60" text-anchor="middle" font-size="13" font-weight="bold">GradingScheme</text>
     <text x="495" y="77" text-anchor="middle" font-size="11">shared: cap and round</text>
 
-    <path d="M495,86 L495,110 M420,110 L570,110" stroke="#444" stroke-width="1.5" fill="none"/>
-    <path d="M420,110 L420,132 M570,110 L570,132" stroke="#444" stroke-width="1.5"/>
+    <path d="M495,86 L495,110 M420,110 L570,110" stroke="#444" stroke-width="1.5" fill="none" />
+    <path d="M420,110 L420,132 M570,110 L570,132" stroke="#444" stroke-width="1.5" />
 
-    <rect x="355" y="134" width="130" height="52" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="355" y="134" width="130" height="52" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="420" y="154" text-anchor="middle" font-size="12" font-weight="bold">PointsBased</text>
     <text x="420" y="172" text-anchor="middle" font-size="11">earned ÷ possible</text>
 
-    <rect x="505" y="134" width="130" height="52" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="505" y="134" width="130" height="52" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="570" y="154" text-anchor="middle" font-size="12" font-weight="bold">Weighted</text>
     <text x="570" y="172" text-anchor="middle" font-size="11">by category weight</text>
 
-    <rect x="430" y="200" width="130" height="40" fill="#f4f4f4" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="430" y="200" width="130" height="40" fill="#f4f4f4" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3" />
     <text x="495" y="224" text-anchor="middle" font-size="12" fill="#555">a third scheme</text>
     <text x="495" y="262" text-anchor="middle" font-size="12" fill="#2c6e2c">just add one box —</text>
     <text x="495" y="278" text-anchor="middle" font-size="12" fill="#2c6e2c">edit nothing else</text>
@@ -25109,7 +25078,6 @@ it first appears.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Two panels: on the left a single
 Gradebook class holding a scheme flag with an if-else branch inside each
 of three operations; on the right an abstract GradingScheme with
@@ -27016,10 +26984,9 @@ recomputes. A third scheme is added as proof.</p>
 <span id="cb889-7"><a href="#cb889-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">scheme_</span><span class="op">-&gt;</span>name<span class="op">();</span></span>
 <span id="cb889-8"><a href="#cb889-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" 
-     role="img" aria-labelledby="d21t d21d">
-  <title id="d21t">How a call through a base pointer reaches the right function</title>
-  <desc id="d21d">A Gradebook box holds a pointer labelled scheme_ of type
+<svg id="svg_c19325e69f48d1249340" viewBox="0 0 660 300" role="img" aria-labelledby="d21t d21d">
+  <title id="svg_c19325e69f48d1249340_d21t">How a call through a base pointer reaches the right function</title>
+  <desc id="svg_c19325e69f48d1249340_d21d">A Gradebook box holds a pointer labelled scheme_ of type
   GradingScheme pointer. An arrow from it points to one of two objects shown below: a
   PointsBased object and a Weighted object. A call written as scheme underscore arrow
   computePercentage leaves the Gradebook and follows the pointer. Two labelled paths
@@ -27027,28 +26994,28 @@ recomputes. A third scheme is added as proof.</p>
   runs, and when it refers to the Weighted object the weighted rule runs. A note
   records that Gradebook contains no branch and never asks which kind it holds.</desc>
   <defs>
-    <marker id="dm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_c19325e69f48d1249340_dm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
-    <rect x="20" y="60" width="200" height="80" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
+    <rect x="20" y="60" width="200" height="80" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
     <text x="120" y="82" text-anchor="middle" font-size="13" font-weight="bold">Gradebook</text>
-    <text x="35" y="104" font-family="'Courier New',monospace" font-size="11">GradingScheme* scheme_;</text>
-    <text x="35" y="126" font-family="'Courier New',monospace" font-size="11" fill="#2c6e2c">scheme_-&gt;computePercentage()</text>
+    <text x="35" y="104" font-family="&#39;Courier New&#39;,monospace" font-size="11">GradingScheme* scheme_;</text>
+    <text x="35" y="126" font-family="&#39;Courier New&#39;,monospace" font-size="11" fill="#2c6e2c">scheme_-&gt;computePercentage()</text>
 
-    <path d="M222,118 L300,90"  stroke="#444" stroke-width="1.6" marker-end="url(#dm)"/>
-    <path d="M222,122 L300,210" stroke="#444" stroke-width="1.6" marker-end="url(#dm)"/>
-    <text x="250" y="92"  font-size="11" fill="#555">or</text>
+    <path d="M222,118 L300,90" stroke="#444" stroke-width="1.6" marker-end="url(#dm)" />
+    <path d="M222,122 L300,210" stroke="#444" stroke-width="1.6" marker-end="url(#dm)" />
+    <text x="250" y="92" font-size="11" fill="#555">or</text>
     <text x="250" y="200" font-size="11" fill="#555">or</text>
 
-    <rect x="305" y="52" width="200" height="72" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="305" y="52" width="200" height="72" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="405" y="74" text-anchor="middle" font-size="13" font-weight="bold">PointsBased object</text>
     <text x="320" y="96" font-size="11">computePercentage() runs</text>
     <text x="320" y="113" font-size="11" fill="#555">earned ÷ possible × 100</text>
     <text x="520" y="92" font-size="12" fill="#2c6e2c">→ 87.5%</text>
 
-    <rect x="305" y="176" width="200" height="72" fill="#eef7ee" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="305" y="176" width="200" height="72" fill="#eef7ee" stroke="#2c3e50" stroke-width="2" />
     <text x="405" y="198" text-anchor="middle" font-size="13" font-weight="bold">Weighted object</text>
     <text x="320" y="220" font-size="11">computePercentage() runs</text>
     <text x="320" y="237" font-size="11" fill="#555">combine categories by weight</text>
@@ -27062,7 +27029,6 @@ recomputes. A third scheme is added as proof.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">A Gradebook box holding a scheme pointer,
 with arrows to a PointsBased object and a Weighted object below, showing
 that the same call reaches different code depending on which object the
@@ -28167,10 +28133,9 @@ with different rules.</p>
 </table>
 <p>The last two are what this chapter is about.</p>
 <figure>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" 
-     role="img" aria-labelledby="m22t m22d">
-  <title id="m22t">Where a program's data lives: stack and heap</title>
-  <desc id="m22d">Two columns. The left column is the stack, containing three frames
+<svg id="svg_4437713126d9daf4392b" viewBox="0 0 660 340" role="img" aria-labelledby="m22t m22d">
+  <title id="svg_4437713126d9daf4392b_m22t">Where a program&#39;s data lives: stack and heap</title>
+  <desc id="svg_4437713126d9daf4392b_m22d">Two columns. The left column is the stack, containing three frames
   for main, printReport, and percentageOf, with a note that frames appear and vanish
   automatically as functions are entered and left. The right column is the heap,
   containing two blocks obtained with new, with a note that heap blocks stay until
@@ -28179,44 +28144,44 @@ with different rules.</p>
   stack is managed for you and the heap is not, which is the entire subject of the
   chapter.</desc>
   <defs>
-    <marker id="mm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-      <path d="M0,0 L9,4.5 L0,9 z" fill="#444"/>
+    <marker id="svg_4437713126d9daf4392b_mm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#444" />
     </marker>
   </defs>
-  <g font-family="Georgia,'Times New Roman',serif" fill="#1a1a1a" font-size="12">
+  <g font-family="Georgia,&#39;Times New Roman&#39;,serif" fill="#1a1a1a" font-size="12">
     <text x="150" y="26" text-anchor="middle" font-size="14" font-weight="bold">Stack</text>
     <text x="150" y="44" text-anchor="middle" font-size="11" fill="#555">managed for you</text>
 
-    <rect x="45" y="56" width="210" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
-    <text x="58" y="76" font-family="'Courier New',monospace" font-size="11">percentageOf()</text>
+    <rect x="45" y="56" width="210" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
+    <text x="58" y="76" font-family="&#39;Courier New&#39;,monospace" font-size="11">percentageOf()</text>
     <text x="58" y="93" font-size="10" fill="#555">earned, possible</text>
 
-    <rect x="45" y="106" width="210" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
-    <text x="58" y="126" font-family="'Courier New',monospace" font-size="11">printReport()</text>
+    <rect x="45" y="106" width="210" height="46" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
+    <text x="58" y="126" font-family="&#39;Courier New&#39;,monospace" font-size="11">printReport()</text>
     <text x="58" y="143" font-size="10" fill="#555">index</text>
 
-    <rect x="45" y="156" width="210" height="60" fill="#e8eef7" stroke="#2c3e50" stroke-width="2"/>
-    <text x="58" y="176" font-family="'Courier New',monospace" font-size="11">main()</text>
-    <text x="58" y="194" font-family="'Courier New',monospace" font-size="11" fill="#6b4e16">GradingScheme* scheme_</text>
+    <rect x="45" y="156" width="210" height="60" fill="#e8eef7" stroke="#2c3e50" stroke-width="2" />
+    <text x="58" y="176" font-family="&#39;Courier New&#39;,monospace" font-size="11">main()</text>
+    <text x="58" y="194" font-family="&#39;Courier New&#39;,monospace" font-size="11" fill="#6b4e16">GradingScheme* scheme_</text>
     <text x="58" y="210" font-size="10" fill="#555">book</text>
 
     <text x="150" y="240" text-anchor="middle" font-size="11" fill="#555">frames appear and vanish</text>
     <text x="150" y="256" text-anchor="middle" font-size="11" fill="#555">automatically</text>
 
-    <line x1="320" y1="16" x2="320" y2="290" stroke="#ccc" stroke-width="1"/>
+    <line x1="320" y1="16" x2="320" y2="290" stroke="#ccc" stroke-width="1"></line>
 
     <text x="490" y="26" text-anchor="middle" font-size="14" font-weight="bold">Heap</text>
     <text x="490" y="44" text-anchor="middle" font-size="11" fill="#555">managed by you</text>
 
-    <rect x="390" y="66" width="200" height="52" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
-    <text x="403" y="86" font-family="'Courier New',monospace" font-size="11">Weighted object</text>
+    <rect x="390" y="66" width="200" height="52" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
+    <text x="403" y="86" font-family="&#39;Courier New&#39;,monospace" font-size="11">Weighted object</text>
     <text x="403" y="104" font-size="10" fill="#555">obtained with new</text>
 
-    <rect x="390" y="134" width="200" height="52" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2"/>
-    <text x="403" y="154" font-family="'Courier New',monospace" font-size="11">vector storage</text>
+    <rect x="390" y="134" width="200" height="52" fill="#fdf6e3" stroke="#2c3e50" stroke-width="2" />
+    <text x="403" y="154" font-family="&#39;Courier New&#39;,monospace" font-size="11">vector storage</text>
     <text x="403" y="172" font-size="10" fill="#555">obtained by std::vector</text>
 
-    <path d="M258,192 L386,96" stroke="#444" stroke-width="1.6" marker-end="url(#mm)"/>
+    <path d="M258,192 L386,96" stroke="#444" stroke-width="1.6" marker-end="url(#mm)" />
     <text x="316" y="150" font-size="10" fill="#6b4e16">points to</text>
 
     <text x="490" y="214" text-anchor="middle" font-size="11" fill="#555">blocks stay until</text>
@@ -28230,7 +28195,6 @@ with different rules.</p>
     </text>
   </g>
 </svg>
-
 <figcaption aria-hidden="true">Two columns: the stack on the left
 holding three function frames, and the heap on the right holding two
 blocks, with an arrow from a pointer in the main frame to one of the
