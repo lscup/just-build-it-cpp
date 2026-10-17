@@ -87,7 +87,7 @@ All three are built from identical content; pick by how you intend to read it.
 
 | File | What it is | Accessibility |
 |---|---|---|
-| `Just-Build-It-Cpp.html` | Accessible web edition. One self-contained file, no external resources. | **WCAG 2.1 AA.** `lang` declared; 17 inline SVG figures each with `role="img"`, `aria-labelledby`, `<title>` and `<desc>`; `<figcaption>` captions; a skip link; keyboard-focusable code blocks and tables. |
+| `Just-Build-It-Cpp.html` | Accessible web edition. One self-contained file, no external resources. | **WCAG 2.1 AA — audited clean.** axe-core reports 29 rules passed, 0 violations. 17 inline SVG figures each with `role="img"` and a resolved accessible name from `<title>`/`<desc>`; `<figcaption>` captions; 1,360 headings with no level jumps; `lang`; a skip link; keyboard-focusable code blocks and tables. |
 | `Just-Build-It-Cpp.pdf` | Typeset edition, 579 pages. Linux Libertine O and DejaVu Sans Mono. | **PDF/UA-2 — validates clean.** veraPDF 1.28.2 reports PASS against the PDF/UA-2 profile: 5.4 million checks, zero failures. Structure tree, reading order, alt text on all 17 figures, WCAG AA code contrast. |
 | `Just-Build-It-Cpp-accessible.pdf` | Accessible PDF edition, 953 pages. The web layout paginated. | **Tagged, but does not validate.** 53 failed checks against PDF/UA-1 out of 5.0 million. See below. |
 
