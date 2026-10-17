@@ -88,21 +88,35 @@ All three are built from identical content; pick by how you intend to read it.
 | File | What it is | Accessibility |
 |---|---|---|
 | `Just-Build-It-Cpp.html` | Accessible web edition. One self-contained file, no external resources. | **WCAG 2.1 AA.** `lang` declared; 17 inline SVG figures each with `role="img"`, `aria-labelledby`, `<title>` and `<desc>`; `<figcaption>` captions; a skip link; keyboard-focusable code blocks and tables. |
-| `Just-Build-It-Cpp.pdf` | Typeset edition, 579 pages. Linux Libertine O and DejaVu Sans Mono. | **Tagged PDF/UA-2.** Structure tree, reading order, alt text on all 17 figures, and WCAG AA code contrast. |
-| `Just-Build-It-Cpp-accessible.pdf` | Accessible PDF edition, 953 pages. The web layout paginated. | **Tagged PDF/UA-1.** Structure tree, reading order, and alt text on all 17 figures. |
+| `Just-Build-It-Cpp.pdf` | Typeset edition, 579 pages. Linux Libertine O and DejaVu Sans Mono. | **PDF/UA-2 — validates clean.** veraPDF 1.28.2 reports PASS against the PDF/UA-2 profile: 5.4 million checks, zero failures. Structure tree, reading order, alt text on all 17 figures, WCAG AA code contrast. |
+| `Just-Build-It-Cpp-accessible.pdf` | Accessible PDF edition, 953 pages. The web layout paginated. | **Tagged, but does not validate.** 53 failed checks against PDF/UA-1 out of 5.0 million. See below. |
 
-**All three editions are conformant**, so pick by how you want to read the
-book, not by what your software needs. The HTML is the best experience of the
-three; `Just-Build-It-Cpp.pdf` is the one to print.
+**Use `Just-Build-It-Cpp.pdf` if you need a conformant PDF.** It is the one
+that passes validation, and it is also the one to print. The HTML edition is
+WCAG 2.1 AA and is the best experience of the three.
 
-**Why there are two PDFs.** They are tagged by completely different routes.
-The typeset edition is built by LuaLaTeX with LaTeX's own tagging engine and
-conforms to PDF/UA-2. The accessible edition is the HTML paginated, so its tags
-come from HTML semantics instead, and it conforms to PDF/UA-1 — the older and
-more widely supported level. It runs longer because it is the web layout
-paginated rather than typeset. Until October 2026 the typeset edition carried
-no structure tree at all and this section said it could not be given one; that
-is no longer true.
+**Why there are two PDFs, and the honest state of the second one.** They are
+tagged by completely different routes. The typeset edition is built by LuaLaTeX
+with LaTeX's own tagging engine. The accessible edition is the HTML paginated
+by WeasyPrint, so its tags come from HTML semantics instead.
+
+That second route was the only tagged PDF available until October 2026, when
+the typeset edition was fixed. It is kept for now because it is still a useful
+independent view of the book's structure, but running veraPDF against it shows
+it does not meet PDF/UA-1, despite declaring PDF/UA-1 in its metadata:
+
+- **52 × ISO 14289-1 7.2-20** — `LI` may contain only `Lbl` and `LBody`.
+  WeasyPrint emits `Lbl` + `P` for a list item whose content is a paragraph
+  rather than bare text. Reproduced on a four-line test page, so it is a
+  WeasyPrint bug, not something in this book's markup.
+- **1 × ISO 14289-1 7.21.8-1** — one reference to the `.notdef` glyph, in a
+  subset of TeX Gyre Pagella Bold Italic. A font-subsetting artifact of the
+  same tool.
+
+A third failure, 177 × 7.2-3 (`Table` containing a `Table`), was this book's
+own fault and is fixed: the web stylesheet makes tables `display: block` so a
+wide table can be scrolled on a phone, and that extra box became a second
+`Table` element. The PDF build now overrides it.
 
 Build scripts live in the private course-ops repository, not here.
 
