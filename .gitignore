@@ -8,6 +8,15 @@ textbook-examples/
 2018_Cpp_Halterman_032325.pdf
 JustBuildIt_cpp_ch01.zip
 
+# Duplicates Finder makes when a file is copied or downloaded twice
+# ("Just-Build-It-Cpp 2.pdf"). These are always stale copies of the generated
+# editions, and a stale untagged PDF published beside the real one is worse
+# than no second copy at all.
+* [0-9].pdf
+* [0-9][0-9].pdf
+* [0-9].html
+* [0-9][0-9].html
+
 # Instructor tooling and cross-repo automation. These reference private
 # repositories and local working directories, so they must never land in
 # this public repo. They live in the private course-ops repo instead.
