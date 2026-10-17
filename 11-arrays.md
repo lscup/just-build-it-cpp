@@ -1152,10 +1152,10 @@ scale, then `Essay` / `50`, `Quiz` / `20`, `done`; then `Ada Lovelace` with
 =====================================
   CLASS REPORT
 =====================================
-Ada Lovelace           90.0%   A
-Grace Hopper           57.1%   F
+Ada Lovelace            90.0%   A
+Grace Hopper            57.1%   F
 -------------------------------------
-CLASS AVERAGE          73.5%
+CLASS AVERAGE           73.5%
 
 Per-assignment averages:
   Essay               37.5 / 50.0
