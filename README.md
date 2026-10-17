@@ -80,6 +80,35 @@ Inspired by *Programming Fundamentals* (Richard Halterman), restructured for the
 
 ---
 
+## Generated editions
+
+Three editions are generated from the same markdown sources and committed here.
+All three are built from identical content; pick by how you intend to read it.
+
+| File | What it is | Accessibility |
+|---|---|---|
+| `Just-Build-It-Cpp.html` | Accessible web edition. One self-contained file, no external resources. | **WCAG 2.1 AA.** `lang` declared; 17 inline SVG figures each with `role="img"`, `aria-labelledby`, `<title>` and `<desc>`; `<figcaption>` captions; a skip link; keyboard-focusable code blocks and tables. |
+| `Just-Build-It-Cpp.pdf` | Typeset edition, 558 pages. Linux Libertine O and DejaVu Sans Mono. | Language declared, figure alt text, WCAG AA code contrast — but **not a tagged PDF**, so it does not meet WCAG 1.3.1 or 1.3.2. See below. |
+| `Just-Build-It-Cpp-accessible.pdf` | Accessible PDF edition, 959 pages. The web layout paginated. | **Tagged PDF/UA-1.** Structure tree, reading order, and alt text on all 17 figures. |
+
+**Why there are two PDFs.** The typeset edition is produced by pandoc and
+xelatex, which cannot emit a tagged PDF — it has no structure tree, so
+assistive technology gets no headings, list semantics or reading order.
+LaTeX's own tagging engine does not yet handle the `longtable` environment
+pandoc uses for all 177 of the book's tables, and forcing it produces a corrupt
+structure tree, which is worse for a screen reader than none. The accessible
+edition is therefore generated from the HTML, whose semantics map cleanly onto
+PDF tags. It is longer because it is the web layout paginated rather than
+typeset.
+
+Readers who need a conformant PDF should use `Just-Build-It-Cpp-accessible.pdf`;
+readers who want the book as a book should use `Just-Build-It-Cpp.pdf`. The HTML
+edition is conformant and is the best experience of the three.
+
+Build scripts live in the private course-ops repository, not here.
+
+---
+
 ## Editorial rules this book follows
 
 **The completeness rule.** Every chapter's Grade Calculator version compiles, runs to completion, and produces correct output for the features it has. A version may be missing features; it is never missing an ending. Verified by the `build-all.sh` and `run-all.sh` scripts in [LSCUP/grade-calculator](https://github.com/LSCUP/grade-calculator).
