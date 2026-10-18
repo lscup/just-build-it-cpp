@@ -507,6 +507,9 @@ to a function returning `std::vector<GradeTier>`.
 
 ##### Step 3 — `letterFor` takes the scale as a parameter
 
+Replace `letterFor` with this version, which reads the scale it is
+passed instead of the two deleted globals:
+
 ```cpp
 char letterFor(double percentage, const std::vector<GradeTier>& scale) {
     for (const GradeTier& tier : scale) {
@@ -617,6 +620,8 @@ v2.0 except that it now tests `assignments.size()` instead of
 `assignmentNames.size()`.
 
 ##### Step 7 — Rewrite the report loop
+
+In `main`, replace the report loop with:
 
 ```cpp
 double classTotal = 0.0;

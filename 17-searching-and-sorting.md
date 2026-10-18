@@ -493,6 +493,8 @@ how a ranked list is normally read.
 
 ##### Step 2 — `selectionSort`
 
+Add `selectionSort` below the three comparators:
+
 ```cpp
 /**
  * Selection sort: repeatedly find the smallest remaining element and swap it
@@ -523,6 +525,8 @@ one moment and by percentage the next — the sort logic never changes, only
 which comparator it's handed.
 
 ##### Step 3 — `linearSearchById` and `binarySearchById`
+
+Add both search functions below `selectionSort`, above `main`:
 
 ```cpp
 /** Linear search: works on any order, examines up to n elements. */
