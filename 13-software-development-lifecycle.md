@@ -108,7 +108,7 @@ Iterative, with short cycles, continuous user feedback, and a willingness to cha
 
 **Agile does not mean no design.** It means designing continuously rather than once. The mistake agile is often used to justify — skipping analysis and design entirely — produces exactly the code Chapter 20 will show you the cost of.
 
-| | Waterfall | Iterative | Agile |
+| Aspect | Waterfall | Iterative | Agile |
 |---|---|---|---|
 | Requirements fixed up front | yes | mostly | no |
 | Working software available | at the end | after each cycle | continuously |

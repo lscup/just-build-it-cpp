@@ -188,7 +188,7 @@ pointsEarned[1][2] = 20.0;     // student 1, assignment 2
 
 *Description of Figure 11.1.* A grid with three rows and four columns. Rows are students, indexed 0 (Ada), 1 (Grace), and 2 (Alan). Columns are assignments, indexed 0 through 3.
 
-| | [0] | [1] | [2] | [3] |
+| Student | [0] | [1] | [2] | [3] |
 |---|---|---|---|---|
 | **[0] Ada** | 9.0 | 84.0 | 18.0 | 45.0 |
 | **[1] Grace** | 7.5 | 91.0 | **20.0** | 40.0 |
@@ -261,7 +261,7 @@ char letterFor(double percentage, const double cutoffs[], const char letters[], 
 
 Compare them honestly:
 
-| | Chapter 6 chain | Table-driven loop |
+| Aspect | Chapter 6 chain | Table-driven loop |
 |---|---|---|
 | Lines of logic | grows with every tier | 5, always |
 | Adding a tier | edit code, recompile | add one array element |

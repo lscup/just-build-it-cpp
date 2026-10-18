@@ -133,7 +133,7 @@ class Weighted    : public GradingScheme { /* another rule */ };
 
 ### The comparison
 
-| | Flag and branches | Class hierarchy |
+| Aspect | Flag and branches | Class hierarchy |
 |---|---|---|
 | Adding a third scheme | edit every branch | add one class |
 | Testing one rule alone | not possible | construct it directly |
@@ -249,7 +249,7 @@ protected:
 
 A derived class may replace a base class function by declaring one with the same signature. This is **overriding**, and it is different from the overloading in Chapter 10 Section 10.2:
 
-| | Overloading | Overriding |
+| Property | Overloading | Overriding |
 |---|---|---|
 | Same name | yes | yes |
 | Same parameters | **no** | **yes** |

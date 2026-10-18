@@ -189,16 +189,16 @@ Binary is faithful to the hardware and miserable to read. The value 3,735,928,55
 
 **Hexadecimal**, base sixteen, solves this. It needs sixteen digits, so it borrows the letters A through F for the values ten through fifteen.
 
-| Hex | Dec | Binary | | Hex | Dec | Binary |
-|---|---|---|---|---|---|---|
-| 0 | 0 | 0000 | | 8 | 8 | 1000 |
-| 1 | 1 | 0001 | | 9 | 9 | 1001 |
-| 2 | 2 | 0010 | | A | 10 | 1010 |
-| 3 | 3 | 0011 | | B | 11 | 1011 |
-| 4 | 4 | 0100 | | C | 12 | 1100 |
-| 5 | 5 | 0101 | | D | 13 | 1101 |
-| 6 | 6 | 0110 | | E | 14 | 1110 |
-| 7 | 7 | 0111 | | F | 15 | 1111 |
+| Hex | Dec | Binary | Hex | Dec | Binary |
+|---|---|---|---|---|---|
+| 0 | 0 | 0000 | 8 | 8 | 1000 |
+| 1 | 1 | 0001 | 9 | 9 | 1001 |
+| 2 | 2 | 0010 | A | 10 | 1010 |
+| 3 | 3 | 0011 | B | 11 | 1011 |
+| 4 | 4 | 0100 | C | 12 | 1100 |
+| 5 | 5 | 0101 | D | 13 | 1101 |
+| 6 | 6 | 0110 | E | 14 | 1110 |
+| 7 | 7 | 0111 | F | 15 | 1111 |
 
 Hexadecimal earns its place because of one convenient fact: **sixteen is two to the fourth power, so each hex digit corresponds to exactly four bits.** Conversion is therefore mechanical, with no arithmetic at all. Group the binary digits into fours from the right and replace each group:
 
@@ -261,14 +261,14 @@ Text is stored by agreeing that particular numbers stand for particular characte
 
 **ASCII** — the American Standard Code for Information Interchange — assigns the numbers 0 through 127 to English letters, digits, punctuation, and a set of control codes. Seven bits are enough, so one character fits comfortably in a byte.
 
-| Character | ASCII value | | Character | ASCII value |
-|---|---|---|---|---|
-| `A` | 65 | | `a` | 97 |
-| `B` | 66 | | `b` | 98 |
-| `M` | 77 | | `m` | 109 |
-| `Z` | 90 | | `z` | 122 |
-| `0` | 48 | | space | 32 |
-| `9` | 57 | | newline | 10 |
+| Character | ASCII value | Character | ASCII value |
+|---|---|---|---|
+| `A` | 65 | `a` | 97 |
+| `B` | 66 | `b` | 98 |
+| `M` | 77 | `m` | 109 |
+| `Z` | 90 | `z` | 122 |
+| `0` | 48 | space | 32 |
+| `9` | 57 | newline | 10 |
 
 Three details in that table repay attention. The uppercase letters are consecutive, and so are the lowercase, which is why you can do arithmetic on characters in Chapter 3. Uppercase and lowercase are separated by exactly 32, which is why case conversion is a single addition. And **the character `0` is the number 48, not the number 0** — the digit you type and the quantity it names are entirely different things. That distinction causes real confusion later, and this is the moment it becomes clear.
 
@@ -342,7 +342,7 @@ The trade-off across these three is consistent: **the further you move from the 
 
 **Hybrid languages** compile to an intermediate form called **bytecode**, which a **virtual machine** then executes. This recovers much of the speed of compilation while keeping much of the portability of interpretation. Java and C# work this way.
 
-| | Compiled | Interpreted | Hybrid |
+| Aspect | Compiled | Interpreted | Hybrid |
 |---|---|---|---|
 | Translated | Once, before running | Continuously, while running | Once to bytecode, then run |
 | Speed of the running program | Fastest | Slowest | Between |

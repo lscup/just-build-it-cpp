@@ -182,7 +182,7 @@ after alias = 91.0, score = 91
 
 *Description of Figure 10.1.* Three panels. **Panel 1** shows a variable `score` at address 4000 holding 84.0. **Panel 2** shows a pointer `ptr`, itself a variable at address 5000, holding the value 4000, with an arrow pointing back to `score` — a separate variable that stores an address. **Panel 3** shows a reference `alias` with no box of its own, drawn as a second label attached to the same box at address 4000 — another name for an existing variable, occupying no storage. Notes record that a pointer stores an address and can be redirected or left empty, while a reference is bound to one variable when created and can never be moved. Both let a function reach the caller's variable; references are simpler, so prefer them.
 
-| | Pointer | Reference |
+| Property | Pointer | Reference |
 |---|---|---|
 | Is a separate variable | yes | no |
 | Must be initialized | no | **yes** |

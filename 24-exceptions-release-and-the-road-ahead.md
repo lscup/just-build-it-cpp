@@ -246,7 +246,7 @@ The C++ standard library is usually linked dynamically, which is why your `grade
 
 ### Debug and release builds
 
-| | Debug | Release |
+| Setting | Debug | Release |
 |---|---|---|
 | Flag | `-g` | `-O2` |
 | Debug information | yes | no |

@@ -843,7 +843,7 @@ Using the six fields from Section 16.8, write a full report for the 89.95 proble
 
 ### 7. Design test cases from a specification
 
-*A student passes if their course percentage is 60% or higher. Bonus points count toward the percentage. A student with no assignments has no grade.*
+> A student passes if their course percentage is 60% or higher. Bonus points count toward the percentage. A student with no assignments has no grade.
 
 List every test case you would write. Aim for at least eight, and justify each in a few words. At minimum you should cover: exactly 60, just below 60, no assignments, one assignment worth zero points, and a bonus that pushes a failing score to passing.
 

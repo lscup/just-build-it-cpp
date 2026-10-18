@@ -293,7 +293,7 @@ Chapter 15 uses this pattern to read comma-separated gradebook files.
 
 ## 12.10 Vectors versus Arrays
 
-| | Raw array | `std::vector` |
+| Property | Raw array | `std::vector` |
 |---|---|---|
 | Size fixed at compile time | yes | no |
 | Knows its own size | no | `size()` |

@@ -404,7 +404,7 @@ Then confirm:
 - [ ] Switching schemes several times and quitting works normally. (If you
       have a local toolchain, an AddressSanitizer build reports no leaks.)
 
-| | v3.1 | v3.2 |
+| Ownership code | v3.1 | v3.2 |
 |---|---|---|
 | Destructor | hand-written | **not needed** |
 | `delete` in `setScheme` | required | **not needed** |
