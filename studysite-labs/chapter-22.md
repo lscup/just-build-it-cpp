@@ -429,6 +429,25 @@ Then confirm:
 7. Use the Tutor with the current code or Terminal output when you need
    help.
 
+> **Compiling:** In StudySite.ai, just click **Run**. StudySite generates the
+> compile command for you, then builds and runs the program in one step, so
+> you never type one here. The `Build` line in `main.cpp`'s header comment is
+> for building on your own computer instead. For this chapter:
+>
+> **macOS** (Terminal, with the Xcode command-line tools — Appendix A.5):
+>
+> ```bash
+> clang++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp student.cpp gradingscheme.cpp gradebook.cpp -o gradecalc
+> ./gradecalc
+> ```
+>
+> **Windows** (PowerShell, with MSYS2's `g++` on your PATH — Appendix A.5):
+>
+> ```powershell
+> g++ -std=c++17 -Wall -Wextra main.cpp assignment.cpp gradescale.cpp student.cpp gradingscheme.cpp gradebook.cpp -o gradecalc.exe
+> .\gradecalc.exe
+> ```
+
 ## Save this checkpoint
 
 > **IMPORTANT — commit to save your work:** StudySite autosaves editor tabs

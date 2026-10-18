@@ -345,6 +345,26 @@ Document, in your own words and based on the code you actually have:
 
 ## Optional local workflow
 
+Build and run this chapter's program with the command for your platform:
+
+**macOS** (Terminal, with the Xcode command-line tools — Appendix A.5):
+
+```bash
+clang++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+./gradecalc
+```
+
+**Windows** (PowerShell, with MSYS2's `g++` on your PATH — Appendix A.5):
+
+```powershell
+g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc.exe
+.\gradecalc.exe
+```
+
+The ▶ Build checkpoints below use `g++ -std=c++17 -Wall -Wextra *.cpp -o
+gradecalc`, which works as written on macOS, Linux, and WSL. On Windows, use
+the Windows command above instead.
+
 1. Accept the GitHub invitation your instructor emailed you. It gives you
    access to **COSC1437xxx-Grade-Calculator-YourLastName**, the private
    repository already created for you in the **lscup** organization, where

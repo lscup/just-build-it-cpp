@@ -53,8 +53,25 @@ rather than retyping it where you can.
 
 ## Optional local workflow
 
-These commands assume macOS, Linux, or WSL with a C++17-capable `g++`
-toolchain. An equivalent local C++17 environment is acceptable.
+Build and run this chapter's program with the command for your platform:
+
+**macOS** (Terminal, with the Xcode command-line tools — Appendix A.5):
+
+```bash
+clang++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc
+./gradecalc
+```
+
+**Windows** (PowerShell, with MSYS2's `g++` on your PATH — Appendix A.5):
+
+```powershell
+g++ -std=c++17 -Wall -Wextra main.cpp -o gradecalc.exe
+.\gradecalc.exe
+```
+
+The ▶ Build checkpoints below use `g++ -std=c++17 -Wall -Wextra *.cpp -o
+gradecalc`, which works as written on macOS, Linux, and WSL. On Windows, use
+the Windows command above instead.
 
 1. Open your existing local clone and synchronize it:
 
