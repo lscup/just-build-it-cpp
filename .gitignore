@@ -44,3 +44,6 @@ appendix-a_to_g.md
 # generates (studysite-labs/, local-labs/, and the embedded chapter
 # sections) are the student-facing output and stay here.
 lab-instructions/labsrc/
+
+# Lab manifest: input to the private generator, no use to readers.
+lab-instructions/
